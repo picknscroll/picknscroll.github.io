@@ -5,14 +5,13 @@ description: "and the evolving elements of winning basketball"
 date: 2017-06-15
 share: true
 ---
-The NBA is in the midst of a revolution, one that is most obviously seen on offensive side of the ball. When it comes to scoring,
+NBA games produce a proliferation of statistics. Check any box score on basketball-reference.com and you'll see no less than 4 tables with numbers detailing all aspects of the game.
 
-However, this revolution does come with a trade-off. Teams typically increase versatility by downsizing. Take the Boston Celtics for example, who's struggles rebounding the basketball are well-known. But when it comes to rebounding, how important exactly is rebounding? And how has this importance changed over the years?
+These numbers represent a gold-mine for an analytical nerd such as myself, but it's too easy to get caught up in individual numbers while ignoring the bigger picture. In this post, I want to examine which basketball statistics contribute the most to winning basketball, and how these contributions have changed over the years.
 
 ## The Data
 
-I used basketball-reference to scrape every box score from the 2016-2017 regular season. For each game, I recorded which team "won" each statistical category, as well as which team ended up winning the game.
-
+I scraped every basketball-reference box score from the 2016-2017 regular season, and for each game, I recorded which team "won" various statistical categories, as well as which team ended up winning the game.
 
 For example, the first game of the season, between the Cavaliers and the Knicks produced the following vector:
 
@@ -263,7 +262,7 @@ var data = [{"ts%": 0.8347, "efg%": 0.7962, "ft": 0.6261, "ast": 0.7559, "stl": 
 
 ## Why Does This Matter?
 
-The key here is that the importance of three point attempts is increasing at about the same rate as that of three point makes. This insight allows us to take a broader view when evaluating the effectiveness of a team's offense, one which decouples results from execution.
+The key here is that the value of three point attempts is increasing at about the same rate as that of three point makes. This insight allows us to take a broader view when evaluating the effectiveness of a team's offense, one which decouples results from execution.
 
 Shooting a basketball accurately from 24+ feet demands exact precision, and even the very, very best shooters <a href="https://www.youtube.com/watch?v=PafaPE_7xRU">miss</a> <a href="https://www.youtube.com/watch?v=Gi6vHMyfVl4">their</a> <a href="https://www.youtube.com/watch?v=bA8OSPs_9_g&t=056s">fair</a> <a href="https://www.youtube.com/watch?v=BqpzHgykD5k&t=1m43s">share</a> of wide open 3s. Instead of focusing on makes and misses, we can treat three point attempts as a proxy for something whose outcome isn't binary: the ability to space the floor. In order for a team to attempt a lot of three-pointers, they must have (1) players confident enough to hoist long attempts and (2) players who can get into the lane, force the defense to collapse, and kick out to those shooters. These two abilities are perhaps the single most synergistic pair in all of basketball. More outside shooting leads to wider driving lanes, which lead to more open outside shots - and before you know it, you've demoralized, blitzing the way to a 12-point lead.
 
