@@ -1,0 +1,389 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:dc="http://purl.org/dc/elements/1.1/">
+  <channel>
+    <title>The Pick and Scroll</title>
+    <link>http://localhost:4000</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
+    
+      <item>
+        <title>The NBA Revolution</title>
+        <description>&lt;p&gt;The NBA is in the midst of a revolution, one that is most obviously seen on offensive side of the ball. When it comes to scoring,&lt;/p&gt;
+
+&lt;p&gt;However, this revolution does come with a trade-off. Teams typically increase versatility by downsizing. Take the Boston Celtics for example, who’s struggles rebounding the basketball are well-known. But when it comes to rebounding, how important exactly is rebounding? And how has this importance changed over the years?&lt;/p&gt;
+
+&lt;h2 id=&quot;the-data&quot;&gt;The Data&lt;/h2&gt;
+
+&lt;p&gt;I used basketball-reference to scrape every box score from the 2016-2017 regular season. For each game, I recorded which team “won” each statistical category, as well as which team ended up winning the game.&lt;/p&gt;
+
+&lt;p&gt;For example, the first game of the season, between the Cavaliers and the Knicks produced the following vector:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Team&lt;/th&gt;
+      &lt;th&gt;FG&lt;/th&gt;
+      &lt;th&gt;FGA&lt;/th&gt;
+      &lt;th&gt;FG%&lt;/th&gt;
+      &lt;th&gt;3P&lt;/th&gt;
+      &lt;th&gt;3PA&lt;/th&gt;
+      &lt;th&gt;TRB&lt;/th&gt;
+      &lt;th&gt;AST&lt;/th&gt;
+      &lt;th&gt;STL&lt;/th&gt;
+      &lt;th&gt;BLK&lt;/th&gt;
+      &lt;th&gt;TO&lt;/th&gt;
+      &lt;th&gt;eFG%&lt;/th&gt;
+      &lt;th&gt;TS%&lt;/th&gt;
+      &lt;th&gt;Win&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;CLE&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;NYK&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;1&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+      &lt;td&gt;0&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;I used this data to see how winning particular statistical categories correlated to winning basketball games. I was looking for some insight into the importance of different the aspects of the game, and more importantly, how important they are &lt;i&gt;relative to one another&lt;/i&gt;. By aggregating the data over the entire 2016-2017 season, we get the following table:&lt;/p&gt;
+
+&lt;table&gt;
+  &lt;thead&gt;
+    &lt;tr&gt;
+      &lt;th&gt;Stat&lt;/th&gt;
+      &lt;th&gt;Win % When Stat is Won&lt;/th&gt;
+    &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+    &lt;tr&gt;
+      &lt;td&gt;true shooting %&lt;/td&gt;
+      &lt;td&gt;84.60%&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;effective field %&lt;/td&gt;
+      &lt;td&gt;82.72%&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;field goal %&lt;/td&gt;
+      &lt;td&gt;81.16%&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;field goals made&lt;/td&gt;
+      &lt;td&gt;80.17%&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;defensive rebounds&lt;/td&gt;
+      &lt;td&gt;75.14%&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;three point %&lt;/td&gt;
+      &lt;td&gt;72.62%&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;assists&lt;/td&gt;
+      &lt;td&gt;72.61%&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;three point attempts&lt;/td&gt;
+      &lt;td&gt;68.17%&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;total rebounds&lt;/td&gt;
+      &lt;td&gt;64.63%&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;blocks&lt;/td&gt;
+      &lt;td&gt;61.55%&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;steals&lt;/td&gt;
+      &lt;td&gt;60.94%&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;free throws made&lt;/td&gt;
+      &lt;td&gt;59.40%&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;turnovers&lt;/td&gt;
+      &lt;td&gt;57.50%&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;offensive rebounds&lt;/td&gt;
+      &lt;td&gt;49.03%&lt;/td&gt;
+    &lt;/tr&gt;
+    &lt;tr&gt;
+      &lt;td&gt;field goal attempts&lt;/td&gt;
+      &lt;td&gt;48.35%&lt;/td&gt;
+    &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+
+&lt;p&gt;In other words, this table shows that the team with a higher true shooting percentage won 84.60% of games; the team with more assists won 72.61% of games; the team with fewer turnovers won 57.50% of games, etc.&lt;/p&gt;
+
+&lt;h2 id=&quot;observations&quot;&gt;Observations&lt;/h2&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Offensive efficiency (true shooting %, effective field goal %, and field goal %) is by far the most important factor for winning basketball games, which should be no surprise. Among these efficiency metrics, true shooting % emerges as the definitive measure.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Winning the offensive rebounding battle is a detriment to winning. My theory is that consistently crashing the offensive glass leads to an unbalanced floor, which in turn leads to easier transition opportunites for the opposing team. Ben Falk offers an excellent job break down of that concept &lt;a href=&quot;https://cleaningtheglass.com/making-the-transition/&quot;&gt;here&lt;/a&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Raw field goal attempts rank dead last. I believe this is because free throws don’t count as field goal attempts, and free throws are much more efficient than the average field goal opportunity. It would be interesting to look at how often the team with more &lt;i&gt;shooting possessions&lt;/i&gt; (which incorporate free-throw attempts) win the game. If I had to guess, the associated win % would be somewhere around 65%.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;The importance of merely &lt;i&gt;attempting&lt;/i&gt; more three pointers - you don’t even have to make them! - is surprisingly high, even more important than  which leads us to the next section - the revolution, and the changing elements of winning basketball.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&quot;the-revolution&quot;&gt;The Revolution&lt;/h2&gt;
+
+&lt;p&gt;The importance of three point attempts is the result of a revolution currently transforming basketball. Offensively, teams are moving away from centers and power forwards patrolling the low post, favoring versatile guards and wings who can score in transition, create through the pick and roll, and space the floor with outside shooting instead. The Golden State Warriors are the current frontier of this revolution, and their recent dominance demonstrates the effectiveness of the approach.&lt;/p&gt;
+
+&lt;p&gt;When we look at how the importance of various statistics have changed over time, we see a steady increase in the importance three pointers made and three pointers attempted (+9.9% and +10.6%, respectively), while the other categories have more or less stayed the same.&lt;/p&gt;
+
+&lt;p&gt;Note: Toggle a statistical toggle filter to make that line more/less visible.&lt;/p&gt;
+
+&lt;div id=&quot;filter&quot;&gt;&lt;/div&gt;
+&lt;svg height=&quot;600&quot; width=&quot;850&quot;&gt;&lt;/svg&gt;
+&lt;div class=&quot;tooltip&quot; id=&quot;lineTooltip&quot;&gt;&lt;/div&gt;
+&lt;div class=&quot;tooltip&quot; id=&quot;pointTooltip&quot;&gt;&lt;/div&gt;
+&lt;script&gt;
+
+var translate = function(left, top) { return &quot;translate(&quot; + left + &quot;,&quot; + top + &quot;)&quot;; };
+
+var data = [{&quot;ts%&quot;: 0.8347, &quot;efg%&quot;: 0.7962, &quot;ft&quot;: 0.6261, &quot;ast&quot;: 0.7559, &quot;stl&quot;: 0.6184, &quot;year&quot;: 2000, &quot;fg%&quot;: 0.8039, &quot;tov&quot;: 0.5998, &quot;fg3%&quot;: 0.6267, &quot;fg3&quot;: 0.5765, &quot;fta&quot;: 0.5888, &quot;trb&quot;: 0.6313, &quot;blk&quot;: 0.6525, &quot;fg&quot;: 0.7866, &quot;drb&quot;: 0.7222, &quot;orb&quot;: 0.4542, &quot;fga&quot;: 0.4587}, {&quot;ts%&quot;: 0.8439, &quot;efg%&quot;: 0.8191, &quot;ft&quot;: 0.602, &quot;ast&quot;: 0.742, &quot;stl&quot;: 0.5995, &quot;year&quot;: 2001, &quot;fg%&quot;: 0.8105, &quot;tov&quot;: 0.5722, &quot;fg3%&quot;: 0.6536, &quot;fg3&quot;: 0.6155, &quot;fta&quot;: 0.5864, &quot;trb&quot;: 0.6613, &quot;blk&quot;: 0.622, &quot;fg&quot;: 0.7976, &quot;drb&quot;: 0.7389, &quot;orb&quot;: 0.4556, &quot;fga&quot;: 0.4682}, {&quot;ts%&quot;: 0.855, &quot;efg%&quot;: 0.8234, &quot;ft&quot;: 0.6377, &quot;ast&quot;: 0.7307, &quot;stl&quot;: 0.6196, &quot;year&quot;: 2002, &quot;fg%&quot;: 0.8148, &quot;tov&quot;: 0.5981, &quot;fg3%&quot;: 0.6497, &quot;fg3&quot;: 0.5933, &quot;fta&quot;: 0.6115, &quot;trb&quot;: 0.6193, &quot;blk&quot;: 0.6203, &quot;fg&quot;: 0.7861, &quot;drb&quot;: 0.7093, &quot;orb&quot;: 0.4592, &quot;fga&quot;: 0.4488}, {&quot;ts%&quot;: 0.839, &quot;efg%&quot;: 0.8122, &quot;ft&quot;: 0.6286, &quot;ast&quot;: 0.7117, &quot;stl&quot;: 0.5984, &quot;year&quot;: 2003, &quot;fg%&quot;: 0.7997, &quot;tov&quot;: 0.5963, &quot;fg3%&quot;: 0.6656, &quot;fg3&quot;: 0.5853, &quot;fta&quot;: 0.6061, &quot;trb&quot;: 0.6275, &quot;blk&quot;: 0.5965, &quot;fg&quot;: 0.7839, &quot;drb&quot;: 0.7293, &quot;orb&quot;: 0.4592, &quot;fga&quot;: 0.4478}, {&quot;ts%&quot;: 0.8421, &quot;efg%&quot;: 0.811, &quot;ft&quot;: 0.6195, &quot;ast&quot;: 0.7329, &quot;stl&quot;: 0.6191, &quot;year&quot;: 2004, &quot;fg%&quot;: 0.8046, &quot;tov&quot;: 0.6133, &quot;fg3%&quot;: 0.6758, &quot;fg3&quot;: 0.609, &quot;fta&quot;: 0.6185, &quot;trb&quot;: 0.6414, &quot;blk&quot;: 0.6048, &quot;fg&quot;: 0.7904, &quot;drb&quot;: 0.7328, &quot;orb&quot;: 0.4784, &quot;fga&quot;: 0.4584}, {&quot;ts%&quot;: 0.8297, &quot;efg%&quot;: 0.7926, &quot;ft&quot;: 0.6337, &quot;ast&quot;: 0.7052, &quot;stl&quot;: 0.5917, &quot;year&quot;: 2005, &quot;fg%&quot;: 0.7682, &quot;tov&quot;: 0.5774, &quot;fg3%&quot;: 0.6758, &quot;fg3&quot;: 0.6378, &quot;fta&quot;: 0.6125, &quot;trb&quot;: 0.6274, &quot;blk&quot;: 0.6153, &quot;fg&quot;: 0.757, &quot;drb&quot;: 0.7233, &quot;orb&quot;: 0.4575, &quot;fga&quot;: 0.425}, {&quot;ts%&quot;: 0.8109, &quot;efg%&quot;: 0.7928, &quot;ft&quot;: 0.6274, &quot;ast&quot;: 0.7094, &quot;stl&quot;: 0.5416, &quot;year&quot;: 2006, &quot;fg%&quot;: 0.781, &quot;tov&quot;: 0.5733, &quot;fg3%&quot;: 0.6713, &quot;fg3&quot;: 0.6231, &quot;fta&quot;: 0.6203, &quot;trb&quot;: 0.654, &quot;blk&quot;: 0.6237, &quot;fg&quot;: 0.7665, &quot;drb&quot;: 0.7193, &quot;orb&quot;: 0.4926, &quot;fga&quot;: 0.454}, {&quot;ts%&quot;: 0.8272, &quot;efg%&quot;: 0.7903, &quot;ft&quot;: 0.6105, &quot;ast&quot;: 0.7218, &quot;stl&quot;: 0.5799, &quot;year&quot;: 2007, &quot;fg%&quot;: 0.7909, &quot;tov&quot;: 0.5945, &quot;fg3%&quot;: 0.6672, &quot;fg3&quot;: 0.6356, &quot;fta&quot;: 0.5718, &quot;trb&quot;: 0.6576, &quot;blk&quot;: 0.6367, &quot;fg&quot;: 0.7699, &quot;drb&quot;: 0.7317, &quot;orb&quot;: 0.4896, &quot;fga&quot;: 0.4868}, {&quot;ts%&quot;: 0.842, &quot;efg%&quot;: 0.819, &quot;ft&quot;: 0.6375, &quot;ast&quot;: 0.7447, &quot;stl&quot;: 0.625, &quot;year&quot;: 2008, &quot;fg%&quot;: 0.7975, &quot;tov&quot;: 0.6294, &quot;fg3%&quot;: 0.6667, &quot;fg3&quot;: 0.6406, &quot;fta&quot;: 0.585, &quot;trb&quot;: 0.6696, &quot;blk&quot;: 0.6024, &quot;fg&quot;: 0.7785, &quot;drb&quot;: 0.7425, &quot;orb&quot;: 0.4799, &quot;fga&quot;: 0.4715}, {&quot;ts%&quot;: 0.8453, &quot;efg%&quot;: 0.8008, &quot;ft&quot;: 0.6215, &quot;ast&quot;: 0.7319, &quot;stl&quot;: 0.6091, &quot;year&quot;: 2009, &quot;fg%&quot;: 0.7885, &quot;tov&quot;: 0.585, &quot;fg3%&quot;: 0.657, &quot;fg3&quot;: 0.6391, &quot;fta&quot;: 0.6022, &quot;trb&quot;: 0.6696, &quot;blk&quot;: 0.6207, &quot;fg&quot;: 0.773, &quot;drb&quot;: 0.7551, &quot;orb&quot;: 0.4925, &quot;fga&quot;: 0.4618}, {&quot;ts%&quot;: 0.8488, &quot;efg%&quot;: 0.8112, &quot;ft&quot;: 0.6414, &quot;ast&quot;: 0.7189, &quot;stl&quot;: 0.5882, &quot;year&quot;: 2010, &quot;fg%&quot;: 0.7962, &quot;tov&quot;: 0.5752, &quot;fg3%&quot;: 0.6991, &quot;fg3&quot;: 0.633, &quot;fta&quot;: 0.6284, &quot;trb&quot;: 0.676, &quot;blk&quot;: 0.5995, &quot;fg&quot;: 0.772, &quot;drb&quot;: 0.7755, &quot;orb&quot;: 0.4863, &quot;fga&quot;: 0.4363}, {&quot;ts%&quot;: 0.8511, &quot;efg%&quot;: 0.818, &quot;ft&quot;: 0.6431, &quot;ast&quot;: 0.7117, &quot;stl&quot;: 0.5902, &quot;year&quot;: 2011, &quot;fg%&quot;: 0.8009, &quot;tov&quot;: 0.5805, &quot;fg3%&quot;: 0.68, &quot;fg3&quot;: 0.6432, &quot;fta&quot;: 0.6163, &quot;trb&quot;: 0.6364, &quot;blk&quot;: 0.5884, &quot;fg&quot;: 0.7582, &quot;drb&quot;: 0.7392, &quot;orb&quot;: 0.4528, &quot;fga&quot;: 0.4283}, {&quot;ts%&quot;: 0.8416, &quot;efg%&quot;: 0.7943, &quot;ft&quot;: 0.6094, &quot;ast&quot;: 0.7207, &quot;stl&quot;: 0.6031, &quot;year&quot;: 2012, &quot;fg%&quot;: 0.7813, &quot;tov&quot;: 0.5846, &quot;fg3%&quot;: 0.6574, &quot;fg3&quot;: 0.6449, &quot;fta&quot;: 0.5909, &quot;trb&quot;: 0.685, &quot;blk&quot;: 0.6054, &quot;fg&quot;: 0.7854, &quot;drb&quot;: 0.7505, &quot;orb&quot;: 0.5171, &quot;fga&quot;: 0.5054}, {&quot;ts%&quot;: 0.8413, &quot;efg%&quot;: 0.8114, &quot;ft&quot;: 0.5878, &quot;ast&quot;: 0.7322, &quot;stl&quot;: 0.6109, &quot;year&quot;: 2013, &quot;fg%&quot;: 0.8072, &quot;tov&quot;: 0.6074, &quot;fg3%&quot;: 0.6708, &quot;fg3&quot;: 0.6484, &quot;fta&quot;: 0.5872, &quot;trb&quot;: 0.6515, &quot;blk&quot;: 0.6183, &quot;fg&quot;: 0.8109, &quot;drb&quot;: 0.7321, &quot;orb&quot;: 0.4802, &quot;fga&quot;: 0.4714}, {&quot;ts%&quot;: 0.8519, &quot;efg%&quot;: 0.8182, &quot;ft&quot;: 0.6242, &quot;ast&quot;: 0.7212, &quot;stl&quot;: 0.5831, &quot;year&quot;: 2014, &quot;fg%&quot;: 0.8096, &quot;tov&quot;: 0.5796, &quot;fg3%&quot;: 0.6821, &quot;fg3&quot;: 0.6472, &quot;fta&quot;: 0.586, &quot;trb&quot;: 0.6418, &quot;blk&quot;: 0.6379, &quot;fg&quot;: 0.7879, &quot;drb&quot;: 0.7405, &quot;orb&quot;: 0.4459, &quot;fga&quot;: 0.4508}, {&quot;ts%&quot;: 0.8545, &quot;efg%&quot;: 0.8222, &quot;ft&quot;: 0.5937, &quot;ast&quot;: 0.7174, &quot;stl&quot;: 0.6034, &quot;year&quot;: 2015, &quot;fg%&quot;: 0.8102, &quot;tov&quot;: 0.5841, &quot;fg3%&quot;: 0.6938, &quot;fg3&quot;: 0.6511, &quot;fta&quot;: 0.5625, &quot;trb&quot;: 0.6357, &quot;blk&quot;: 0.5964, &quot;fg&quot;: 0.7989, &quot;drb&quot;: 0.7449, &quot;orb&quot;: 0.4548, &quot;fga&quot;: 0.4674}, {&quot;ts%&quot;: 0.8444, &quot;efg%&quot;: 0.8117, &quot;ft&quot;: 0.5981, &quot;ast&quot;: 0.716, &quot;stl&quot;: 0.5803, &quot;year&quot;: 2016, &quot;fg%&quot;: 0.8152, &quot;tov&quot;: 0.5824, &quot;fg3%&quot;: 0.6964, &quot;fg3&quot;: 0.6399, &quot;fta&quot;: 0.5656, &quot;trb&quot;: 0.6656, &quot;blk&quot;: 0.6412, &quot;fg&quot;: 0.8134, &quot;drb&quot;: 0.7488, &quot;orb&quot;: 0.4905, &quot;fga&quot;: 0.4671}, {&quot;ts%&quot;: 0.8457, &quot;efg%&quot;: 0.8272, &quot;ft&quot;: 0.594, &quot;ast&quot;: 0.7261, &quot;stl&quot;: 0.6094, &quot;year&quot;: 2017, &quot;fg%&quot;: 0.8116, &quot;tov&quot;: 0.575, &quot;fg3%&quot;: 0.7262, &quot;fg3&quot;: 0.6817, &quot;fta&quot;: 0.5738, &quot;trb&quot;: 0.6463, &quot;blk&quot;: 0.6155, &quot;fg&quot;: 0.8017, &quot;drb&quot;: 0.7514, &quot;orb&quot;: 0.4903, &quot;fga&quot;: 0.4835}];
+
+    /* CONFIG VALUES */
+    var MIN_YEAR = 2000;
+    var EXCLUDE_KEYS = new Set(['fta', 'year']);
+    /* END CONFIG VALUES */
+
+    var svgContainer = d3.select(&quot;svg&quot;),
+        graphMargins = {top: 25, right: 25, bottom: 25, left: 35};
+
+    var graphWidth = +svgContainer.attr(&quot;width&quot;) - graphMargins.left - graphMargins.right;
+    var graphHeight = +svgContainer.attr(&quot;height&quot;) - graphMargins.top - graphMargins.bottom;
+
+    var graphContainer = svgContainer.append(&quot;g&quot;)
+        .attr(&quot;transform&quot;, translate(graphMargins.left, graphMargins.top));
+
+    var pctToHeight = d3.scaleLinear().range([graphHeight, 0]);
+    var yearToWidth = d3.scaleLinear().range([0, graphWidth]);
+
+    var statLine = d3.line()
+        .x(function(d, i) {return yearToWidth(i + MIN_YEAR); })
+        .y(function(d) { return pctToHeight(d) } )
+
+    var getClass = function(key) {
+      if (state.keyState[key] == true) return 'dark'
+      else return 'light'
+    }
+
+    // track state of user supplied filters
+    var state =  {
+      keyState: {} // map key to true if the line should be bold, false if it should be greyed.
+    }
+
+    function initState(keysToRender) {
+
+      var activeKeys = new Set(['fg3%', 'fg3']);
+      for (var i = 0; i &lt; keysToRender.length; i++) {
+        var key = keysToRender[i];
+        if (activeKeys.has(key)) state.keyState[key] = true;
+        else state.keyState[key] = false;
+      }
+
+    }
+
+    var lineTooltip = d3.select(&quot;#lineTooltip&quot;).style(&quot;opacity&quot;, 0);
+    var pointTooltip = d3.select(&quot;#pointTooltip&quot;).style(&quot;opacity&quot;, 0);
+
+    function registerFiltersAndOnClickHandler(keyValues, values) {
+       d3.select('#filter').append('ul')
+            .selectAll('li')
+            .data(keyValues)
+            .enter().append('li')
+            .attr(&quot;class&quot;, function(d) {
+              if (state.keyState[d] == true) return &quot;ON&quot;;
+              else return &quot;OFF&quot;;
+            })
+            .text(function(d) {return d;})
+            .on('click', function (d) {
+              if (state.keyState[d] == true) {
+                d3.select(this).attr(&quot;class&quot;, &quot;OFF&quot;);
+                state.keyState[d] = false;
+              } else {
+                d3.select(this).attr(&quot;class&quot;, &quot;ON&quot;);
+                state.keyState[d] = true;
+              }
+              var encoded = encodeKey(d);
+              d3.select(&quot;#&quot; + encoded).attr(&quot;class&quot;, 'statLine ' + getClass(d));
+              d3.selectAll(&quot;circle.&quot; + encoded).each(function() {
+                  d3.select(this).attr(&quot;class&quot;, d + &quot; &quot; + getClass(d));
+              })
+            })
+
+    }
+
+    function encodeKey(key) {
+      return key.replace('%', '\\%');
+    }
+
+    function filterKeys(allKeys) {
+      var filteredKeys = [];
+
+      for (var i = 0; i &lt; allKeys.length; i++) {
+        var key = allKeys[i];
+        if (EXCLUDE_KEYS.has(key)) continue
+
+        filteredKeys.push(key);
+      }
+      return filteredKeys;
+    }
+
+    function sortKeys(yearData) {
+      var sortable = [];
+
+      for (var key in yearData) {
+        sortable.push([key, yearData[key]]);
+      }
+
+      sortable.sort(function(a, b) {
+        return b[1] - a[1];
+      })
+
+      var sortedKeys = sortable.map(function(d) { return d[0]});
+      return sortedKeys;
+    }
+
+    function renderXAxis() {
+        svgContainer.append(&quot;g&quot;)
+                      .attr(&quot;transform&quot;, translate(graphMargins.left, graphHeight))
+                      .call(d3.axisBottom(yearToWidth).tickFormat(d3.format(&quot;d&quot;)).ticks(17))
+    }
+
+    function renderYAxis() {
+        svgContainer.append(&quot;g&quot;)
+                    .attr(&quot;transform&quot;, translate(graphMargins.left, 0))
+                    .call(d3.axisLeft(pctToHeight).tickFormat(d3.format(&quot;.0%&quot;)))
+    }
+
+    function renderLines(key, datum) {
+        graphContainer.append(&quot;g&quot;)
+              .append(&quot;path&quot;)
+              .attr(&quot;id&quot;, key)
+              .attr(&quot;class&quot;, function() { return 'statLine ' + getClass(key); })
+              .attr(&quot;d&quot;, statLine(datum))
+              .on('mouseover', function() {
+                var d = d3.select(this).attr(&quot;id&quot;);
+                lineTooltip.transition().duration(150);
+                lineTooltip.html(d)
+                       .style(&quot;left&quot;, (d3.event.pageX) + &quot;px&quot;)
+                       .style(&quot;top&quot;, (d3.event.pageY - 24) + &quot;px&quot;)
+                       .style(&quot;opacity&quot;, .9);
+              })
+              .on(&quot;mouseout&quot;, function(d) {
+                lineTooltip.transition().duration(50).style(&quot;opacity&quot;, 0)
+              });
+    }
+
+    function renderStatPoints(key, datum) {
+        var dotRadius = 2.25;
+        graphContainer.selectAll(&quot;.dot&quot;)
+            .data(datum)
+            .enter()
+            .append(&quot;circle&quot;)
+              .attr(&quot;class&quot;, function (d, i) {return key + &quot; &quot; + getClass(key); })
+              .attr(&quot;r&quot;, dotRadius)
+              .attr(&quot;data&quot;, function(d) { return d})
+              .attr(&quot;year&quot;, function(d, i) { return i + MIN_YEAR })
+              .attr(&quot;cx&quot;, function(d, i) { return yearToWidth(i + MIN_YEAR) })
+              .attr(&quot;cy&quot;, function(d) { return pctToHeight(d) })
+              .on('mouseover', function() {
+                  var elem = d3.select(this);
+
+                  var statKey = elem.attr(&quot;class&quot;).split(&quot; &quot;)[0];
+                  var year = elem.attr(&quot;year&quot;);
+                  var value = elem.attr(&quot;data&quot;);
+                  value =  (value * 100).toFixed(1);
+
+                  pointTooltip.transition().duration(350);
+                  pointTooltip.html(statKey + &quot;|&quot; + year + &quot;: &quot; + value + &quot;%&quot;)
+                              .style(&quot;left&quot;, (d3.event.pageX) + &quot;px&quot;)
+                              .style(&quot;top&quot;, (d3.event.pageY - 24) + &quot;px&quot;)
+                              .style(&quot;opacity&quot;, .9);
+              })
+              .on(&quot;mouseout&quot;, function(d) {
+                  pointTooltip.transition().duration(50).style(&quot;opacity&quot;, 0)
+              });
+    }
+
+    function draw(keysToShow, rawData) {
+
+        for (var i = 0; i &lt; keysToShow.length; i++) {
+            var key = keysToShow[i];
+
+            datum = rawData.map(function(d) {return d[key]});
+
+            renderLines(key, datum);
+            renderStatPoints(key, datum);
+      }
+    }
+
+    var keysToShow = filterKeys(sortKeys(data[data.length - 1]));
+    initState(keysToShow);
+    registerFiltersAndOnClickHandler(keysToShow , data);
+
+    yearToWidth.domain(d3.extent(data.map(function(y) { return y['year'] })));
+    pctToHeight.domain([0, .875]);
+
+    draw(keysToShow.reverse(), data);
+    renderXAxis();
+    renderYAxis();
+
+&lt;/script&gt;
+
+&lt;h2 id=&quot;why-does-this-matter&quot;&gt;Why Does This Matter?&lt;/h2&gt;
+
+&lt;p&gt;The key here is that the importance of three point attempts is increasing at about the same rate as that of three point makes. This insight allows us to take a broader view when evaluating the effectiveness of a team’s offense, one which decouples results from execution.&lt;/p&gt;
+
+&lt;p&gt;Shooting a basketball accurately from 24+ feet demands exact precision, and even the very, very best shooters &lt;a href=&quot;https://www.youtube.com/watch?v=PafaPE_7xRU&quot;&gt;miss&lt;/a&gt; &lt;a href=&quot;https://www.youtube.com/watch?v=Gi6vHMyfVl4&quot;&gt;their&lt;/a&gt; &lt;a href=&quot;https://www.youtube.com/watch?v=bA8OSPs_9_g&amp;amp;t=056s&quot;&gt;fair&lt;/a&gt; &lt;a href=&quot;https://www.youtube.com/watch?v=BqpzHgykD5k&amp;amp;t=1m43s&quot;&gt;share&lt;/a&gt; of wide open 3s. Instead of focusing on makes and misses, we can treat three point attempts as a proxy for something whose outcome isn’t binary: the ability to space the floor. In order for a team to attempt a lot of three-pointers, they must have (1) players confident enough to hoist long attempts and (2) players who can get into the lane, force the defense to collapse, and kick out to those shooters. These two abilities are perhaps the single most synergistic pair in all of basketball. More outside shooting leads to wider driving lanes, which lead to more open outside shots - and before you know it, you’ve demoralized, blitzing the way to a 12-point lead.&lt;/p&gt;
+
+&lt;p&gt;Needless to say, this broader view is only applicable to a certain extent - at the end of the day, 100 missed three point attempts increase your chances of winning by exactly 0%.  It does, however, speak to the potential of analytics and statistical thinking in sports. The Warriors shot an average of 3.4 more three-pointers per game than their opponents in the 2016-2017 season; the Houston Rockets led the league with an astonishing 11.2 more attempts per game. In any given game, Stephen Curry, Klay Thompson, or Kevin Durant might miss all 3.4 of those surplus shots; James Harden, Eric Gordon, and Ryan Anderson may very well miss all 11 of theirs. But as we’ve seen, over the entire season (and more importantly, a seven-game series), those extra triples translate directly to wins.&lt;/p&gt;
+</description>
+        <pubDate>Thu, 15 Jun 2017 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2017-06-15/The-NBA-Evolution/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017-06-15/The-NBA-Evolution/</guid>
+      </item>
+    
+  </channel>
+</rss>

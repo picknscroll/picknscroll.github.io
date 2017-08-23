@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>The NBA Revolution</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css" type="text/css">
+
+  <!-- Font -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css' rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu+Mono" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="/assets/css/trend.css"/>
+
+  <link rel="alternate" type="application/rss+xml" title="RSS Feed for The Pick and Scroll" href="/feed.xml" />
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+
+  <!-- Begin Jekyll SEO tag v2.2.3 -->
+<title>The NBA Revolution | The Pick and Scroll</title>
+<meta property="og:title" content="The NBA Revolution" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="and the evolving elements of winning basketball" />
+<meta property="og:description" content="and the evolving elements of winning basketball" />
+<link rel="canonical" href="http://localhost:4000/2017-06-15/The-NBA-Evolution/" />
+<meta property="og:url" content="http://localhost:4000/2017-06-15/The-NBA-Evolution/" />
+<meta property="og:site_name" content="The Pick and Scroll" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-06-15T00:00:00+09:00" />
+<script type="application/ld+json">
+{"@context":"http://schema.org","@type":"BlogPosting","headline":"The NBA Revolution","author":{"@type":"Person","name":null},"datePublished":"2017-06-15T00:00:00+09:00","dateModified":"2017-06-15T00:00:00+09:00","description":"and the evolving elements of winning basketball","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2017-06-15/The-NBA-Evolution/"},"url":"http://localhost:4000/2017-06-15/The-NBA-Evolution/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+  <!-- Google Analytics -->
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', '', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+
+
+</head>
+
+<body>
+  <div class="content-container">
+    <header>
+  <div class="header-small">
+    <a href="http://localhost:4000">The Pick and Scroll</a>
+  </div>
+</header>
+<div class="post">
+  <div class="post-title">The NBA Revolution</div>
+  <span class="post-date">
+    <time>15 Jun 2017</time>
+  </span>
+  <div class="post-tag">
+    <ul>
+      
+    </ul>
+  </div>
+
+  <p>The NBA is in the midst of a revolution, one that is most obviously seen on offensive side of the ball. When it comes to scoring,</p>
+
+<p>However, this revolution does come with a trade-off. Teams typically increase versatility by downsizing. Take the Boston Celtics for example, who’s struggles rebounding the basketball are well-known. But when it comes to rebounding, how important exactly is rebounding? And how has this importance changed over the years?</p>
+
+<h2 id="the-data">The Data</h2>
+
+<p>I used basketball-reference to scrape every box score from the 2016-2017 regular season. For each game, I recorded which team “won” each statistical category, as well as which team ended up winning the game.</p>
+
+<p>For example, the first game of the season, between the Cavaliers and the Knicks produced the following vector:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Team</th>
+      <th>FG</th>
+      <th>FGA</th>
+      <th>FG%</th>
+      <th>3P</th>
+      <th>3PA</th>
+      <th>TRB</th>
+      <th>AST</th>
+      <th>STL</th>
+      <th>BLK</th>
+      <th>TO</th>
+      <th>eFG%</th>
+      <th>TS%</th>
+      <th>Win</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>CLE</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>0</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>NYK</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>1</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>I used this data to see how winning particular statistical categories correlated to winning basketball games. I was looking for some insight into the importance of different the aspects of the game, and more importantly, how important they are <i>relative to one another</i>. By aggregating the data over the entire 2016-2017 season, we get the following table:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Stat</th>
+      <th>Win % When Stat is Won</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>true shooting %</td>
+      <td>84.60%</td>
+    </tr>
+    <tr>
+      <td>effective field %</td>
+      <td>82.72%</td>
+    </tr>
+    <tr>
+      <td>field goal %</td>
+      <td>81.16%</td>
+    </tr>
+    <tr>
+      <td>field goals made</td>
+      <td>80.17%</td>
+    </tr>
+    <tr>
+      <td>defensive rebounds</td>
+      <td>75.14%</td>
+    </tr>
+    <tr>
+      <td>three point %</td>
+      <td>72.62%</td>
+    </tr>
+    <tr>
+      <td>assists</td>
+      <td>72.61%</td>
+    </tr>
+    <tr>
+      <td>three point attempts</td>
+      <td>68.17%</td>
+    </tr>
+    <tr>
+      <td>total rebounds</td>
+      <td>64.63%</td>
+    </tr>
+    <tr>
+      <td>blocks</td>
+      <td>61.55%</td>
+    </tr>
+    <tr>
+      <td>steals</td>
+      <td>60.94%</td>
+    </tr>
+    <tr>
+      <td>free throws made</td>
+      <td>59.40%</td>
+    </tr>
+    <tr>
+      <td>turnovers</td>
+      <td>57.50%</td>
+    </tr>
+    <tr>
+      <td>offensive rebounds</td>
+      <td>49.03%</td>
+    </tr>
+    <tr>
+      <td>field goal attempts</td>
+      <td>48.35%</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>In other words, this table shows that the team with a higher true shooting percentage won 84.60% of games; the team with more assists won 72.61% of games; the team with fewer turnovers won 57.50% of games, etc.</p>
+
+<h2 id="observations">Observations</h2>
+
+<ul>
+  <li>
+    <p>Offensive efficiency (true shooting %, effective field goal %, and field goal %) is by far the most important factor for winning basketball games, which should be no surprise. Among these efficiency metrics, true shooting % emerges as the definitive measure.</p>
+  </li>
+  <li>
+    <p>Winning the offensive rebounding battle is a detriment to winning. My theory is that consistently crashing the offensive glass leads to an unbalanced floor, which in turn leads to easier transition opportunites for the opposing team. Ben Falk offers an excellent job break down of that concept <a href="https://cleaningtheglass.com/making-the-transition/">here</a>.</p>
+  </li>
+  <li>
+    <p>Raw field goal attempts rank dead last. I believe this is because free throws don’t count as field goal attempts, and free throws are much more efficient than the average field goal opportunity. It would be interesting to look at how often the team with more <i>shooting possessions</i> (which incorporate free-throw attempts) win the game. If I had to guess, the associated win % would be somewhere around 65%.</p>
+  </li>
+  <li>
+    <p>The importance of merely <i>attempting</i> more three pointers - you don’t even have to make them! - is surprisingly high, even more important than  which leads us to the next section - the revolution, and the changing elements of winning basketball.</p>
+  </li>
+</ul>
+
+<h2 id="the-revolution">The Revolution</h2>
+
+<p>The importance of three point attempts is the result of a revolution currently transforming basketball. Offensively, teams are moving away from centers and power forwards patrolling the low post, favoring versatile guards and wings who can score in transition, create through the pick and roll, and space the floor with outside shooting instead. The Golden State Warriors are the current frontier of this revolution, and their recent dominance demonstrates the effectiveness of the approach.</p>
+
+<p>When we look at how the importance of various statistics have changed over time, we see a steady increase in the importance three pointers made and three pointers attempted (+9.9% and +10.6%, respectively), while the other categories have more or less stayed the same.</p>
+
+<p>Note: Toggle a statistical toggle filter to make that line more/less visible.</p>
+
+<div id="filter"></div>
+<svg height="600" width="850"></svg>
+<div class="tooltip" id="lineTooltip"></div>
+<div class="tooltip" id="pointTooltip"></div>
+<script>
+
+var translate = function(left, top) { return "translate(" + left + "," + top + ")"; };
+
+var data = [{"ts%": 0.8347, "efg%": 0.7962, "ft": 0.6261, "ast": 0.7559, "stl": 0.6184, "year": 2000, "fg%": 0.8039, "tov": 0.5998, "fg3%": 0.6267, "fg3": 0.5765, "fta": 0.5888, "trb": 0.6313, "blk": 0.6525, "fg": 0.7866, "drb": 0.7222, "orb": 0.4542, "fga": 0.4587}, {"ts%": 0.8439, "efg%": 0.8191, "ft": 0.602, "ast": 0.742, "stl": 0.5995, "year": 2001, "fg%": 0.8105, "tov": 0.5722, "fg3%": 0.6536, "fg3": 0.6155, "fta": 0.5864, "trb": 0.6613, "blk": 0.622, "fg": 0.7976, "drb": 0.7389, "orb": 0.4556, "fga": 0.4682}, {"ts%": 0.855, "efg%": 0.8234, "ft": 0.6377, "ast": 0.7307, "stl": 0.6196, "year": 2002, "fg%": 0.8148, "tov": 0.5981, "fg3%": 0.6497, "fg3": 0.5933, "fta": 0.6115, "trb": 0.6193, "blk": 0.6203, "fg": 0.7861, "drb": 0.7093, "orb": 0.4592, "fga": 0.4488}, {"ts%": 0.839, "efg%": 0.8122, "ft": 0.6286, "ast": 0.7117, "stl": 0.5984, "year": 2003, "fg%": 0.7997, "tov": 0.5963, "fg3%": 0.6656, "fg3": 0.5853, "fta": 0.6061, "trb": 0.6275, "blk": 0.5965, "fg": 0.7839, "drb": 0.7293, "orb": 0.4592, "fga": 0.4478}, {"ts%": 0.8421, "efg%": 0.811, "ft": 0.6195, "ast": 0.7329, "stl": 0.6191, "year": 2004, "fg%": 0.8046, "tov": 0.6133, "fg3%": 0.6758, "fg3": 0.609, "fta": 0.6185, "trb": 0.6414, "blk": 0.6048, "fg": 0.7904, "drb": 0.7328, "orb": 0.4784, "fga": 0.4584}, {"ts%": 0.8297, "efg%": 0.7926, "ft": 0.6337, "ast": 0.7052, "stl": 0.5917, "year": 2005, "fg%": 0.7682, "tov": 0.5774, "fg3%": 0.6758, "fg3": 0.6378, "fta": 0.6125, "trb": 0.6274, "blk": 0.6153, "fg": 0.757, "drb": 0.7233, "orb": 0.4575, "fga": 0.425}, {"ts%": 0.8109, "efg%": 0.7928, "ft": 0.6274, "ast": 0.7094, "stl": 0.5416, "year": 2006, "fg%": 0.781, "tov": 0.5733, "fg3%": 0.6713, "fg3": 0.6231, "fta": 0.6203, "trb": 0.654, "blk": 0.6237, "fg": 0.7665, "drb": 0.7193, "orb": 0.4926, "fga": 0.454}, {"ts%": 0.8272, "efg%": 0.7903, "ft": 0.6105, "ast": 0.7218, "stl": 0.5799, "year": 2007, "fg%": 0.7909, "tov": 0.5945, "fg3%": 0.6672, "fg3": 0.6356, "fta": 0.5718, "trb": 0.6576, "blk": 0.6367, "fg": 0.7699, "drb": 0.7317, "orb": 0.4896, "fga": 0.4868}, {"ts%": 0.842, "efg%": 0.819, "ft": 0.6375, "ast": 0.7447, "stl": 0.625, "year": 2008, "fg%": 0.7975, "tov": 0.6294, "fg3%": 0.6667, "fg3": 0.6406, "fta": 0.585, "trb": 0.6696, "blk": 0.6024, "fg": 0.7785, "drb": 0.7425, "orb": 0.4799, "fga": 0.4715}, {"ts%": 0.8453, "efg%": 0.8008, "ft": 0.6215, "ast": 0.7319, "stl": 0.6091, "year": 2009, "fg%": 0.7885, "tov": 0.585, "fg3%": 0.657, "fg3": 0.6391, "fta": 0.6022, "trb": 0.6696, "blk": 0.6207, "fg": 0.773, "drb": 0.7551, "orb": 0.4925, "fga": 0.4618}, {"ts%": 0.8488, "efg%": 0.8112, "ft": 0.6414, "ast": 0.7189, "stl": 0.5882, "year": 2010, "fg%": 0.7962, "tov": 0.5752, "fg3%": 0.6991, "fg3": 0.633, "fta": 0.6284, "trb": 0.676, "blk": 0.5995, "fg": 0.772, "drb": 0.7755, "orb": 0.4863, "fga": 0.4363}, {"ts%": 0.8511, "efg%": 0.818, "ft": 0.6431, "ast": 0.7117, "stl": 0.5902, "year": 2011, "fg%": 0.8009, "tov": 0.5805, "fg3%": 0.68, "fg3": 0.6432, "fta": 0.6163, "trb": 0.6364, "blk": 0.5884, "fg": 0.7582, "drb": 0.7392, "orb": 0.4528, "fga": 0.4283}, {"ts%": 0.8416, "efg%": 0.7943, "ft": 0.6094, "ast": 0.7207, "stl": 0.6031, "year": 2012, "fg%": 0.7813, "tov": 0.5846, "fg3%": 0.6574, "fg3": 0.6449, "fta": 0.5909, "trb": 0.685, "blk": 0.6054, "fg": 0.7854, "drb": 0.7505, "orb": 0.5171, "fga": 0.5054}, {"ts%": 0.8413, "efg%": 0.8114, "ft": 0.5878, "ast": 0.7322, "stl": 0.6109, "year": 2013, "fg%": 0.8072, "tov": 0.6074, "fg3%": 0.6708, "fg3": 0.6484, "fta": 0.5872, "trb": 0.6515, "blk": 0.6183, "fg": 0.8109, "drb": 0.7321, "orb": 0.4802, "fga": 0.4714}, {"ts%": 0.8519, "efg%": 0.8182, "ft": 0.6242, "ast": 0.7212, "stl": 0.5831, "year": 2014, "fg%": 0.8096, "tov": 0.5796, "fg3%": 0.6821, "fg3": 0.6472, "fta": 0.586, "trb": 0.6418, "blk": 0.6379, "fg": 0.7879, "drb": 0.7405, "orb": 0.4459, "fga": 0.4508}, {"ts%": 0.8545, "efg%": 0.8222, "ft": 0.5937, "ast": 0.7174, "stl": 0.6034, "year": 2015, "fg%": 0.8102, "tov": 0.5841, "fg3%": 0.6938, "fg3": 0.6511, "fta": 0.5625, "trb": 0.6357, "blk": 0.5964, "fg": 0.7989, "drb": 0.7449, "orb": 0.4548, "fga": 0.4674}, {"ts%": 0.8444, "efg%": 0.8117, "ft": 0.5981, "ast": 0.716, "stl": 0.5803, "year": 2016, "fg%": 0.8152, "tov": 0.5824, "fg3%": 0.6964, "fg3": 0.6399, "fta": 0.5656, "trb": 0.6656, "blk": 0.6412, "fg": 0.8134, "drb": 0.7488, "orb": 0.4905, "fga": 0.4671}, {"ts%": 0.8457, "efg%": 0.8272, "ft": 0.594, "ast": 0.7261, "stl": 0.6094, "year": 2017, "fg%": 0.8116, "tov": 0.575, "fg3%": 0.7262, "fg3": 0.6817, "fta": 0.5738, "trb": 0.6463, "blk": 0.6155, "fg": 0.8017, "drb": 0.7514, "orb": 0.4903, "fga": 0.4835}];
+
+    /* CONFIG VALUES */
+    var MIN_YEAR = 2000;
+    var EXCLUDE_KEYS = new Set(['fta', 'year']);
+    /* END CONFIG VALUES */
+
+    var svgContainer = d3.select("svg"),
+        graphMargins = {top: 25, right: 25, bottom: 25, left: 35};
+
+    var graphWidth = +svgContainer.attr("width") - graphMargins.left - graphMargins.right;
+    var graphHeight = +svgContainer.attr("height") - graphMargins.top - graphMargins.bottom;
+
+    var graphContainer = svgContainer.append("g")
+        .attr("transform", translate(graphMargins.left, graphMargins.top));
+
+    var pctToHeight = d3.scaleLinear().range([graphHeight, 0]);
+    var yearToWidth = d3.scaleLinear().range([0, graphWidth]);
+
+    var statLine = d3.line()
+        .x(function(d, i) {return yearToWidth(i + MIN_YEAR); })
+        .y(function(d) { return pctToHeight(d) } )
+
+    var getClass = function(key) {
+      if (state.keyState[key] == true) return 'dark'
+      else return 'light'
+    }
+
+    // track state of user supplied filters
+    var state =  {
+      keyState: {} // map key to true if the line should be bold, false if it should be greyed.
+    }
+
+    function initState(keysToRender) {
+
+      var activeKeys = new Set(['fg3%', 'fg3']);
+      for (var i = 0; i < keysToRender.length; i++) {
+        var key = keysToRender[i];
+        if (activeKeys.has(key)) state.keyState[key] = true;
+        else state.keyState[key] = false;
+      }
+
+    }
+
+    var lineTooltip = d3.select("#lineTooltip").style("opacity", 0);
+    var pointTooltip = d3.select("#pointTooltip").style("opacity", 0);
+
+    function registerFiltersAndOnClickHandler(keyValues, values) {
+       d3.select('#filter').append('ul')
+            .selectAll('li')
+            .data(keyValues)
+            .enter().append('li')
+            .attr("class", function(d) {
+              if (state.keyState[d] == true) return "ON";
+              else return "OFF";
+            })
+            .text(function(d) {return d;})
+            .on('click', function (d) {
+              if (state.keyState[d] == true) {
+                d3.select(this).attr("class", "OFF");
+                state.keyState[d] = false;
+              } else {
+                d3.select(this).attr("class", "ON");
+                state.keyState[d] = true;
+              }
+              var encoded = encodeKey(d);
+              d3.select("#" + encoded).attr("class", 'statLine ' + getClass(d));
+              d3.selectAll("circle." + encoded).each(function() {
+                  d3.select(this).attr("class", d + " " + getClass(d));
+              })
+            })
+
+    }
+
+    function encodeKey(key) {
+      return key.replace('%', '\\%');
+    }
+
+    function filterKeys(allKeys) {
+      var filteredKeys = [];
+
+      for (var i = 0; i < allKeys.length; i++) {
+        var key = allKeys[i];
+        if (EXCLUDE_KEYS.has(key)) continue
+
+        filteredKeys.push(key);
+      }
+      return filteredKeys;
+    }
+
+    function sortKeys(yearData) {
+      var sortable = [];
+
+      for (var key in yearData) {
+        sortable.push([key, yearData[key]]);
+      }
+
+      sortable.sort(function(a, b) {
+        return b[1] - a[1];
+      })
+
+      var sortedKeys = sortable.map(function(d) { return d[0]});
+      return sortedKeys;
+    }
+
+    function renderXAxis() {
+        svgContainer.append("g")
+                      .attr("transform", translate(graphMargins.left, graphHeight))
+                      .call(d3.axisBottom(yearToWidth).tickFormat(d3.format("d")).ticks(17))
+    }
+
+    function renderYAxis() {
+        svgContainer.append("g")
+                    .attr("transform", translate(graphMargins.left, 0))
+                    .call(d3.axisLeft(pctToHeight).tickFormat(d3.format(".0%")))
+    }
+
+    function renderLines(key, datum) {
+        graphContainer.append("g")
+              .append("path")
+              .attr("id", key)
+              .attr("class", function() { return 'statLine ' + getClass(key); })
+              .attr("d", statLine(datum))
+              .on('mouseover', function() {
+                var d = d3.select(this).attr("id");
+                lineTooltip.transition().duration(150);
+                lineTooltip.html(d)
+                       .style("left", (d3.event.pageX) + "px")
+                       .style("top", (d3.event.pageY - 24) + "px")
+                       .style("opacity", .9);
+              })
+              .on("mouseout", function(d) {
+                lineTooltip.transition().duration(50).style("opacity", 0)
+              });
+    }
+
+    function renderStatPoints(key, datum) {
+        var dotRadius = 2.25;
+        graphContainer.selectAll(".dot")
+            .data(datum)
+            .enter()
+            .append("circle")
+              .attr("class", function (d, i) {return key + " " + getClass(key); })
+              .attr("r", dotRadius)
+              .attr("data", function(d) { return d})
+              .attr("year", function(d, i) { return i + MIN_YEAR })
+              .attr("cx", function(d, i) { return yearToWidth(i + MIN_YEAR) })
+              .attr("cy", function(d) { return pctToHeight(d) })
+              .on('mouseover', function() {
+                  var elem = d3.select(this);
+
+                  var statKey = elem.attr("class").split(" ")[0];
+                  var year = elem.attr("year");
+                  var value = elem.attr("data");
+                  value =  (value * 100).toFixed(1);
+
+                  pointTooltip.transition().duration(350);
+                  pointTooltip.html(statKey + "|" + year + ": " + value + "%")
+                              .style("left", (d3.event.pageX) + "px")
+                              .style("top", (d3.event.pageY - 24) + "px")
+                              .style("opacity", .9);
+              })
+              .on("mouseout", function(d) {
+                  pointTooltip.transition().duration(50).style("opacity", 0)
+              });
+    }
+
+    function draw(keysToShow, rawData) {
+
+        for (var i = 0; i < keysToShow.length; i++) {
+            var key = keysToShow[i];
+
+            datum = rawData.map(function(d) {return d[key]});
+
+            renderLines(key, datum);
+            renderStatPoints(key, datum);
+      }
+    }
+
+    var keysToShow = filterKeys(sortKeys(data[data.length - 1]));
+    initState(keysToShow);
+    registerFiltersAndOnClickHandler(keysToShow , data);
+
+    yearToWidth.domain(d3.extent(data.map(function(y) { return y['year'] })));
+    pctToHeight.domain([0, .875]);
+
+    draw(keysToShow.reverse(), data);
+    renderXAxis();
+    renderYAxis();
+
+</script>
+
+<h2 id="why-does-this-matter">Why Does This Matter?</h2>
+
+<p>The key here is that the importance of three point attempts is increasing at about the same rate as that of three point makes. This insight allows us to take a broader view when evaluating the effectiveness of a team’s offense, one which decouples results from execution.</p>
+
+<p>Shooting a basketball accurately from 24+ feet demands exact precision, and even the very, very best shooters <a href="https://www.youtube.com/watch?v=PafaPE_7xRU">miss</a> <a href="https://www.youtube.com/watch?v=Gi6vHMyfVl4">their</a> <a href="https://www.youtube.com/watch?v=bA8OSPs_9_g&amp;t=056s">fair</a> <a href="https://www.youtube.com/watch?v=BqpzHgykD5k&amp;t=1m43s">share</a> of wide open 3s. Instead of focusing on makes and misses, we can treat three point attempts as a proxy for something whose outcome isn’t binary: the ability to space the floor. In order for a team to attempt a lot of three-pointers, they must have (1) players confident enough to hoist long attempts and (2) players who can get into the lane, force the defense to collapse, and kick out to those shooters. These two abilities are perhaps the single most synergistic pair in all of basketball. More outside shooting leads to wider driving lanes, which lead to more open outside shots - and before you know it, you’ve demoralized, blitzing the way to a 12-point lead.</p>
+
+<p>Needless to say, this broader view is only applicable to a certain extent - at the end of the day, 100 missed three point attempts increase your chances of winning by exactly 0%.  It does, however, speak to the potential of analytics and statistical thinking in sports. The Warriors shot an average of 3.4 more three-pointers per game than their opponents in the 2016-2017 season; the Houston Rockets led the league with an astonishing 11.2 more attempts per game. In any given game, Stephen Curry, Klay Thompson, or Kevin Durant might miss all 3.4 of those surplus shots; James Harden, Eric Gordon, and Ryan Anderson may very well miss all 11 of theirs. But as we’ve seen, over the entire season (and more importantly, a seven-game series), those extra triples translate directly to wins.</p>
+
+
+  <!-- Disqus -->
+  
+
+</div>
+
+
+    <!-- Documents about icons are here: http://fontawesome.io/icons/ -->
+<div class="footer">
+  <hr />
+  <div class="footer-link">
+    
+	
+	
+	
+	
+
+    
+
+    
+	
+	
+	
+	
+
+    
+    <a href="https://www.linkedin.com/in/jzhang621"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+    
+	
+	
+	
+	
+	
+	
+	
+	
+
+    
+
+    
+
+    
+
+  </div>
+  © 2017 Kiko. All rights reserved.
+</div>
+
+  </div>
+</body>
+</html>

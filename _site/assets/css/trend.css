@@ -1,0 +1,103 @@
+@import url(http://fonts.googleapis.com/css?family=Source+Code+Pro:400,600);
+
+svg {
+  margin: auto;
+  display: block;
+}
+
+#filter {
+    display: block;
+    margin: 20px auto 0px;
+    width: 50%;
+}
+
+#filter ul>li:before {
+    content: ""
+}
+
+div.tooltip {
+    height: 24px;
+    position: absolute;
+    text-align: center;
+    padding: 2px;
+    background: #cad9c5;
+    border: 0px;
+    border-radius: 8px;
+    pointer-events: none;
+    font-size: 12px;
+}
+
+div#pointTooltip {
+    width: 120px;
+}
+
+div#lineTooltip {
+    width: 60px;
+}
+
+#filter ul {
+    color: #130C0E;
+    font-size: 12.5px;
+    letter-spacing: 0.65px;
+    list-style-type: none;
+    padding: 0;
+    margin: 10px 0 10px 0;
+}
+
+#filter ul>li {
+    list-style-type: none;
+    display: inline-block;
+    padding: 2px 8px;
+    margin: 3px;
+    cursor: pointer;
+    background: #51823F;
+    float: left;
+    width: 45px;
+    text-align: center;
+}
+
+#filter ul li.ON {
+    opacity: 1.0;
+}
+
+#filter ul li.OFF {
+    opacity: 0.3;
+}
+
+.statLine.dark {
+    stroke: #51823F;
+    opacity: 1.0;
+}
+
+.statLine.light {
+    stroke: #efeded;
+    opacity: 0.45;
+}
+
+.statLine {
+    fill: none;
+    stroke-width: 2.5;
+}
+
+circle.dark {
+    fill: #51823F;
+}
+
+
+circle.light {
+    fill: #efeded;
+    opacity: 0.4;
+}
+
+table {
+  margin: 20px auto;
+}
+
+td {
+  font-size: 15px;
+}
+
+
+td:not(:first-child) {
+    text-align: center
+}
