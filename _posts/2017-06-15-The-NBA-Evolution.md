@@ -7,20 +7,20 @@ share: true
 ---
 NBA games produce a proliferation of statistics. Check any box score on basketball-reference.com and you'll see no less than 4 tables with numbers detailing all aspects of the game.
 
-These numbers represent a gold-mine for an analytical nerd such as myself, but it's too easy to get caught up in individual numbers while ignoring the bigger picture. In this post, I want to examine which basketball statistics contribute the most to winning basketball, and how these contributions have changed over the years.
+These numbers represent a gold-mine for an analytical nerd such as myself, but it's too easy to get caught up in individual numbers while ignoring the bigger picture. In this post, I want to examine the importance of various basketball statistics, and how their value has changed over the last few years.
 
 ## The Data
 
-I scraped every basketball-reference box score from the 2016-2017 regular season, and for each game, I recorded which team "won" various statistical categories, as well as which team ended up winning the game.
+I scraped every basketball-reference box score from the 2016-2017 regular season, and for each game, I recorded which team "won" various statistical categories, as well as which team won the game.
 
-For example, the first game of the season, between the Cavaliers and the Knicks produced the following vector:
+For example, scraping the first game of the season between the Cavaliers and the Knicks produced the following vector:
 
 Team | FG | FGA | FG% | 3P | 3PA | TRB | AST | STL | BLK | TO | eFG% | TS% | Win
 ---- | - | - | - | - | - | - | - | | - | - | - | - | - | - | - | - |
 CLE | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 0 | 1 | 1 | 1 | 1
 NYK | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 0
 
-I used this data to see how winning particular statistical categories correlated to winning basketball games. I was looking for some insight into the importance of different the aspects of the game, and more importantly, how important they are <i>relative to one another</i>. By aggregating the data over the entire 2016-2017 season, we get the following table:
+By aggregating these game vectors over the 2016-2017 regular season, I was able to come up with a compact picture of how different statistical categories contribute to winning basketball.
 
 Stat            | Win % When Stat is Won |
 --------------- | ----------------------- |
@@ -40,17 +40,17 @@ turnovers |	57.50%
 offensive rebounds |	49.03%
 field goal attempts	| 48.35%
 
-In other words, this table shows that the team with a higher true shooting percentage won 84.60% of games; the team with more assists won 72.61% of games; the team with fewer turnovers won 57.50% of games, etc.
+In other words, the team with a higher true shooting percentage won 84.60% of games; the team with more assists won 72.61% of games; the team with fewer turnovers won 57.50% of games, etc.
 
 ## Observations
 
 * Offensive efficiency (true shooting %, effective field goal %, and field goal %) is by far the most important factor for winning basketball games, which should be no surprise. Among these efficiency metrics, true shooting % emerges as the definitive measure.
 
-* Winning the offensive rebounding battle is a detriment to winning. My theory is that consistently crashing the offensive glass leads to an unbalanced floor, which in turn leads to easier transition opportunites for the opposing team. Ben Falk offers an excellent job break down of that concept <a href="https://cleaningtheglass.com/making-the-transition/">here</a>.
+* Winning the offensive rebounding battle is a detriment to winning. I believe this is due (in part) to the fact that crashing the offensive glass leads to easier transition opportunites for the opposition. Ben Falk provides an excellent breakdown of that concept <a href="https://cleaningtheglass.com/making-the-transition/">here</a>.
 
 * Raw field goal attempts rank dead last. I believe this is because free throws don't count as field goal attempts, and free throws are much more efficient than the average field goal opportunity. It would be interesting to look at how often the team with more <i>shooting possessions</i> (which incorporate free-throw attempts) win the game. If I had to guess, the associated win % would be somewhere around 65%.
 
-* The importance of merely <i>attempting</i> more three pointers - you don't even have to make them! - is surprisingly high, even more important than  which leads us to the next section - the revolution, and the changing elements of winning basketball.
+* The importance of merely <i>attempting</i> more three pointers - you don't even have to make them! - is surprisingly high, and is even more important than total rebounds. This observation leads us to the next section.
 
 ## The Revolution
 
@@ -264,6 +264,6 @@ var data = [{"ts%": 0.8347, "efg%": 0.7962, "ft": 0.6261, "ast": 0.7559, "stl": 
 
 The key here is that the value of three point attempts is increasing at about the same rate as that of three point makes. This insight allows us to take a broader view when evaluating the effectiveness of a team's offense, one which decouples results from execution.
 
-Shooting a basketball accurately from 24+ feet demands exact precision, and even the very, very best shooters <a href="https://www.youtube.com/watch?v=PafaPE_7xRU">miss</a> <a href="https://www.youtube.com/watch?v=Gi6vHMyfVl4">their</a> <a href="https://www.youtube.com/watch?v=bA8OSPs_9_g&t=056s">fair</a> <a href="https://www.youtube.com/watch?v=BqpzHgykD5k&t=1m43s">share</a> of wide open 3s. Instead of focusing on makes and misses, we can treat three point attempts as a proxy for something whose outcome isn't binary: the ability to space the floor. In order for a team to attempt a lot of three-pointers, they must have (1) players confident enough to hoist long attempts and (2) players who can get into the lane, force the defense to collapse, and kick out to those shooters. These two abilities are perhaps the single most synergistic pair in all of basketball. More outside shooting leads to wider driving lanes, which lead to more open outside shots - and before you know it, you've demoralized, blitzing the way to a 12-point lead.
+Shooting a basketball accurately from 24+ feet demands exact precision, and even the very, very best shooters <a href="https://www.youtube.com/watch?v=PafaPE_7xRU">miss</a> <a href="https://www.youtube.com/watch?v=Gi6vHMyfVl4">their</a> <a href="https://www.youtube.com/watch?v=bA8OSPs_9_g&t=056s">fair</a> <a href="https://www.youtube.com/watch?v=BqpzHgykD5k&t=1m43s">share</a> of wide open 3s. Instead of focusing on makes and misses, we can treat three point attempts as a proxy for something whose outcome isn't binary: the ability to space the floor. In order for a team to attempt a lot of three-pointers, they must have (1) players confident enough to hoist long attempts and (2) players who can get into the lane, force the defense to collapse, and kick out to those players from (1). These two abilities are perhaps the single most synergistic pair in all of basketball. More outside shooting leads to wider driving lanes, which lead to more open outside shots - and before you know it, the defense is left blitzed and demoralized.
 
 Needless to say, this broader view is only applicable to a certain extent - at the end of the day, 100 missed three point attempts increase your chances of winning by exactly 0%.  It does, however, speak to the potential of analytics and statistical thinking in sports. The Warriors shot an average of 3.4 more three-pointers per game than their opponents in the 2016-2017 season; the Houston Rockets led the league with an astonishing 11.2 more attempts per game. In any given game, Stephen Curry, Klay Thompson, or Kevin Durant might miss all 3.4 of those surplus shots; James Harden, Eric Gordon, and Ryan Anderson may very well miss all 11 of theirs. But as we've seen, over the entire season (and more importantly, a seven-game series), those extra triples translate directly to wins.
