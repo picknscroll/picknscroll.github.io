@@ -175,13 +175,13 @@ var data = [{"ts%": 0.8347, "efg%": 0.7962, "ft": 0.6261, "ast": 0.7559, "stl": 
 
     function renderXAxis() {
         svgContainer.append("g")
-                      .attr("transform", translate(graphMargins.left, graphHeight))
+                      .attr("transform", translate(graphMargins.left, graphMargins.top + graphHeight))
                       .call(d3.axisBottom(yearToWidth).tickFormat(d3.format("d")).ticks(17))
     }
 
     function renderYAxis() {
         svgContainer.append("g")
-                    .attr("transform", translate(graphMargins.left, 0))
+                    .attr("transform", translate(graphMargins.left, graphMargins.top))
                     .call(d3.axisLeft(pctToHeight).tickFormat(d3.format(".0%")))
     }
 
