@@ -60,7 +60,7 @@ When we look at how the importance of various statistics have changed over time,
 
 Note: Click on a stat to make that line more/less visible.
 
-<div id="filter"></div>
+<div class="toggle" id="filter"></div>
 <svg height="600" width="850"></svg>
 <div class="tooltip" id="lineTooltip"></div>
 <div class="tooltip" id="pointTooltip"></div>

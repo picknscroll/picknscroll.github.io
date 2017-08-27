@@ -6,13 +6,13 @@ svg {
   width: 95%;
 }
 
-#filter {
+.toggle {
     display: block;
     margin: 20px auto 0px;
     width: 50%;
 }
 
-#filter ul>li:before {
+.toggle ul>li:before {
     content: ""
 }
 
@@ -36,7 +36,7 @@ div#lineTooltip {
     width: 60px;
 }
 
-#filter ul {
+.toggle ul {
     color: #130C0E;
     font-size: 12.5px;
     letter-spacing: 0.65px;
@@ -45,7 +45,7 @@ div#lineTooltip {
     margin: 10px 0 10px 0;
 }
 
-#filter ul>li {
+.toggle ul>li {
     list-style-type: none;
     display: inline-block;
     padding: 2px 8px;
@@ -57,11 +57,11 @@ div#lineTooltip {
     text-align: center;
 }
 
-#filter ul li.ON {
+.toggle ul li.ON {
     opacity: 1.0;
 }
 
-#filter ul li.OFF {
+.toggle ul li.OFF {
     opacity: 0.3;
 }
 
