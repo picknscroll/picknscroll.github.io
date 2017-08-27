@@ -170,7 +170,7 @@
 
 &lt;p&gt;When we look at how the importance of various statistics have changed over time, we see a steady increase in the importance three pointers made and three pointers attempted (+9.9% and +10.6%, respectively), while the other categories have more or less stayed the same.&lt;/p&gt;
 
-&lt;p&gt;Note: Toggle a statistical toggle filter to make that line more/less visible.&lt;/p&gt;
+&lt;p&gt;Note: Click on a stat to make that line more/less visible.&lt;/p&gt;
 
 &lt;div id=&quot;filter&quot;&gt;&lt;/div&gt;
 &lt;svg height=&quot;600&quot; width=&quot;850&quot;&gt;&lt;/svg&gt;
@@ -364,7 +364,7 @@ var data = [{&quot;ts%&quot;: 0.8347, &quot;efg%&quot;: 0.7962, &quot;ft&quot;: 
     registerFiltersAndOnClickHandler(keysToShow , data);
 
     yearToWidth.domain(d3.extent(data.map(function(y) { return y['year'] })));
-    pctToHeight.domain([0, .875]);
+    pctToHeight.domain([.35, .875]);
 
     draw(keysToShow.reverse(), data);
     renderXAxis();

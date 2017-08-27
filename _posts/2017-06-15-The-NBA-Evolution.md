@@ -58,7 +58,7 @@ The importance of three point attempts is the result of a revolution currently t
 
 When we look at how the importance of various statistics have changed over time, we see a steady increase in the importance three pointers made and three pointers attempted (+9.9% and +10.6%, respectively), while the other categories have more or less stayed the same.
 
-Note: Toggle a statistical toggle filter to make that line more/less visible.
+Note: Click on a stat to make that line more/less visible.
 
 <div id="filter"></div>
 <svg height="600" width="850"></svg>
@@ -252,7 +252,7 @@ var data = [{"ts%": 0.8347, "efg%": 0.7962, "ft": 0.6261, "ast": 0.7559, "stl": 
     registerFiltersAndOnClickHandler(keysToShow , data);
 
     yearToWidth.domain(d3.extent(data.map(function(y) { return y['year'] })));
-    pctToHeight.domain([0, .875]);
+    pctToHeight.domain([.35, .875]);
 
     draw(keysToShow.reverse(), data);
     renderXAxis();
