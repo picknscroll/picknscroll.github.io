@@ -16,10 +16,19 @@ share: true
         background: #099;
     }
 
+    .container {
+        width: 100%;
+        margin: auto;
+    }
+
+
 </style>
 
 <div class="toggle" id="statToggle"></div>
-<svg height="600" width="850"></svg>
+
+<div class="vert toggle" id="teamToggle"></div>
+<svg class="graph" height="600" width="850"></svg>
+
 <div class="tooltip" id="statTooltip"></div>
 
 <script>
@@ -49,11 +58,16 @@ share: true
         teamState: {}
     }
 
-    function initState(keysToRender) {
+    function initState(keysToRender, teams) {
 
       for (var i = 0; i < keysToRender.length; i++) {
         var key = keysToRender[i];
         state.keyState[key] = false;
+      }
+
+     for (var i = 0; i < teams.length; i++) {
+        var team = teams[i];
+        state.teamState[team] = false;
       }
 
     }
@@ -65,7 +79,7 @@ share: true
             .enter()
             .append("circle")
               .attr("r", dotRadius)
-              .attr("class", function(d) { return getClass(d['stat']) })
+              .attr("class", function(d) { return getClass(teamName, d['stat']) })
               .attr("team", teamName)
               .attr("stat", function(d) { return d['stat'] })
               .attr("totalGames", function(d) { return d['total'] })
@@ -104,7 +118,7 @@ share: true
     function extractKeys() {
 
         var keys = [];
-        var stats = data[0]['diffs']
+        var stats = data[0]['diffs'];
 
         for (var key in stats) {
             if (EXCLUDE_KEYS.has(key)) continue
@@ -144,13 +158,56 @@ share: true
                       .call(d3.axisBottom(numGamesToWidth).tickFormat(d3.format("d")).ticks(17))
     }
 
-    var getClass = function(key) {
-      if (state.keyState[key] == true) return 'dark'
-      else return 'light'
+    function hasSelected(filterType) {
+        var obj;
+        if (filterType == "stat") obj = state.keyState;
+        else obj = state.teamState;
+
+        for (var key in obj) {
+            if (obj.hasOwnProperty(key)) {
+                if (obj[key] == true) return true
+            }
+        }
+        return false;
+    }
+
+    var getClass = function(team, stat) {
+        var teamState = state.teamState[team];
+        var statState = state.keyState[stat];
+
+        if (teamState == false && statState == false) return 'light'
+        if (teamState == true && statState == true) return 'dark'
+
+        var statIsSelected = hasSelected("stat");
+        var teamIsSelected = hasSelected("team");
+
+        if (teamState) {
+            console.log(team, teamState, stat, statState);
+            if (statIsSelected) {
+                if (statState) return 'dark'
+                else return 'light'
+            } else return 'dark'
+        }
+
+        if (statState) {
+            if (teamIsSelected) {
+                if (teamState) return 'dark'
+                else return 'light'
+            } else return 'dark'
+        }
     }
 
     function encodeKey(key) {
       return key.replace('%', '\\%');
+    }
+
+    function togglePoints() {
+        d3.selectAll("circle").each(function() {
+            var elem = d3.select(this);
+            var team = elem.attr("team");
+            var stat = elem.attr("stat");
+            elem.attr("class", getClass(team, stat));
+        })
     }
 
     function setUpStatToggles(stats) {
@@ -173,25 +230,53 @@ share: true
                 d3.select(this).attr("class", "ON");
                 state.keyState[d] = true;
               }
-              d3.selectAll("[stat=" + encodeKey(d) + "]").each(function() {
-                  d3.select(this).attr("class", getClass(d));
-              })
+              togglePoints();
             })
     }
 
+    function setUpTeamToggles(teams) {
+        d3.select("#teamToggle").append("ul")
+            .selectAll("li")
+            .data(teams)
+            .enter()
+            .append("li")
+            .attr("class", function(d) {
+              if (state.teamState[d] == true) return "ON";
+              else return "OFF";
+            })
+            .text(function(d) {return d})
+            .on('click', function (d) {
+              if (state.teamState[d] == true) {
+                d3.select(this).attr("class", "OFF");
+                state.teamState[d] = false;
+              } else {
+                d3.select(this).attr("class", "ON");
+                state.teamState[d] = true;
+              }
+              togglePoints();
+            })
+
+    }
+
+    function draw() {
+        for (var key in data) {
+            if (data.hasOwnProperty(key)) {
+                var teamName = data[key]['team_name'];
+                renderPoints(teamName, parseData(data[key]['diffs']));
+            }
+        }
+    }
 
     var keys = extractKeys();
+    var teams = extractTeams();
 
-    initState(keys);
-    for (var key in data) {
-      if (data.hasOwnProperty(key)) {
-        var teamName = data[key]['team_name'];
-        renderPoints(teamName, parseData(data[key]['diffs']));
-      }
-    }
+    initState(keys, teams);
+    draw()
+
     renderYAxis();
     renderXAxis();
 
     setUpStatToggles(keys);
+    setUpTeamToggles(teams);
 
 </script>
