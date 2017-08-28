@@ -61,7 +61,7 @@ When we look at how the importance of various statistics have changed over time,
 Note: Click on a stat to make that line more/less visible.
 
 <div class="toggle" id="filter"></div>
-<svg height="600" width="850"></svg>
+<svg height="600"></svg>
 <div class="tooltip" id="lineTooltip"></div>
 <div class="tooltip" id="pointTooltip"></div>
 <script>
@@ -76,9 +76,10 @@ var data = [{"ts%": 0.8347, "efg%": 0.7962, "ft": 0.6261, "ast": 0.7559, "stl": 
     /* END CONFIG VALUES */
 
     var svgContainer = d3.select("svg"),
-        graphMargins = {top: 25, right: 25, bottom: 25, left: 35};
+        graphMargins = {top: 25, right: 30, bottom: 25, left: 30};
 
-    var graphWidth = +svgContainer.attr("width") - graphMargins.left - graphMargins.right;
+    // var graphWidth = svgContainer.attr("width") - graphMargins.left - graphMargins.right;
+    var graphWidth = $(".post")[0].offsetWidth - graphMargins.left - graphMargins.right;
     var graphHeight = +svgContainer.attr("height") - graphMargins.top - graphMargins.bottom;
 
     var graphContainer = svgContainer.append("g")

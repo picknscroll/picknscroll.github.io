@@ -456,7 +456,7 @@
 &lt;p&gt;Note: Click on a stat to make that line more/less visible.&lt;/p&gt;
 
 &lt;div class=&quot;toggle&quot; id=&quot;filter&quot;&gt;&lt;/div&gt;
-&lt;svg height=&quot;600&quot; width=&quot;850&quot;&gt;&lt;/svg&gt;
+&lt;svg height=&quot;600&quot;&gt;&lt;/svg&gt;
 &lt;div class=&quot;tooltip&quot; id=&quot;lineTooltip&quot;&gt;&lt;/div&gt;
 &lt;div class=&quot;tooltip&quot; id=&quot;pointTooltip&quot;&gt;&lt;/div&gt;
 &lt;script&gt;
@@ -471,9 +471,10 @@ var data = [{&quot;ts%&quot;: 0.8347, &quot;efg%&quot;: 0.7962, &quot;ft&quot;: 
     /* END CONFIG VALUES */
 
     var svgContainer = d3.select(&quot;svg&quot;),
-        graphMargins = {top: 25, right: 25, bottom: 25, left: 35};
+        graphMargins = {top: 25, right: 30, bottom: 25, left: 30};
 
-    var graphWidth = +svgContainer.attr(&quot;width&quot;) - graphMargins.left - graphMargins.right;
+    // var graphWidth = svgContainer.attr(&quot;width&quot;) - graphMargins.left - graphMargins.right;
+    var graphWidth = $(&quot;.post&quot;)[0].offsetWidth - graphMargins.left - graphMargins.right;
     var graphHeight = +svgContainer.attr(&quot;height&quot;) - graphMargins.top - graphMargins.bottom;
 
     var graphContainer = svgContainer.append(&quot;g&quot;)
