@@ -118,7 +118,6 @@
             .append(&quot;circle&quot;)
               .attr(&quot;r&quot;, dotRadius)
               .attr(&quot;team&quot;, teamName)
-              .style(&quot;fill&quot;, teamToColor(teamName))
               .attr(&quot;stat&quot;, function(d) { return d['stat'] })
               .attr(&quot;totalGames&quot;, function(d) { return d['total'] })
               .attr(&quot;pctDiff&quot;, function(d) { return (100 * d['pctDiff']).toFixed(2) })
@@ -207,10 +206,12 @@
             d3.select(this).attr(&quot;class&quot;, &quot;avgLine light&quot;);
         })
 
+        // .style(&quot;fill&quot;, teamToColor(teamName))
         // draw all selected teams
         state.selectedTeams.forEach(function(d) {
             d3.selectAll(&quot;circle[team=&quot; + d +&quot;]&quot;).each(function() {
-                var elem = d3.select(this).attr(&quot;class&quot;, &quot;dark&quot;).moveToFront();
+                var elem = d3.select(this);
+                elem.attr(&quot;class&quot;, &quot;dark&quot;).style(&quot;fill&quot;, getColorForPoint(elem)).moveToFront();
             })
 
             d3.selectAll(&quot;.avgLine[team=&quot; + d +&quot;]&quot;).each(function() {
@@ -225,13 +226,14 @@
                     d3.selectAll(&quot;circle[team=&quot; + t + &quot;]&quot;).each(function() {
                         var elem = d3.select(this);
                         var stat = elem.attr(&quot;stat&quot;);
-                        if (state.selectedStats.has(stat)) elem.attr(&quot;class&quot;, &quot;dark&quot;)
+                        if (state.selectedStats.has(stat)) elem.attr(&quot;class&quot;, &quot;dark&quot;).style(&quot;fill&quot;, getColorForPoint(elem)).moveToFront()
                         else elem.attr(&quot;class&quot;, &quot;light&quot;)
                     })
                 })
             } else {
                 d3.selectAll(&quot;circle[stat=&quot; + encodeKey(s) + &quot;]&quot;).each(function() {
-                    d3.select(this).attr(&quot;class&quot;, &quot;dark&quot;).moveToFront();
+                    var elem = d3.select(this);
+                    elem.attr(&quot;class&quot;, &quot;dark&quot;).style(&quot;fill&quot;, getColorForPoint(elem)).moveToFront();
                 })
             }
         });
@@ -249,6 +251,7 @@
               if (state.statState[d] == true) return &quot;ON&quot;;
               else return &quot;OFF&quot;;
             })
+            .style(&quot;background&quot;, function(s) { return statToColor(s)})
             .text(function(d) {return d})
             .on('click', function (d) {
               if (state.statState[d] == true) {
@@ -301,12 +304,23 @@
         togglePoints();
     }
 
+    function getColorForPoint(elem) {
+        if (state.selectedTeams.size &gt; 0) return teamToColor(elem.attr(&quot;team&quot;))
+        else return statToColor(elem.attr(&quot;stat&quot;))
+    }
+
     var keys = extractKeys();
     var teams = extractTeams();
 
-    var colors = [&quot;#938c6d&quot;, &quot;#936a24&quot;, &quot;#a964fb&quot;, &quot;#92e460&quot;, &quot;#a05787&quot;, &quot;#9c87a0&quot;, &quot;#20c773&quot;, &quot;#8b696d&quot;, &quot;#78762d&quot;, &quot;#e154c6&quot;, &quot;#40835f&quot;, &quot;#d73656&quot;, &quot;#1afd5c&quot;, &quot;#c4f546&quot;, &quot;#3d88d8&quot;, &quot;#bd3896&quot;, &quot;#1397a3&quot;, &quot;#f940a5&quot;, &quot;#66aeff&quot;, &quot;#d097e7&quot;, &quot;#fe6ef9&quot;, &quot;#d86507&quot;, &quot;#8b900a&quot;, &quot;#d47270&quot;, &quot;#e8ac48&quot;, &quot;#cf7c97&quot;, &quot;#cebb11&quot;, &quot;#718a90&quot;, &quot;#e78139&quot;, &quot;#ff7463&quot;];
+    // # TODO: up the contrast between colors here.
+    var statColors = [&quot;#6363FF&quot;, &quot;#6373FF&quot;, &quot;#63A3FF&quot;, &quot;#63E3FF&quot;, &quot;#63FFFB&quot;, &quot;#63FFCB&quot;,
+           &quot;#63FF9B&quot;, &quot;#63FF6B&quot;, &quot;#7BFF63&quot;, &quot;#BBFF63&quot;, &quot;#DBFF63&quot;, &quot;#FBFF63&quot;,
+           &quot;#FFD363&quot;, &quot;#FFB363&quot;];
 
-    var teamToColor = d3.scaleOrdinal().range(colors).domain(teams);
+    var teamColors = [&quot;#938c6d&quot;, &quot;#936a24&quot;, &quot;#a964fb&quot;, &quot;#92e460&quot;, &quot;#a05787&quot;, &quot;#9c87a0&quot;, &quot;#20c773&quot;, &quot;#8b696d&quot;, &quot;#78762d&quot;, &quot;#e154c6&quot;, &quot;#40835f&quot;, &quot;#d73656&quot;, &quot;#1afd5c&quot;, &quot;#c4f546&quot;, &quot;#3d88d8&quot;, &quot;#bd3896&quot;, &quot;#1397a3&quot;, &quot;#f940a5&quot;, &quot;#66aeff&quot;, &quot;#d097e7&quot;, &quot;#fe6ef9&quot;, &quot;#d86507&quot;, &quot;#8b900a&quot;, &quot;#d47270&quot;, &quot;#e8ac48&quot;, &quot;#cf7c97&quot;, &quot;#cebb11&quot;, &quot;#718a90&quot;, &quot;#e78139&quot;, &quot;#ff7463&quot;];
+
+    var teamToColor = d3.scaleOrdinal().range(teamColors).domain(teams);
+    var statToColor = d3.scaleOrdinal().range(statColors).domain(keys);
 
     initState(keys, teams);
     draw()

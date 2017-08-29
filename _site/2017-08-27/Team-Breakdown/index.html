@@ -181,7 +181,6 @@ ga('send', 'pageview');
             .append("circle")
               .attr("r", dotRadius)
               .attr("team", teamName)
-              .style("fill", teamToColor(teamName))
               .attr("stat", function(d) { return d['stat'] })
               .attr("totalGames", function(d) { return d['total'] })
               .attr("pctDiff", function(d) { return (100 * d['pctDiff']).toFixed(2) })
@@ -270,10 +269,12 @@ ga('send', 'pageview');
             d3.select(this).attr("class", "avgLine light");
         })
 
+        // .style("fill", teamToColor(teamName))
         // draw all selected teams
         state.selectedTeams.forEach(function(d) {
             d3.selectAll("circle[team=" + d +"]").each(function() {
-                var elem = d3.select(this).attr("class", "dark").moveToFront();
+                var elem = d3.select(this);
+                elem.attr("class", "dark").style("fill", getColorForPoint(elem)).moveToFront();
             })
 
             d3.selectAll(".avgLine[team=" + d +"]").each(function() {
@@ -288,13 +289,14 @@ ga('send', 'pageview');
                     d3.selectAll("circle[team=" + t + "]").each(function() {
                         var elem = d3.select(this);
                         var stat = elem.attr("stat");
-                        if (state.selectedStats.has(stat)) elem.attr("class", "dark")
+                        if (state.selectedStats.has(stat)) elem.attr("class", "dark").style("fill", getColorForPoint(elem)).moveToFront()
                         else elem.attr("class", "light")
                     })
                 })
             } else {
                 d3.selectAll("circle[stat=" + encodeKey(s) + "]").each(function() {
-                    d3.select(this).attr("class", "dark").moveToFront();
+                    var elem = d3.select(this);
+                    elem.attr("class", "dark").style("fill", getColorForPoint(elem)).moveToFront();
                 })
             }
         });
@@ -312,6 +314,7 @@ ga('send', 'pageview');
               if (state.statState[d] == true) return "ON";
               else return "OFF";
             })
+            .style("background", function(s) { return statToColor(s)})
             .text(function(d) {return d})
             .on('click', function (d) {
               if (state.statState[d] == true) {
@@ -364,12 +367,23 @@ ga('send', 'pageview');
         togglePoints();
     }
 
+    function getColorForPoint(elem) {
+        if (state.selectedTeams.size > 0) return teamToColor(elem.attr("team"))
+        else return statToColor(elem.attr("stat"))
+    }
+
     var keys = extractKeys();
     var teams = extractTeams();
 
-    var colors = ["#938c6d", "#936a24", "#a964fb", "#92e460", "#a05787", "#9c87a0", "#20c773", "#8b696d", "#78762d", "#e154c6", "#40835f", "#d73656", "#1afd5c", "#c4f546", "#3d88d8", "#bd3896", "#1397a3", "#f940a5", "#66aeff", "#d097e7", "#fe6ef9", "#d86507", "#8b900a", "#d47270", "#e8ac48", "#cf7c97", "#cebb11", "#718a90", "#e78139", "#ff7463"];
+    // # TODO: up the contrast between colors here.
+    var statColors = ["#6363FF", "#6373FF", "#63A3FF", "#63E3FF", "#63FFFB", "#63FFCB",
+           "#63FF9B", "#63FF6B", "#7BFF63", "#BBFF63", "#DBFF63", "#FBFF63",
+           "#FFD363", "#FFB363"];
 
-    var teamToColor = d3.scaleOrdinal().range(colors).domain(teams);
+    var teamColors = ["#938c6d", "#936a24", "#a964fb", "#92e460", "#a05787", "#9c87a0", "#20c773", "#8b696d", "#78762d", "#e154c6", "#40835f", "#d73656", "#1afd5c", "#c4f546", "#3d88d8", "#bd3896", "#1397a3", "#f940a5", "#66aeff", "#d097e7", "#fe6ef9", "#d86507", "#8b900a", "#d47270", "#e8ac48", "#cf7c97", "#cebb11", "#718a90", "#e78139", "#ff7463"];
+
+    var teamToColor = d3.scaleOrdinal().range(teamColors).domain(teams);
+    var statToColor = d3.scaleOrdinal().range(statColors).domain(keys);
 
     initState(keys, teams);
     draw()
