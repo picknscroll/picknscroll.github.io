@@ -21,6 +21,11 @@ share: true
         margin: auto;
     }
 
+    .avgLine {
+        stroke: #8a8a8a;
+        stroke-dasharray: 5,5;
+    }
+
 
 </style>
 
@@ -38,6 +43,7 @@ share: true
     var data = {{ site.data.team_diff_data | jsonify }};
 
     var EXCLUDE_KEYS = new Set(['ts_pct', 'win', 'base_win_pct', 'fg', 'fg_pct', 'efg_pct']);
+    var ACTIVE_TEAMS = new Set(['gsw']);
 
     var svgContainer = d3.select("svg"),
         graphMargins = {top: 25, right: 25, bottom: 25, left: 35};
@@ -48,28 +54,30 @@ share: true
     var graphContainer = svgContainer.append("g")
         .attr("transform", translate(graphMargins.left, graphMargins.top));
 
-    // var pctToHeight = d3.scaleLinear().range([graphHeight, 0]).domain([-0.20, 0.5]);
     var pctToHeight = d3.scaleLinear().range([graphHeight, 0]).domain([0, 1.0]);
     var numGamesToWidth = d3.scaleLinear().range([0, graphWidth]).domain([0, 82]);
 
     var statTooltip = d3.select("#statTooltip").style("opacity", 0);
 
     var state = {
-        keyState: {},
+        selectedStats: new Set([]),
+        selectedTeams: new Set([]),
+        statState: {},
         teamState: {}
     }
 
     function initState(keysToRender, teams) {
-      var activeKeys = new Set(['drb']);
       for (var i = 0; i < keysToRender.length; i++) {
         var key = keysToRender[i];
-        if (activeKeys.has(key)) state.keyState[key] = true;
-        else state.keyState[key] = false;
+        state.statState[key] = false;
       }
 
      for (var i = 0; i < teams.length; i++) {
         var team = teams[i];
-        state.teamState[team] = false;
+        if (ACTIVE_TEAMS.has(team)) {
+            state.teamState[team] = true;
+            selectedTeams.add(team);
+        } else state.teamState[team] = false;
       }
 
     }
@@ -81,7 +89,6 @@ share: true
             .enter()
             .append("circle")
               .attr("r", dotRadius)
-              .attr("class", function(d) { return getClass(teamName, d['stat']) })
               .attr("team", teamName)
               .attr("stat", function(d) { return d['stat'] })
               .attr("totalGames", function(d) { return d['total'] })
@@ -103,6 +110,7 @@ share: true
               .on("mouseout", function(d) {
                 statTooltip.transition().duration(50).style("opacity", 0)
               });
+        togglePoints();
     }
 
     function extractTeams() {
@@ -162,7 +170,7 @@ share: true
 
     function hasSelected(filterType) {
         var obj;
-        if (filterType == "stat") obj = state.keyState;
+        if (filterType == "stat") obj = state.statState;
         else obj = state.teamState;
 
         for (var key in obj) {
@@ -175,7 +183,7 @@ share: true
 
     var getClass = function(team, stat) {
         var teamState = state.teamState[team];
-        var statState = state.keyState[stat];
+        var statState = state.statState[stat];
 
         if (teamState == false && statState == false) return 'light'
         if (teamState == true && statState == true) return 'dark'
@@ -184,7 +192,6 @@ share: true
         var teamIsSelected = hasSelected("team");
 
         if (teamState) {
-            console.log(team, teamState, stat, statState);
             if (statIsSelected) {
                 if (statState) return 'dark'
                 else return 'light'
@@ -204,6 +211,11 @@ share: true
     }
 
     function togglePoints() {
+        /*
+        Render the graph based on the state of the State object.
+        */
+
+        // first clear all
         d3.selectAll("circle").each(function() {
             var elem = d3.select(this);
             var team = elem.attr("team");
@@ -220,17 +232,17 @@ share: true
             .enter()
             .append("li")
             .attr("class", function(d) {
-              if (state.keyState[d] == true) return "ON";
+              if (state.statState[d] == true) return "ON";
               else return "OFF";
             })
             .text(function(d) {return d})
             .on('click', function (d) {
-              if (state.keyState[d] == true) {
+              if (state.statState[d] == true) {
                 d3.select(this).attr("class", "OFF");
-                state.keyState[d] = false;
+                state.statState[d] = false;
               } else {
                 d3.select(this).attr("class", "ON");
-                state.keyState[d] = true;
+                state.statState[d] = true;
               }
               togglePoints();
             })
@@ -281,7 +293,23 @@ share: true
     setUpStatToggles(keys);
     setUpTeamToggles(teams);
 
+    // #TODO: create separate object team_name to base_win_pct
+    function drawAvgLine(team) {
+        var baseWinPct = null;
+        for (var i = 0; i < data.length; i++) {
+            if (data[i]["team_name"] === team) {
+                baseWinPct = data[i]["diffs"]["base_win_pct"];
+            }
+        }
+        graphContainer.append("line")
+                      .attr("class", "avgLine")
+                      .attr("x1", numGamesToWidth(0))
+                      .attr("x2", numGamesToWidth(82))
+                      .attr("y1", pctToHeight(baseWinPct))
+                      .attr("y2", pctToHeight(baseWinPct))
+    }
 
+    drawAvgLine("gsw");
 
 </script>
 
