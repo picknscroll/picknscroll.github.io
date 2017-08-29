@@ -37,8 +37,6 @@ share: true
 
     var data = {{ site.data.team_diff_data | jsonify }};
 
-    console.log(data);
-
     var EXCLUDE_KEYS = new Set(['win', 'base_win_pct', 'fg', 'fg_pct', 'efg_pct']);
 
     var svgContainer = d3.select("svg"),
