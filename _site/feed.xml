@@ -9,8 +9,11 @@
         <title>Team by Team Breakdown</title>
         <description>&lt;style type=&quot;text/css&quot;&gt;
     circle.dark {
-        fill: #099;
         opacity: 1.0;
+    }
+
+    circle.light {
+        opacity: 0.05;
     }
 
     #statToggle ul&gt;li {
@@ -23,11 +26,16 @@
     }
 
     .avgLine {
-        stroke: #8a8a8a;
         stroke-dasharray: 5,5;
     }
 
+    .avgLine.dark {
+        opacity: 1.0;
+    }
 
+    .avgLine.light {
+        opacity: 0.0;
+    }
 &lt;/style&gt;
 
 &lt;div class=&quot;toggle&quot; id=&quot;statToggle&quot;&gt;&lt;/div&gt;
@@ -38,6 +46,12 @@
 &lt;div class=&quot;tooltip&quot; id=&quot;statTooltip&quot;&gt;&lt;/div&gt;
 
 &lt;script&gt;
+
+    d3.selection.prototype.moveToFront = function() {
+        return this.each(function(){
+            this.parentNode.appendChild(this);
+        });
+    };
 
     var translate = function(left, top) { return &quot;translate(&quot; + left + &quot;,&quot; + top + &quot;)&quot;; };
 
@@ -77,10 +91,23 @@
         var team = teams[i];
         if (ACTIVE_TEAMS.has(team)) {
             state.teamState[team] = true;
-            selectedTeams.add(team);
+            state.selectedTeams.add(team);
         } else state.teamState[team] = false;
       }
 
+    }
+
+    function drawToolTip(elem) {
+        var stat = elem.attr(&quot;stat&quot;);
+        var team = elem.attr(&quot;team&quot;);
+        var pctDiff = elem.attr(&quot;pctDiff&quot;);
+        var totalGames = elem.attr(&quot;totalGames&quot;);
+
+        statTooltip.transition().duration(150);
+        statTooltip.html(team + &quot;|&quot; + stat + &quot;: (&quot; + totalGames + &quot;, &quot; + pctDiff + &quot;%)&quot;)
+                   .style(&quot;left&quot;, (d3.event.pageX) + &quot;px&quot;)
+                   .style(&quot;top&quot;, (d3.event.pageY - 24) + &quot;px&quot;)
+                   .style(&quot;opacity&quot;, .9);
     }
 
     function renderPoints(teamName, data) {
@@ -91,27 +118,25 @@
             .append(&quot;circle&quot;)
               .attr(&quot;r&quot;, dotRadius)
               .attr(&quot;team&quot;, teamName)
+              .style(&quot;fill&quot;, teamToColor(teamName))
               .attr(&quot;stat&quot;, function(d) { return d['stat'] })
               .attr(&quot;totalGames&quot;, function(d) { return d['total'] })
               .attr(&quot;pctDiff&quot;, function(d) { return (100 * d['pctDiff']).toFixed(2) })
               .attr(&quot;cx&quot;, function(d) { return numGamesToWidth(d['total']) })
               .attr(&quot;cy&quot;, function(d) { return pctToHeight(d['pctDiff'] )})
-              .on('mouseover', function() {
-                var stat = d3.select(this).attr(&quot;stat&quot;);
-                var team = d3.select(this).attr(&quot;team&quot;);
-                var pctDiff = d3.select(this).attr(&quot;pctDiff&quot;);
-                var totalGames = d3.select(this).attr(&quot;totalGames&quot;);
+              .on('mouseover', function() { drawToolTip(d3.select(this)) })
+              .on(&quot;mouseout&quot;, function() { statTooltip.transition().duration(50).style(&quot;opacity&quot;, 0)});
+    }
 
-                statTooltip.transition().duration(150);
-                statTooltip.html(team + &quot;|&quot; + stat + &quot;: (&quot; + totalGames + &quot;, &quot; + pctDiff + &quot;%)&quot;)
-                       .style(&quot;left&quot;, (d3.event.pageX) + &quot;px&quot;)
-                       .style(&quot;top&quot;, (d3.event.pageY - 24) + &quot;px&quot;)
-                       .style(&quot;opacity&quot;, .9);
-              })
-              .on(&quot;mouseout&quot;, function(d) {
-                statTooltip.transition().duration(50).style(&quot;opacity&quot;, 0)
-              });
-        togglePoints();
+    function renderAvgLine(team, baseWinPct) {
+        graphContainer.append(&quot;line&quot;)
+                      .attr(&quot;class&quot;, &quot;avgLine&quot;)
+                      .style(&quot;stroke&quot;, teamToColor(team))
+                      .attr(&quot;team&quot;, team)
+                      .attr(&quot;x1&quot;, numGamesToWidth(0))
+                      .attr(&quot;x2&quot;, numGamesToWidth(82))
+                      .attr(&quot;y1&quot;, pctToHeight(baseWinPct))
+                      .attr(&quot;y2&quot;, pctToHeight(baseWinPct))
     }
 
     function extractTeams() {
@@ -142,7 +167,6 @@
 
     function parseData(data) {
         var results = [];
-
         for (var key in data) {
             if (EXCLUDE_KEYS.has(key)) continue
             if (data.hasOwnProperty(key)) {
@@ -169,60 +193,48 @@
                       .call(d3.axisBottom(numGamesToWidth).tickFormat(d3.format(&quot;d&quot;)).ticks(17))
     }
 
-    function hasSelected(filterType) {
-        var obj;
-        if (filterType == &quot;stat&quot;) obj = state.statState;
-        else obj = state.teamState;
+    // TODO: move this and the translate function into the a utils.file
+    function encodeKey(key) { return key.replace('%', '\\%'); }
 
-        for (var key in obj) {
-            if (obj.hasOwnProperty(key)) {
-                if (obj[key] == true) return true
-            }
-        }
-        return false;
-    }
-
-    var getClass = function(team, stat) {
-        var teamState = state.teamState[team];
-        var statState = state.statState[stat];
-
-        if (teamState == false &amp;&amp; statState == false) return 'light'
-        if (teamState == true &amp;&amp; statState == true) return 'dark'
-
-        var statIsSelected = hasSelected(&quot;stat&quot;);
-        var teamIsSelected = hasSelected(&quot;team&quot;);
-
-        if (teamState) {
-            if (statIsSelected) {
-                if (statState) return 'dark'
-                else return 'light'
-            } else return 'dark'
-        }
-
-        if (statState) {
-            if (teamIsSelected) {
-                if (teamState) return 'dark'
-                else return 'light'
-            } else return 'dark'
-        }
-    }
-
-    function encodeKey(key) {
-      return key.replace('%', '\\%');
-    }
-
+    // TODO: refactor this into an applyChanges method
     function togglePoints() {
-        /*
-        Render the graph based on the state of the State object.
-        */
-
-        // first clear all
+        // clear all lines and circles
         d3.selectAll(&quot;circle&quot;).each(function() {
-            var elem = d3.select(this);
-            var team = elem.attr(&quot;team&quot;);
-            var stat = elem.attr(&quot;stat&quot;);
-            elem.attr(&quot;class&quot;, getClass(team, stat));
+            d3.select(this).attr(&quot;class&quot;, &quot;light&quot;);
         })
+
+        d3.selectAll(&quot;.avgLine&quot;).each(function() {
+            d3.select(this).attr(&quot;class&quot;, &quot;avgLine light&quot;);
+        })
+
+        // draw all selected teams
+        state.selectedTeams.forEach(function(d) {
+            d3.selectAll(&quot;circle[team=&quot; + d +&quot;]&quot;).each(function() {
+                var elem = d3.select(this).attr(&quot;class&quot;, &quot;dark&quot;).moveToFront();
+            })
+
+            d3.selectAll(&quot;.avgLine[team=&quot; + d +&quot;]&quot;).each(function() {
+                d3.select(this).attr(&quot;class&quot;, &quot;avgLine dark&quot;);
+            })
+        })
+
+        // apply stat filters
+        state.selectedStats.forEach(function (s) {
+            if (state.selectedTeams.size &gt; 0) {
+                state.selectedTeams.forEach(function (t) {
+                    d3.selectAll(&quot;circle[team=&quot; + t + &quot;]&quot;).each(function() {
+                        var elem = d3.select(this);
+                        var stat = elem.attr(&quot;stat&quot;);
+                        if (stat != s) elem.attr(&quot;class&quot;, &quot;light&quot;)
+                    })
+                })
+            } else {
+                d3.selectAll(&quot;circle[stat=&quot; + s + &quot;]&quot;).each(function() {
+                    d3.select(this).attr(&quot;class&quot;, &quot;dark&quot;).moveToFront();
+                })
+            }
+        });
+
     }
 
     function setUpStatToggles(stats) {
@@ -241,9 +253,11 @@
               if (state.statState[d] == true) {
                 d3.select(this).attr(&quot;class&quot;, &quot;OFF&quot;);
                 state.statState[d] = false;
+                state.selectedStats.delete(d);
               } else {
                 d3.select(this).attr(&quot;class&quot;, &quot;ON&quot;);
                 state.statState[d] = true;
+                state.selectedStats.add(d);
               }
               togglePoints();
             })
@@ -259,14 +273,17 @@
               if (state.teamState[d] == true) return &quot;ON&quot;;
               else return &quot;OFF&quot;;
             })
+            .style(&quot;background&quot;, function(t) {return teamToColor(t)})
             .text(function(d) {return d})
             .on('click', function (d) {
               if (state.teamState[d] == true) {
                 d3.select(this).attr(&quot;class&quot;, &quot;OFF&quot;);
                 state.teamState[d] = false;
+                state.selectedTeams.delete(d);
               } else {
                 d3.select(this).attr(&quot;class&quot;, &quot;ON&quot;);
                 state.teamState[d] = true;
+                state.selectedTeams.add(d);
               }
               togglePoints();
             })
@@ -274,16 +291,21 @@
     }
 
     function draw() {
-        for (var key in data) {
-            if (data.hasOwnProperty(key)) {
-                var teamName = data[key]['team_name'];
-                renderPoints(teamName, parseData(data[key]['diffs']));
-            }
+        for (var i = 0; i &lt; data.length; i++) {
+            var teamData = data[i];
+            var teamName = teamData[&quot;team_name&quot;];
+            renderPoints(teamName, parseData(teamData[&quot;diffs&quot;]));
+            renderAvgLine(teamName, teamData[&quot;diffs&quot;][&quot;base_win_pct&quot;]);
         }
+        togglePoints();
     }
 
     var keys = extractKeys();
     var teams = extractTeams();
+
+    var colors = [&quot;#938c6d&quot;, &quot;#936a24&quot;, &quot;#a964fb&quot;, &quot;#92e460&quot;, &quot;#a05787&quot;, &quot;#9c87a0&quot;, &quot;#20c773&quot;, &quot;#8b696d&quot;, &quot;#78762d&quot;, &quot;#e154c6&quot;, &quot;#40835f&quot;, &quot;#d73656&quot;, &quot;#1afd5c&quot;, &quot;#c4f546&quot;, &quot;#3d88d8&quot;, &quot;#bd3896&quot;, &quot;#1397a3&quot;, &quot;#f940a5&quot;, &quot;#66aeff&quot;, &quot;#d097e7&quot;, &quot;#fe6ef9&quot;, &quot;#d86507&quot;, &quot;#8b900a&quot;, &quot;#d47270&quot;, &quot;#e8ac48&quot;, &quot;#cf7c97&quot;, &quot;#cebb11&quot;, &quot;#718a90&quot;, &quot;#e78139&quot;, &quot;#ff7463&quot;];
+
+    var teamToColor = d3.scaleOrdinal().range(colors).domain(teams);
 
     initState(keys, teams);
     draw()
@@ -294,23 +316,7 @@
     setUpStatToggles(keys);
     setUpTeamToggles(teams);
 
-    // #TODO: create separate object team_name to base_win_pct
-    function drawAvgLine(team) {
-        var baseWinPct = null;
-        for (var i = 0; i &lt; data.length; i++) {
-            if (data[i][&quot;team_name&quot;] === team) {
-                baseWinPct = data[i][&quot;diffs&quot;][&quot;base_win_pct&quot;];
-            }
-        }
-        graphContainer.append(&quot;line&quot;)
-                      .attr(&quot;class&quot;, &quot;avgLine&quot;)
-                      .attr(&quot;x1&quot;, numGamesToWidth(0))
-                      .attr(&quot;x2&quot;, numGamesToWidth(82))
-                      .attr(&quot;y1&quot;, pctToHeight(baseWinPct))
-                      .attr(&quot;y2&quot;, pctToHeight(baseWinPct))
-    }
 
-    drawAvgLine(&quot;gsw&quot;);
 
 &lt;/script&gt;
 
