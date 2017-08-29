@@ -66,7 +66,7 @@ Note: Click on a stat to make that line more/less visible.
 <div class="tooltip" id="pointTooltip"></div>
 <script>
 
-var translate = function(left, top) { return "translate(" + left + "," + top + ")"; };
+    var translate = function(left, top) { return "translate(" + left + "," + top + ")"; };
     var data = {{ site.data.evolution | jsonify }};
 
     /* CONFIG VALUES */
@@ -77,7 +77,6 @@ var translate = function(left, top) { return "translate(" + left + "," + top + "
     var svgContainer = d3.select("svg"),
         graphMargins = {top: 25, right: 30, bottom: 25, left: 30};
 
-    // var graphWidth = svgContainer.attr("width") - graphMargins.left - graphMargins.right;
     var graphWidth = $(".post")[0].offsetWidth - graphMargins.left - graphMargins.right;
     var graphHeight = +svgContainer.attr("height") - graphMargins.top - graphMargins.bottom;
 
