@@ -313,9 +313,7 @@
     var teams = extractTeams();
 
     // # TODO: up the contrast between colors here.
-    var statColors = [&quot;#6363FF&quot;, &quot;#6373FF&quot;, &quot;#63A3FF&quot;, &quot;#63E3FF&quot;, &quot;#63FFFB&quot;, &quot;#63FFCB&quot;,
-           &quot;#63FF9B&quot;, &quot;#63FF6B&quot;, &quot;#7BFF63&quot;, &quot;#BBFF63&quot;, &quot;#DBFF63&quot;, &quot;#FBFF63&quot;,
-           &quot;#FFD363&quot;, &quot;#FFB363&quot;];
+    var statColors = [&quot;#1f77b4&quot;, &quot;#aec7e8&quot;, &quot;#ff7f0e&quot;, &quot;#ffbb78&quot;, &quot;#2ca02c&quot;, &quot;#98df8a&quot;, &quot;#d62728&quot;, &quot;#ff9896&quot;, &quot;#9467bd&quot;, &quot;#c5b0d5&quot;, &quot;#8c564b&quot;, &quot;#c49c94&quot;, &quot;#e377c2&quot;, &quot;#f7b6d2&quot;, &quot;#7f7f7f&quot;, &quot;#c7c7c7&quot;];
 
     var teamColors = [&quot;#938c6d&quot;, &quot;#936a24&quot;, &quot;#a964fb&quot;, &quot;#92e460&quot;, &quot;#a05787&quot;, &quot;#9c87a0&quot;, &quot;#20c773&quot;, &quot;#8b696d&quot;, &quot;#78762d&quot;, &quot;#e154c6&quot;, &quot;#40835f&quot;, &quot;#d73656&quot;, &quot;#1afd5c&quot;, &quot;#c4f546&quot;, &quot;#3d88d8&quot;, &quot;#bd3896&quot;, &quot;#1397a3&quot;, &quot;#f940a5&quot;, &quot;#66aeff&quot;, &quot;#d097e7&quot;, &quot;#fe6ef9&quot;, &quot;#d86507&quot;, &quot;#8b900a&quot;, &quot;#d47270&quot;, &quot;#e8ac48&quot;, &quot;#cf7c97&quot;, &quot;#cebb11&quot;, &quot;#718a90&quot;, &quot;#e78139&quot;, &quot;#ff7463&quot;];
 
