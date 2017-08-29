@@ -288,11 +288,12 @@ ga('send', 'pageview');
                     d3.selectAll("circle[team=" + t + "]").each(function() {
                         var elem = d3.select(this);
                         var stat = elem.attr("stat");
-                        if (stat != s) elem.attr("class", "light")
+                        if (state.selectedStats.has(stat)) elem.attr("class", "dark")
+                        else elem.attr("class", "light")
                     })
                 })
             } else {
-                d3.selectAll("circle[stat=" + s + "]").each(function() {
+                d3.selectAll("circle[stat=" + encodeKey(s) + "]").each(function() {
                     d3.select(this).attr("class", "dark").moveToFront();
                 })
             }

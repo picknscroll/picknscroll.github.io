@@ -225,11 +225,12 @@
                     d3.selectAll(&quot;circle[team=&quot; + t + &quot;]&quot;).each(function() {
                         var elem = d3.select(this);
                         var stat = elem.attr(&quot;stat&quot;);
-                        if (stat != s) elem.attr(&quot;class&quot;, &quot;light&quot;)
+                        if (state.selectedStats.has(stat)) elem.attr(&quot;class&quot;, &quot;dark&quot;)
+                        else elem.attr(&quot;class&quot;, &quot;light&quot;)
                     })
                 })
             } else {
-                d3.selectAll(&quot;circle[stat=&quot; + s + &quot;]&quot;).each(function() {
+                d3.selectAll(&quot;circle[stat=&quot; + encodeKey(s) + &quot;]&quot;).each(function() {
                     d3.select(this).attr(&quot;class&quot;, &quot;dark&quot;).moveToFront();
                 })
             }
