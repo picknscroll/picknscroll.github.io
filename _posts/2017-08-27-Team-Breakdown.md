@@ -37,7 +37,7 @@ share: true
 
     var data = {{ site.data.team_diff_data | jsonify }};
 
-    var EXCLUDE_KEYS = new Set(['win', 'base_win_pct', 'fg', 'fg_pct', 'efg_pct']);
+    var EXCLUDE_KEYS = new Set(['ts_pct', 'win', 'base_win_pct', 'fg', 'fg_pct', 'efg_pct']);
 
     var svgContainer = d3.select("svg"),
         graphMargins = {top: 25, right: 25, bottom: 25, left: 35};
@@ -48,7 +48,8 @@ share: true
     var graphContainer = svgContainer.append("g")
         .attr("transform", translate(graphMargins.left, graphMargins.top));
 
-    var pctToHeight = d3.scaleLinear().range([graphHeight, 0]).domain([-0.20, 0.5]);
+    // var pctToHeight = d3.scaleLinear().range([graphHeight, 0]).domain([-0.20, 0.5]);
+    var pctToHeight = d3.scaleLinear().range([graphHeight, 0]).domain([0, 1.0]);
     var numGamesToWidth = d3.scaleLinear().range([0, graphWidth]).domain([0, 82]);
 
     var statTooltip = d3.select("#statTooltip").style("opacity", 0);
