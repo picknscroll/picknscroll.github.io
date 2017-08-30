@@ -12,6 +12,15 @@
         opacity: 1.0;
     }
 
+    text.avgLine {
+        font-size: 12px;
+    }
+
+    .label {
+        fill: gray;
+        font-size: 13px;
+    }
+
     circle.light {
         opacity: 0.05;
     }
@@ -41,7 +50,7 @@
 &lt;div class=&quot;toggle&quot; id=&quot;statToggle&quot;&gt;&lt;/div&gt;
 
 &lt;div class=&quot;vert toggle&quot; id=&quot;teamToggle&quot;&gt;&lt;/div&gt;
-&lt;svg class=&quot;graph&quot; height=&quot;600&quot; width=&quot;850&quot;&gt;&lt;/svg&gt;
+&lt;svg class=&quot;graph&quot; height=&quot;630&quot; width=&quot;850&quot;&gt;&lt;/svg&gt;
 
 &lt;div class=&quot;tooltip&quot; id=&quot;statTooltip&quot;&gt;&lt;/div&gt;
 
@@ -61,7 +70,7 @@
     var ACTIVE_TEAMS = new Set(['gsw']);
 
     var svgContainer = d3.select(&quot;svg&quot;),
-        graphMargins = {top: 25, right: 25, bottom: 25, left: 35};
+        graphMargins = {top: 25, right: 25, bottom: 55, left: 35};
 
     var graphWidth = +svgContainer.attr(&quot;width&quot;) - graphMargins.left - graphMargins.right;
     var graphHeight = +svgContainer.attr(&quot;height&quot;) - graphMargins.top - graphMargins.bottom;
@@ -128,6 +137,27 @@
     }
 
     function renderAvgLine(team, baseWinPct) {
+
+        var g = graphContainer.append(&quot;g&quot;).attr(&quot;transform&quot;, translate(0, pctToHeight(baseWinPct)));
+
+        g.append(&quot;line&quot;)
+          .style(&quot;stroke&quot;, teamToColor(team))
+          .attr(&quot;team&quot;, team)
+          .attr(&quot;x1&quot;, numGamesToWidth(0))
+          .attr(&quot;class&quot;, &quot;avgLine&quot;)
+          .attr(&quot;x2&quot;, numGamesToWidth(82))
+          .attr(&quot;y1&quot;, 0)
+          .attr(&quot;y2&quot;, 0)
+
+        g.append(&quot;text&quot;)
+         .text(&quot;Overall Win %: &quot; + (100 * baseWinPct).toFixed(2) + &quot;%&quot;)
+         .attr(&quot;class&quot;, &quot;avgLine&quot;)
+         .attr(&quot;team&quot;, team)
+         .attr(&quot;x&quot;, 10)
+         .attr(&quot;y&quot;, -5)
+         .style(&quot;fill&quot;, teamToColor(team))
+
+        /*
         graphContainer.append(&quot;line&quot;)
                       .attr(&quot;class&quot;, &quot;avgLine&quot;)
                       .style(&quot;stroke&quot;, teamToColor(team))
@@ -136,6 +166,7 @@
                       .attr(&quot;x2&quot;, numGamesToWidth(82))
                       .attr(&quot;y1&quot;, pctToHeight(baseWinPct))
                       .attr(&quot;y2&quot;, pctToHeight(baseWinPct))
+        */
     }
 
     function extractTeams() {
@@ -184,12 +215,27 @@
         svgContainer.append(&quot;g&quot;)
                     .attr(&quot;transform&quot;, translate(graphMargins.left, graphMargins.top))
                     .call(d3.axisLeft(pctToHeight).tickFormat(d3.format(&quot;.0%&quot;)).ticks(5))
+
+        graphContainer.append(&quot;text&quot;)
+                      .attr(&quot;text-anchor&quot;, &quot;middle&quot;)
+                      .attr(&quot;class&quot;, &quot;label&quot;)
+                      .attr(&quot;y&quot;, -15)
+                      .attr(&quot;x&quot;, - graphHeight / 2)
+                      .attr(&quot;transform&quot;, &quot;rotate(-90)&quot;)
+                      .text(&quot;Win %&quot;)
     }
 
     function renderXAxis() {
         svgContainer.append(&quot;g&quot;)
                       .attr(&quot;transform&quot;, translate(graphMargins.left, graphMargins.top + graphHeight))
                       .call(d3.axisBottom(numGamesToWidth).tickFormat(d3.format(&quot;d&quot;)).ticks(17))
+
+        graphContainer.append(&quot;text&quot;)
+                      .attr(&quot;class&quot;, &quot;label&quot;)
+                      .attr(&quot;text-anchor&quot;, &quot;middle&quot;)
+                      .attr(&quot;x&quot;, graphWidth / 2)
+                      .attr(&quot;y&quot;, graphHeight + graphMargins.top + 12.5)
+                      .text(&quot;# games&quot;)
     }
 
     // TODO: move this and the translate function into the a utils.file
@@ -206,7 +252,6 @@
             d3.select(this).attr(&quot;class&quot;, &quot;avgLine light&quot;);
         })
 
-        // .style(&quot;fill&quot;, teamToColor(teamName))
         // draw all selected teams
         state.selectedTeams.forEach(function(d) {
             d3.selectAll(&quot;circle[team=&quot; + d +&quot;]&quot;).each(function() {
