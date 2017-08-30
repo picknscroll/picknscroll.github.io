@@ -44,6 +44,10 @@ share: true
     .avgLine.light {
         opacity: 0.0;
     }
+
+    .toggle {
+        margin-bottom: 15px;
+    }
 </style>
 
 <div class="toggle" id="statToggle"></div>

@@ -45,6 +45,10 @@
     .avgLine.light {
         opacity: 0.0;
     }
+
+    .toggle {
+        margin-bottom: 15px;
+    }
 &lt;/style&gt;
 
 &lt;div class=&quot;toggle&quot; id=&quot;statToggle&quot;&gt;&lt;/div&gt;
