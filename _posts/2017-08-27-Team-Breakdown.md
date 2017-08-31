@@ -53,7 +53,7 @@ share: true
 
 Part 2 in an examination of the elements of winning basketball. Part 1 is <a href="https://picknscroll.github.io/2017-06-15/The-NBA-Evolution/">here</a>
 
-The graph below is an interactive view into how important different stats are for different teams. Each point represents a particular team and stat. For each point, the x-coordinate is the number of the games in which the team won the particular stat and the y-coordinate is the team's win percentage in those games.
+The chart below is an interactive view into how important different stats are for different teams. Each point in the chart represents a particular team and stat. For each point, the x-coordinate is the number of the games in which the team won the particular stat and the y-coordinate is the team's win percentage in those games.
 
 Points towards the upper left corner represent stats that correlate strongly to winning, but are not frequently won by the team. Points toward the lower left represent stats that do not correlate strongly to winning, yet are more frequently won. The upper right corner is the holy grail.
 
