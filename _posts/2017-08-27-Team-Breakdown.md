@@ -50,6 +50,7 @@ share: true
     }
 </style>
 
+#### This post is best viewed on a laptop.
 
 Part 2 in an examination of the elements of winning basketball. Part 1 is <a href="https://picknscroll.github.io/2017-06-15/The-NBA-Evolution/">here</a>
 

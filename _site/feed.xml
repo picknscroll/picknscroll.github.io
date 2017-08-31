@@ -51,6 +51,8 @@
     }
 &lt;/style&gt;
 
+&lt;h4 id=&quot;this-post-is-best-viewed-on-a-laptop&quot;&gt;This post is best viewed on a laptop.&lt;/h4&gt;
+
 &lt;p&gt;Part 2 in an examination of the elements of winning basketball. Part 1 is &lt;a href=&quot;https://picknscroll.github.io/2017-06-15/The-NBA-Evolution/&quot;&gt;here&lt;/a&gt;&lt;/p&gt;
 
 &lt;p&gt;The chart below is an interactive view into how important different stats are for different teams. Each point in the chart represents a particular team and stat. For each point, the x-coordinate is the number of the games in which the team won the particular stat and the y-coordinate is the team’s win percentage in those games.&lt;/p&gt;
