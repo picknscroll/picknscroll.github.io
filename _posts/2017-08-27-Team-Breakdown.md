@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "Team by Team Breakdown"
-description: "and the evolving elements of winning basketball"
+title: "The Elements of Winning Basketball, Part 2"
+description: "interactive team by team breakdown"
 date: 2017-08-27
 share: true
 ---
@@ -50,6 +50,19 @@ share: true
     }
 </style>
 
+
+Part 2 in an examination of the elements of winning basketball. Part 1 is <a href="https://picknscroll.github.io/2017-06-15/The-NBA-Evolution/">here</a>
+
+The graph below is an interactive view into how important different stats are for different teams. Each point represents a particular team and stat. For each point, the x-coordinate is the number of the games in which the team won the particular stat and the y-coordinate is the team's win percentage in those games.
+
+Points towards the upper left corner represent stats that correlate strongly to winning, but are not frequently won by the team. Points toward the lower left represent stats that do not correlate strongly to winning, yet are more frequently won. The upper right corner is the holy grail.
+
+Interact with the graph by toggling the buttons for teams, stats or both. Selecting a team and a particular stat filters the view to a single point. In the initial view below, for example, the single visible point represents the Golden State Warriors and offensive rebounds. Hovering over the point yields the coordinates (24, 91.7%) Translation: the Warriors had a 91.7 win % in the 24 games where they grabbed more offensive rebounds than their opponent.
+
+Toggle "gsw" off to see the importance of offensive rebounds for all teams. The Warriors are quite an outlier.
+
+## Chart
+
 <div class="toggle" id="statToggle"></div>
 
 <div class="vert toggle" id="teamToggle"></div>
@@ -69,8 +82,9 @@ share: true
 
     var data = {{ site.data.team_diff_data | jsonify }};
 
-    var EXCLUDE_KEYS = new Set(['ts_pct', 'win', 'base_win_pct', 'fg', 'fg_pct', 'efg_pct']);
+    var EXCLUDE_KEYS = new Set(['win', 'base_win_pct', 'fg']);
     var ACTIVE_TEAMS = new Set(['gsw']);
+    var ACTIVE_STATS = new Set(['orb']);
 
     var svgContainer = d3.select("svg"),
         graphMargins = {top: 25, right: 25, bottom: 55, left: 35};
@@ -96,7 +110,10 @@ share: true
     function initState(keysToRender, teams) {
       for (var i = 0; i < keysToRender.length; i++) {
         var key = keysToRender[i];
-        state.statState[key] = false;
+        if (ACTIVE_STATS.has(key)) {
+            state.statState[key] = true;
+            state.selectedStats.add(key);
+        } else state.statState[key] = false;
       }
 
      for (var i = 0; i < teams.length; i++) {
@@ -153,23 +170,13 @@ share: true
           .attr("y2", 0)
 
         g.append("text")
-         .text("Overall Win %: " + (100 * baseWinPct).toFixed(2) + "%")
+         .text("[" + team + "] " + "overall Win %: " + (100 * baseWinPct).toFixed(2) + "%")
          .attr("class", "avgLine")
          .attr("team", team)
          .attr("x", 10)
          .attr("y", -5)
          .style("fill", teamToColor(team))
 
-        /*
-        graphContainer.append("line")
-                      .attr("class", "avgLine")
-                      .style("stroke", teamToColor(team))
-                      .attr("team", team)
-                      .attr("x1", numGamesToWidth(0))
-                      .attr("x2", numGamesToWidth(82))
-                      .attr("y1", pctToHeight(baseWinPct))
-                      .attr("y2", pctToHeight(baseWinPct))
-        */
     }
 
     function extractTeams() {
@@ -384,9 +391,16 @@ share: true
 
 ## Observations
 
-The most interesting insight here is that stats relating to three pointers (3pt, 3pt%) and rebounding (drb, trb) have a definite negative slope. This implies that teams who benefit the most from winning that stat also win it the least, which intuitively means that the these stats are even <i>more</i> important to these teams.
+I had a lot of fun clicking around and interacting with this data. A few of my favorite findings:
 
-The Pelicans with respect to defensive rebounding and the Timberwolves are of the most interesting to me. With DeMarcus Cousins and Anthony Davis, it would seem to me that the Pelicans should be dominating the defensive glass. Yet, in the '16-17' season, they only won the defensive rebounding battle 24 times, posting a +37.7% win percentage relative to their base percentage in those games. Digging a little deeper, # TODO: check what this breakdown looked like after the addition of DeMarcus Cousins.
+* Cleveland wins when they move the ball. They won 96.7% of the 30 games (29-1) where they had more assists than their opponent. Cleveland has never had a truly cohesive offensive system. When you have LeBron James and Kyrie Irving, it turns out you can get along just fine without one. But the data shows how much harder a team is to guard when the ball is swinging, the players are moving, and the cuts are crisp.
 
-The Timberwolves are fascinating because they posted a +39.5% win pct relative to base in games where they attempted/made? more three-pointers than their opponent, a clear indication how outside shooting benefits their team. By adding Jimmy Butler and Jeff Teague, there's no arguing that the Timberwolves upgraded their arsenal during the off-season. But even so, there still isn't a ton of outside shooting on the floor. It will be interesting to see how the Timberwolves do with respect to the outside shot this season.
+* Boston wins when they rebound the ball. They won 97.1% of the 34 games (33-1)  where they grabbed more defensive rebounds than their opponent. Boston has the league's most versatile lineup outside of Oakland - their collection of wings all have above-average ball skills and are also capable of switching on defense. But that versatility comes at the expense of size, and Al Horford, for all of his unique talents as a big, does not exactly dominate the boards.
 
+* Brooklyn doesn't always win when they shoot better than their opponent. At 51.7%, Boston's win % in games where they posted a higher true shooting % than their opponent was by far the lowest in the league (Philly was the next lowest, at 64.5%). Upon closer inspection, the Nets rarely outrebounded their opponents (23 games), and rarely turned the ball over less (21 games) as well. So while the Nets might have made a higher percentage of their shots than their opponents, they usually had fewer posesssions to work with, leading to fewer points overall.
+
+* I was shocked by how infrequently the Pelicans outrebound their opponents (21 games, 71.6 win %). Given that they have the most dominant big man duo in the league, I'm really curious to see how this trend continues in the upcoming season.
+
+* The Timberwolves need more three-point makers. They went 6-11 in games where they attempted more 3s than their opponent, and 17-5 in games where they made more 3s. The 42% difference between these two statistics is the highest in the league. The Timberwolves got significantly better this off-season, but I still think they could use some more shooters. While Jimmy Butler's outside shooting numbers are good (not great), I wouldn't consider him a floor stretcher - he operates heavily <a href="http://nbasavant.com/player.php?player_id=202710">around the basket and in the mid-range.</a> Jeff Teague is certaintly an upgrade over Rubio (in terms of shooting), but they also lost Zach Lavine. The Timberwolves have a wealth of offensive talent, but will there be enough space to utilize that talent optimally?
+
+Making this graph only increased my excitement for the upcoming NBA season, one that promises to be full of intrigue after this offseason's flury of activity. October 17th can't come fast enough!

@@ -1,7 +1,7 @@
 ---
 layout: post
-title: "The NBA Revolution"
-description: "and the evolving elements of winning basketball"
+title: "The Elements of Winning Basketball"
+description: "and the three-point revolution"
 date: 2017-06-15
 share: true
 ---
