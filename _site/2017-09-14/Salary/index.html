@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Salary</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css" type="text/css">
+
+  <!-- Font -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css' rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu+Mono" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="/assets/css/trend.css"/>
+
+  <link rel="alternate" type="application/rss+xml" title="RSS Feed for The Pick and Scroll" href="/feed.xml" />
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+
+  <!-- Begin Jekyll SEO tag v2.2.3 -->
+<title>Salary | The Pick and Scroll</title>
+<meta property="og:title" content="Salary" />
+<meta property="og:locale" content="en_US" />
+<link rel="canonical" href="http://localhost:4000/2017-09-14/Salary/" />
+<meta property="og:url" content="http://localhost:4000/2017-09-14/Salary/" />
+<meta property="og:site_name" content="The Pick and Scroll" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2017-09-14T00:00:00+09:00" />
+<script type="application/ld+json">
+{"@context":"http://schema.org","@type":"BlogPosting","headline":"Salary","author":{"@type":"Person","name":null},"datePublished":"2017-09-14T00:00:00+09:00","dateModified":"2017-09-14T00:00:00+09:00","mainEntityOfPage":{"@type":"WebPage","@id":"http://localhost:4000/2017-09-14/Salary/"},"url":"http://localhost:4000/2017-09-14/Salary/"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+
+  <!-- Google Analytics -->
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', '', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+
+
+</head>
+
+<body>
+  <div class="content-container">
+    <header>
+  <div class="header-small">
+    <a href="http://localhost:4000">The Pick and Scroll</a>
+  </div>
+</header>
+<div class="post">
+  <div class="post-title">Salary</div>
+  <span class="post-date">
+    <time>14 Sep 2017</time>
+  </span>
+  <div class="post-tag">
+    <ul>
+      
+    </ul>
+  </div>
+
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+
+<script src="https://code.highcharts.com/modules/drilldown.js"></script>
+
+<div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+
+<script>
+
+    var standardDateFormat = {
+      millisecond: '%l:%M:%S.%L %p',
+      second: '%l:%M:%S %p',
+      minute: '%l:%M %p',
+      hour: '%l:%M %p',
+      day: '%A <br /> %b %e %Y',
+      week: '%e. %b',
+      month: '%b \'%y',
+      year: '%Y'
+    };
+
+
+    Highcharts.chart('container', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: "NBA Salary Cap Visualization"
+    },
+    legend: {
+        enabled: false
+    },
+     xAxis: {
+      type: 'category'
+    },
+    plotOptions: {
+      column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+        }
+    },
+    series: [
+      {"name": "Salary Cap",
+       "data":[
+         {"name": "Milwaukee Bucks", "y" :117427240, "drilldown": "Milwaukee"},
+         {"name": "Miami Heat", "y" : 102851379, "drilldown": "Miami"},
+       ]
+    }],
+
+    drilldown: { series:
+        [{"id":"Milwaukee","name":"Salary",
+          "data":[
+            ["Giannis Antetokounmpo", 22471911],
+            ["Greg Monroe",17884176],
+            ["Khris Middleton",14000000],
+            ["John Henson",11422536],
+            ["Mirza Teletovic", 10500000],
+            ["Tony Snell", 9821429],
+            ["Matthew Dellevadova", 9607500],
+            ["Jabari Parker", 6782392],
+            ["Thon Maker", 2684160],
+            ["DJ Wilson", 2135040],
+            ["Rashad Vaughn", 1889040],
+            ["Gary Payton II", 1312611],
+            ["Malcolm Brogdon", 1312611],
+            ["JeQuan Lewis", 815615],
+            ["Sterling Brown", 815615]
+          ]},
+          {"id": "Miami", "name": "Salary",
+           "data": [
+             ["Hassan Whiteside", 23775506],
+             ["Goran Dragic", 17000450],
+             ["James Johnson", 13954000],
+             ["Dion Waiters", 11000000],
+             ["Kelly Olynyk", 10607129],
+             ["Wayne Ellington", 6270000],
+             ["Tyler Johnson", 5881260],
+             ["Justise Winslow", 2705040],
+             ["Bam Adebayo", 2490360],
+             ["Josh Richardson", 1471382],
+             ["Udonis Haslem", 1471382],
+             ["Jordan Mickey", 1471382],
+             ["Rodney McGruder", 1312611],
+             ["Okaro White", 1312611],
+             ["AJ Hammons", 1312611],
+             ["Matt Williams", 815615],
+           ]
+        }]
+    }
+
+});
+
+</script>
+
+
+
+  <!-- Disqus -->
+  
+
+</div>
+
+
+    <!-- Documents about icons are here: http://fontawesome.io/icons/ -->
+<div class="footer">
+  <hr />
+  <div class="footer-link">
+    
+	
+	
+	
+	
+
+    
+
+    
+	
+	
+	
+	
+
+    
+    <a href="https://www.linkedin.com/in/jzhang621"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+    
+	
+	
+	
+	
+	
+	
+	
+	
+
+    
+
+    
+
+    
+
+  </div>
+  © 2017 Kiko. All rights reserved.
+</div>
+
+  </div>
+</body>
+</html>

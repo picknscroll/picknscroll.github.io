@@ -6,6 +6,106 @@
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Salary</title>
+        <description>&lt;script src=&quot;https://code.highcharts.com/highcharts.js&quot;&gt;&lt;/script&gt;
+
+&lt;script src=&quot;https://code.highcharts.com/modules/drilldown.js&quot;&gt;&lt;/script&gt;
+
+&lt;div id=&quot;container&quot; style=&quot;min-width: 310px; height: 400px; margin: 0 auto&quot;&gt;&lt;/div&gt;
+
+&lt;script&gt;
+
+    var standardDateFormat = {
+      millisecond: '%l:%M:%S.%L %p',
+      second: '%l:%M:%S %p',
+      minute: '%l:%M %p',
+      hour: '%l:%M %p',
+      day: '%A &lt;br /&gt; %b %e %Y',
+      week: '%e. %b',
+      month: '%b \'%y',
+      year: '%Y'
+    };
+
+
+    Highcharts.chart('container', {
+    chart: {
+        type: 'column'
+    },
+    title: {
+        text: &quot;NBA Salary Cap Visualization&quot;
+    },
+    legend: {
+        enabled: false
+    },
+     xAxis: {
+      type: 'category'
+    },
+    plotOptions: {
+      column: {
+            pointPadding: 0.2,
+            borderWidth: 0
+        }
+    },
+    series: [
+      {&quot;name&quot;: &quot;Salary Cap&quot;,
+       &quot;data&quot;:[
+         {&quot;name&quot;: &quot;Milwaukee Bucks&quot;, &quot;y&quot; :117427240, &quot;drilldown&quot;: &quot;Milwaukee&quot;},
+         {&quot;name&quot;: &quot;Miami Heat&quot;, &quot;y&quot; : 102851379, &quot;drilldown&quot;: &quot;Miami&quot;},
+       ]
+    }],
+
+    drilldown: { series:
+        [{&quot;id&quot;:&quot;Milwaukee&quot;,&quot;name&quot;:&quot;Salary&quot;,
+          &quot;data&quot;:[
+            [&quot;Giannis Antetokounmpo&quot;, 22471911],
+            [&quot;Greg Monroe&quot;,17884176],
+            [&quot;Khris Middleton&quot;,14000000],
+            [&quot;John Henson&quot;,11422536],
+            [&quot;Mirza Teletovic&quot;, 10500000],
+            [&quot;Tony Snell&quot;, 9821429],
+            [&quot;Matthew Dellevadova&quot;, 9607500],
+            [&quot;Jabari Parker&quot;, 6782392],
+            [&quot;Thon Maker&quot;, 2684160],
+            [&quot;DJ Wilson&quot;, 2135040],
+            [&quot;Rashad Vaughn&quot;, 1889040],
+            [&quot;Gary Payton II&quot;, 1312611],
+            [&quot;Malcolm Brogdon&quot;, 1312611],
+            [&quot;JeQuan Lewis&quot;, 815615],
+            [&quot;Sterling Brown&quot;, 815615]
+          ]},
+          {&quot;id&quot;: &quot;Miami&quot;, &quot;name&quot;: &quot;Salary&quot;,
+           &quot;data&quot;: [
+             [&quot;Hassan Whiteside&quot;, 23775506],
+             [&quot;Goran Dragic&quot;, 17000450],
+             [&quot;James Johnson&quot;, 13954000],
+             [&quot;Dion Waiters&quot;, 11000000],
+             [&quot;Kelly Olynyk&quot;, 10607129],
+             [&quot;Wayne Ellington&quot;, 6270000],
+             [&quot;Tyler Johnson&quot;, 5881260],
+             [&quot;Justise Winslow&quot;, 2705040],
+             [&quot;Bam Adebayo&quot;, 2490360],
+             [&quot;Josh Richardson&quot;, 1471382],
+             [&quot;Udonis Haslem&quot;, 1471382],
+             [&quot;Jordan Mickey&quot;, 1471382],
+             [&quot;Rodney McGruder&quot;, 1312611],
+             [&quot;Okaro White&quot;, 1312611],
+             [&quot;AJ Hammons&quot;, 1312611],
+             [&quot;Matt Williams&quot;, 815615],
+           ]
+        }]
+    }
+
+});
+
+&lt;/script&gt;
+
+</description>
+        <pubDate>Thu, 14 Sep 2017 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2017-09-14/Salary/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017-09-14/Salary/</guid>
+      </item>
+    
+      <item>
         <title>The Elements of Winning Basketball, Part 2</title>
         <description>&lt;style type=&quot;text/css&quot;&gt;
     circle.dark {
