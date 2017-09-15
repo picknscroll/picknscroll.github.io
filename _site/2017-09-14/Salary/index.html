@@ -99,7 +99,15 @@ ga('send', 'pageview');
         enabled: false
     },
      xAxis: {
-      type: 'category'
+      type: 'category',
+
+    },
+    yAxis: {
+      plotBands: [{
+        color: 'orange',
+        from: 103000000,
+        to: 104000000
+      }]
     },
     plotOptions: {
       column: {
@@ -107,59 +115,19 @@ ga('send', 'pageview');
             borderWidth: 0
         }
     },
-    series: [
-      {"name": "Salary Cap",
-       "data":[
-         {"name": "Milwaukee Bucks", "y" :117427240, "drilldown": "Milwaukee"},
-         {"name": "Miami Heat", "y" : 102851379, "drilldown": "Miami"},
-       ]
-    }],
 
-    drilldown: { series:
-        [{"id":"Milwaukee","name":"Salary",
-          "data":[
-            ["Giannis Antetokounmpo", 22471911],
-            ["Greg Monroe",17884176],
-            ["Khris Middleton",14000000],
-            ["John Henson",11422536],
-            ["Mirza Teletovic", 10500000],
-            ["Tony Snell", 9821429],
-            ["Matthew Dellevadova", 9607500],
-            ["Jabari Parker", 6782392],
-            ["Thon Maker", 2684160],
-            ["DJ Wilson", 2135040],
-            ["Rashad Vaughn", 1889040],
-            ["Gary Payton II", 1312611],
-            ["Malcolm Brogdon", 1312611],
-            ["JeQuan Lewis", 815615],
-            ["Sterling Brown", 815615]
-          ]},
-          {"id": "Miami", "name": "Salary",
-           "data": [
-             ["Hassan Whiteside", 23775506],
-             ["Goran Dragic", 17000450],
-             ["James Johnson", 13954000],
-             ["Dion Waiters", 11000000],
-             ["Kelly Olynyk", 10607129],
-             ["Wayne Ellington", 6270000],
-             ["Tyler Johnson", 5881260],
-             ["Justise Winslow", 2705040],
-             ["Bam Adebayo", 2490360],
-             ["Josh Richardson", 1471382],
-             ["Udonis Haslem", 1471382],
-             ["Jordan Mickey", 1471382],
-             ["Rodney McGruder", 1312611],
-             ["Okaro White", 1312611],
-             ["AJ Hammons", 1312611],
-             ["Matt Williams", 815615],
-           ]
-        }]
-    }
+    "series": [{"data": [{"y": 138060943, "drilldown": "MIA", "name": "MIA"}, {"y": 130568546, "drilldown": "GSW", "name": "GSW"}, {"y": 128585942, "drilldown": "WAS", "name": "WAS"}, {"y": 128279348, "drilldown": "CLE", "name": "CLE"}, {"y": 127341800, "drilldown": "OKC", "name": "OKC"}, {"y": 118033343, "drilldown": "CHO", "name": "CHO"}, {"y": 116639472, "drilldown": "TOR", "name": "TOR"}, {"y": 115703094, "drilldown": "LAC", "name": "LAC"}, {"y": 112000975, "drilldown": "POR", "name": "POR"}, {"y": 107433526, "drilldown": "BOS", "name": "BOS"}, {"y": 106079884, "drilldown": "DET", "name": "DET"}, {"y": 104733187, "drilldown": "NYK", "name": "NYK"}, {"y": 99471628, "drilldown": "SAS", "name": "SAS"}, {"y": 99228657, "drilldown": "MEM", "name": "MEM"}, {"y": 94827090, "drilldown": "NOP", "name": "NOP"}, {"y": 94428380, "drilldown": "MIN", "name": "MIN"}, {"y": 91473717, "drilldown": "MIL", "name": "MIL"}, {"y": 91270851, "drilldown": "IND", "name": "IND"}, {"y": 89726128, "drilldown": "ORL", "name": "ORL"}, {"y": 84929078, "drilldown": "SAC", "name": "SAC"}, {"y": 84911080, "drilldown": "HOU", "name": "HOU"}, {"y": 84344764, "drilldown": "BRK", "name": "BRK"}, {"y": 83572736, "drilldown": "UTA", "name": "UTA"}, {"y": 82334177, "drilldown": "DEN", "name": "DEN"}, {"y": 79957719, "drilldown": "PHO", "name": "PHO"}, {"y": 69610040, "drilldown": "DAL", "name": "DAL"}, {"y": 69077866, "drilldown": "ATL", "name": "ATL"}, {"y": 53915756, "drilldown": "LAL", "name": "LAL"}, {"y": 48192972, "drilldown": "CHI", "name": "CHI"}, {"y": 41193027, "drilldown": "PHI", "name": "PHI"}], "name": "salary"}],
+
+     "drilldown": {"series": [{"data": [["LeBron James", 35607968], ["Kevin Love", 24119025], ["Tristan Thompson", 17469565], ["J.R. Smith", 14720000], ["Iman Shumpert", 11011234], ["Kyle Korver", 7560000], ["Jae Crowder", 7305825], ["Cedi Osman", 2775000], ["Richard Jefferson", 2612500], ["Ante Zizic", 1952760], ["Edy Tavares", 1600520], ["Kay Felder", 1544951]], "id": "CLE", "name": "salary"}, {"data": [["Stephen Curry", 37457154], ["Kevin Durant", 26250000], ["Klay Thompson", 18988725], ["Draymond Green", 17469565], ["Andre Iguodala", 16000000], ["Shaun Livingston", 8307692], ["Kevon Looney", 2227081], ["Damian Jones", 1544951], ["Jordan Bell", 1378252], ["Jason Thompson", 945126]], "id": "GSW", "name": "salary"}, {"data": [["Russell Westbrook", 30670404], ["Steven Adams", 24157303], ["Paul George", 20703384], ["Enes Kanter", 18622514], ["Andre Roberson", 10000000], ["Alex Abrines", 5455236], ["Patrick Patterson", 5451600], ["Kyle Singler", 4996000], ["Terrance Ferguson", 2118840], ["Josh Huestis", 2243326], ["Semaj Christon", 1544951], ["Dakari Johnson", 1378242]], "id": "OKC", "name": "salary"}, {"data": [["Hassan Whiteside", 25434263], ["Goran Dragic", 18109175], ["James Johnson", 14651700], ["Dion Waiters", 11550000], ["Kelly Olynyk", 11137527], ["Tyler Johnson", 19245370], ["Justise Winslow", 3448926], ["Bam Adebayo", 2955840], ["Jordan Mickey", 1600520], ["A.J. Hammons", 1544951], ["Rodney McGruder", 1544951], ["Chris Bosh", 26837720]], "id": "MIA", "name": "salary"}, {"data": [["Otto Porter", 26011913], ["Bradley Beal", 25434263], ["John Wall", 19169800], ["Ian Mahinmi", 15944154], ["Marcin Gortat", 13565218], ["Markieff Morris", 8600000], ["Jason Smith", 5450000], ["Jodie Meeks", 3454500], ["Tomas Satoransky", 3129187], ["Kelly Oubre", 3208630], ["Chris McCullough", 2243326], ["Daniel Ochefu", 1544951], ["Martell Webster", 830000]], "id": "WAS", "name": "salary"}, {"data": [["Blake Griffin", 31873932], ["DeAndre Jordan", 24119025], ["Danilo Gallinari", 21587579], ["Austin Rivers", 12650000], ["Milos Teodosic", 6300000], ["Wesley Johnson", 6134000], ["Patrick Beverley", 5027028], ["Sam Dekker", 2760095], ["Brice Johnson", 1544951], ["Sindarius Thornwell", 1378242], ["Jawun Evans", 1378242], ["Carlos Delfino", 650000], ["Miroslav Raduljica", 300000]], "id": "LAC", "name": "salary"}, {"data": [["Damian Lillard", 27977689], ["C.J. McCollum", 25759766], ["Evan Turner", 17868852], ["Maurice Harkless", 10837079], ["Meyers Leonard", 10595506], ["Al-Farouq Aminu", 6957105], ["Zach Collins", 3628920], ["Caleb Swanigan", 1740000], ["Jake Layman", 1544951], ["Andrew Nicholson", 2844429], ["Anderson Varejao", 1913345], ["Festus Ezeli", 333333]], "id": "POR", "name": "salary"}, {"data": [["Giannis Antetokounmpo", 24157303], ["Khris Middleton", 13000000], ["John Henson", 10577466], ["Mirza Teletovic", 10500000], ["Tony Snell", 10607143], ["Matthew Dellavedova", 9607500], ["Thon Maker", 2799720], ["D.J. Wilson", 2534280], ["Rashad Vaughn", 2901565], ["Malcolm Brogdon", 1544951], ["Sterling Brown", 1378242], ["Larry Sanders", 1865547]], "id": "MIL", "name": "salary"}, {"data": [["Kyle Lowry", 31000000], ["DeMar DeRozan", 27739975], ["Serge Ibaka", 21666667], ["Jonas Valanciunas", 16539326], ["C.J. Miles", 8333333], ["Jakob Poeltl", 2947320], ["Delon Wright", 2536898], ["OG Anunoby", 1952760], ["Pascal Siakam", 1544951], ["Alfonzo McKinnie", 1378242], ["Justin Hamilton", 1000000]], "id": "TOR", "name": "salary"}, {"data": [["James Harden", 30431854], ["Ryan Anderson", 20421546], ["Eric Gordon", 13500375], ["P.J. Tucker", 7969537], ["Nene Hilario", 3651480], ["Troy Williams", 1544951], ["Isaiah Taylor", 1544951], ["Chinanu Onuaku", 1544951], ["Shawn Long", 1544951], ["Cameron Oliver", 1378242], ["Zhou Qi", 1378242]], "id": "HOU", "name": "salary"}, {"data": [["Dwight Howard", 23819725], ["Nicolas Batum", 24000000], ["Marvin Williams", 14087500], ["Michael Kidd-Gilchrist", 13000000], ["Cody Zeller", 13528090], ["Kemba Walker", 12000000], ["Jeremy Lamb", 7488372], ["Malik Monk", 3447480], ["Frank Kaminsky", 3627842], ["Julyan Stone", 1656092], ["Dwayne Bacon", 1378242]], "id": "CHO", "name": "salary"}, {"data": [["Andre Drummond", 25434263], ["Reggie Jackson", 17043478], ["Tobias Harris", 14800000], ["Jon Leuer", 10002681], ["Boban Marjanovic", 7000000], ["Langston Galloway", 7000000], ["Ish Smith", 6000000], ["Stanley Johnson", 3940402], ["Luke Kennard", 3275280], ["Reggie Bullock", 2500000], ["Henry Ellenson", 1857480], ["Eric Moreland", 1826300], ["Josh Smith", 5400000]], "id": "DET", "name": "salary"}, {"data": [["LaMarcus Aldridge", 22347015], ["Kawhi Leonard", 20099189], ["Pau Gasol", 16000000], ["Patty Mills", 11571429], ["Danny Green", 10000000], ["Rudy Gay", 8826300], ["Manu Ginobili", 2500000], ["Joffrey Lauvergne", 1656092], ["Derrick White", 1667160], ["Dejounte Murray", 1544951], ["Brandon Paul", 1378242], ["Tim Duncan", 1881250]], "id": "SAS", "name": "salary"}, {"data": [["Jrue Holiday", 26131111], ["Anthony Davis", 25434263], ["Solomon Hill", 12752928], ["Omer Asik", 11286516], ["E'Twaun Moore", 8808685], ["Alexis Ajinca", 5285394], ["Darius Miller", 2205000], ["Cheick Diallo", 1544951], ["Frank Jackson", 1378242]], "id": "NOP", "name": "salary"}, {"data": [["Jimmy Butler", 20445779], ["Jeff Teague", 19000000], ["Gorgui Dieng", 15170787], ["Taj Gibson", 14000000], ["Cole Aldrich", 6956021], ["Karl-Anthony Towns", 7839435], ["Jamal Crawford", 4544400], ["Justin Patton", 2667600], ["Tyus Jones", 2444053], ["Kevin Martin", 1360305]], "id": "MIN", "name": "salary"}, {"data": [["Rudy Gobert", 23491573], ["Ricky Rubio", 14975000], ["Joe Ingles", 13045455], ["Alec Burks", 11536515], ["Thabo Sefolosha", 5250000], ["Jonas Jerebko", 4200000], ["Ekpe Udoh", 3360000], ["Donovan Mitchell", 3111480], ["Tony Bradley", 1679520], ["Joel Bolomboy", 1544951], ["Royce O'Neale", 1378242]], "id": "UTA", "name": "salary"}, {"data": [["Gordon Hayward", 31214295], ["Al Horford", 28928710], ["Kyrie Irving", 20099188], ["Jayson Tatum", 6700800], ["Marcus Morris", 5375000], ["Jaylen Brown", 5169960], ["Guerschon Yabusele", 2667600], ["Terry Rozier", 3050390], ["Semi Ojeleye", 1378242], ["Abdel Nader", 1378242], ["Daniel Theis", 1378242], ["Demetrius Jackson", 92857]], "id": "BOS", "name": "salary"}, {"data": [["Carmelo Anthony", 27928140], ["Joakim Noah", 18530000], ["Tim Hardaway", 17325000], ["Courtney Lee", 12253780], ["Lance Thomas", 7119650], ["Kristaps Porzingis", 5697054], ["Ron Baker", 4544400], ["Kyle O'Quinn", 4256250], ["Frank Ntilikina", 4155720], ["Willy Hernangomez", 1544951], ["Damyean Dotson", 1378242]], "id": "NYK", "name": "salary"}, {"data": [["Mike Conley", 30521115], ["Chandler Parsons", 24107258], ["Marc Gasol", 24119025], ["Ben McLemore", 5460000], ["Troy Daniels", 3258540], ["Wade Baldwin", 1955160], ["Jarell Martin", 2416222], ["Wayne Selden", 1544951], ["Andrew Harrison", 1544951], ["Deyonta Davis", 1544951], ["Rade Zagorac", 1378242], ["Dillon Brooks", 1378242]], "id": "MEM", "name": "salary"}, {"data": [["Luol Deng", 18000000], ["Jordan Clarkson", 12500000], ["Lonzo Ball", 7461960], ["Brandon Ingram", 5757120], ["Tyler Ennis", 1656092], ["Larry Nance Jr.", 2272391], ["Kyle Kuzma", 1689840], ["Josh Hart", 1655160], ["Ivica Zubac", 1544951], ["Thomas Bryant", 1378242]], "id": "LAL", "name": "salary"}, {"data": [["Evan Fournier", 17000000], ["Bismack Biyombo", 17000000], ["Nikola Vucevic", 12750000], ["Terrence Ross", 10500000], ["D.J. Augustin", 7250000], ["Jonathon Simmons", 6000000], ["Shelvin Mack", 6000000], ["Jonathan Isaac", 4969080], ["Mario Hezonja", 5167231], ["Wesley Iwundu", 1378242], ["Khem Birch", 1378242], ["C.J. Watson", 333333]], "id": "ORL", "name": "salary"}, {"data": [["George Hill", 19000000], ["Zach Randolph", 11692308], ["Bogdan Bogdanovic", 9000000], ["Kosta Koufos", 8739500], ["Garrett Temple", 8000000], ["De'Aaron Fox", 5407920], ["Willie Cauley-Stein", 4696875], ["Buddy Hield", 3833760], ["Justin Jackson", 2807880], ["Georgios Papagiannis", 2400480], ["Harry Giles", 2207040], ["Malachi Richardson", 1569360], ["Skal Labissiere", 1544951], ["Frank Mason", 1378242], ["Matt Barnes", 2133542], ["Caron Butler", 517220]], "id": "SAC", "name": "salary"}, {"data": [["Allen Crabbe", 18500000], ["Timofey Mozgov", 16000000], ["DeMarre Carroll", 15400000], ["Jeremy Lin", 12516746], ["D'Angelo Russell", 7019698], ["Jarrett Allen", 2034120], ["Caris LeVert", 1702800], ["Spencer Dinwiddie", 1656092], ["Rondae Hollis-Jefferson", 2470357], ["Isaiah Whitehead", 1544951], ["Deron Williams", 5500000]], "id": "BRK", "name": "salary"}, {"data": [["Victor Oladipo", 21000000], ["Thaddeus Young", 13764045], ["Bojan Bogdanovic", 10500000], ["Darren Collison", 10000000], ["Al Jefferson", 10000000], ["Cory Joseph", 7945000], ["Lance Stephenson", 4360000], ["Myles Turner", 3410284], ["Domantas Sabonis", 2659800], ["T.J. Leaf", 2407560], ["Joe Young", 1600520], ["Ike Anigbogu", 1378242], ["Monta Ellis", 2245400]], "id": "IND", "name": "salary"}, {"data": [["Kent Bazemore", 18089887], ["Dennis Schroder", 15500000], ["Miles Plumlee", 12500000], ["Dewayne Dedmon", 6300000], ["Mike Muscala", 5000000], ["Taurean Waller-Prince", 2526840], ["John Collins", 2299080], ["DeAndre' Bembry", 1634640], ["Nicolas Brussino", 1544951], ["Tyler Dorsey", 1378242], ["Jamal Crawford", 2304226]], "id": "ATL", "name": "salary"}, {"data": [["Harrison Barnes", 24107258], ["Wesley Matthews", 18622514], ["Dwight Powell", 9631250], ["Dirk Nowitzki", 5000000], ["J.J. Barea", 3710850], ["Dennis Smith", 3819960], ["Jeff Withey", 1795015], ["Dorian Finney-Smith", 1544951], ["Maxi Kleber", 1378242]], "id": "DAL", "name": "salary"}, {"data": [["Paul Millsap", 29730769], ["Kenneth Faried", 13764045], ["Wilson Chandler", 12800562], ["Darrell Arthur", 7464912], ["Emmanuel Mudiay", 4294480], ["Jamal Murray", 3499800], ["Trey Lyles", 3364249], ["Juan Hernangomez", 2166360], ["Malik Beasley", 1773840], ["Tyler Lydon", 1874640], ["Nikola Jokic", 1600520]], "id": "DEN", "name": "salary"}, {"data": [["Jerryd Bayless", 8575916], ["Markelle Fultz", 8339880], ["Ben Simmons", 6434520], ["Jahlil Okafor", 6313832], ["Dario Saric", 2526840], ["Justin Anderson", 2516048], ["Richaun Holmes", 1600520], ["T.J. McConnell", 1600520], ["Furkan Korkmaz", 1740000], ["Timothe Luwawu-Cabarrot", 1544951]], "id": "PHI", "name": "salary"}, {"data": [["Eric Bledsoe", 15000000], ["Brandon Knight", 14631250], ["Tyson Chandler", 13585000], ["Jared Dudley", 9530000], ["Alan Williams", 5520000], ["Josh Jackson", 6041520], ["Dragan Bender", 4661280], ["Marquese Chriss", 3206160], ["Devin Booker", 3314365], ["Derrick Jones", 1544951], ["Tyler Ulis", 1544951], ["Davon Reed", 1378242]], "id": "PHO", "name": "salary"}, {"data": [["Robin Lopez", 14357750], ["Cristiano Felicio", 8470980], ["Justin Holiday", 4384616], ["Kris Dunn", 4221000], ["Lauri Markkanen", 4536120], ["Cameron Payne", 3263295], ["Denzel Valentine", 2280600], ["Jerian Grant", 2639314], ["Bobby Portis", 2494346], ["Paul Zipser", 1544951]], "id": "CHI", "name": "salary"}]}
+
+
 
 });
 
 </script>
+<blockquote>
 
+</blockquote>
 
 
   <!-- Disqus -->
