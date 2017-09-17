@@ -35,7 +35,8 @@ Highcharts.chart('container', {
     yAxis: {
         title: {
             text: 'Win Shares'
-        }
+        },
+        gridLineColor: 'transparent'
     },
     legend: {
         layout: 'horizontal',
