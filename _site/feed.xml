@@ -290,7 +290,7 @@ Highcharts.chart('container', {
            .text(&quot;Projected Cap: $103m&quot;)
 
     d3.select(&quot;.capLine line&quot;).transition().duration(duration).attr(&quot;x2&quot;, width);
-    d3.select(&quot;.capLine text&quot;).transition().duration(duration).attr(&quot;transform&quot;, translate(width - 145, salaryToY(projectedCap + 1750000)));
+    d3.select(&quot;.capLine text&quot;).transition().duration(duration).attr(&quot;transform&quot;, translate(width - 170, salaryToY(projectedCap + 1750000)));
   }    
 
   function drawChildren(team) {
