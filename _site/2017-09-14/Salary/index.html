@@ -12,7 +12,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
   <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css' rel='stylesheet' type='text/css'>
   <link href="https://fonts.googleapis.com/css?family=Ubuntu+Mono" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="/assets/css/trend.css"/>
+  <!-- <link rel="stylesheet" type="text/css" href="/assets/css/trend.css"/> -->
 
   <link rel="alternate" type="application/rss+xml" title="RSS Feed for The Pick and Scroll" href="/feed.xml" />
   <script src="https://d3js.org/d3.v4.min.js"></script>
@@ -37,24 +37,17 @@ ga('send', 'pageview');
 </head>
 
 <body>
-  <div class="chart-container">
-    <header>
+<header>
   <div class="header-small">
     <a href="http://localhost:4000">The Pick and Scroll</a>
   </div>
 </header>
-<div class="post">
-  <div class="post-title">Salary</div>
-  <span class="post-date">
-    <time>14 Sep 2017</time>
-  </span>
-  <div class="post-tag">
-    <ul>
-      
-    </ul>
-  </div>
 
-  <style>
+<style>
+
+  ul>li:before {
+    content: ""
+  }
 
   .xAxis text {
     font-size: 11px;
@@ -429,10 +422,6 @@ ga('send', 'pageview');
 
 
 
-  <!-- Disqus -->
-  
-
-</div>
 
 
     <!-- Documents about icons are here: http://fontawesome.io/icons/ -->
@@ -475,6 +464,5 @@ ga('send', 'pageview');
   © 2017 Kiko. All rights reserved.
 </div>
 
-  </div>
 </body>
 </html>
