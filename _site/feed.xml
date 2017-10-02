@@ -204,8 +204,8 @@ Highcharts.chart('container', {
   Looking ahead to the 2018 off-season has only increased my excitement for this upcoming season. Let the games begin!
   
 &lt;/div&gt;
-&lt;div&gt;
-&amp;lt;/body&amp;gt;
+&lt;/div&gt;
+&lt;/body&gt;
 
 &lt;script&gt;
 
@@ -536,7 +536,7 @@ Highcharts.chart('container', {
 
 
 &lt;/script&gt;
-&lt;/div&gt;&lt;/div&gt;&lt;/body&gt;
+
 </description>
         <pubDate>Thu, 14 Sep 2017 00:00:00 +0900</pubDate>
         <link>http://localhost:4000/2017-09-14/Salary/</link>
