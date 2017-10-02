@@ -127,6 +127,8 @@ Highcharts.chart('container', {
 
   #salaryContainer {
     display: inline-block;
+    width: 1200px;
+    margin: auto;
   }
 
   .text {
