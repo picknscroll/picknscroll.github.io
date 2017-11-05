@@ -346,14 +346,13 @@ Highcharts.chart('container', {
   initSalary();
   drawLegend();
   drawFreeAgentToggle();
-  
   function initSalaryAxes() {
     salaryToY.domain([0, d3.max(data, d =&gt; sum(d.salary) + extractFASalary(d) + axisPadding)]); 
     xAxis.domain(data.map(d =&gt; d.name)).range([0, width]);
   }
 
   function drawLegend() {
-    
+
     var legendContainer = salarySvg.append(&quot;g&quot;)
                           .attr(&quot;font-family&quot;, &quot;sans-serif&quot;)
                           .attr(&quot;font-size&quot;, 10)
