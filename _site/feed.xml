@@ -95,7 +95,13 @@ Highcharts.chart('container', {
 
 &lt;style&gt;
 
-  #contentContainer {i
+  @media (max-width: 640px) {
+    .text {
+      width: 90%;
+    }
+  }
+
+  #contentContainer {
     width: 100%;
   }
 
