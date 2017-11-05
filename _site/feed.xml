@@ -294,7 +294,7 @@ Highcharts.chart('container', {
   }
 
   // set-up margins for salary svg
-  var margin = {top: 25, right: 70, bottom: 125, left: 70},
+  var margin = {top: 25, right: 60, bottom: 125, left: 60},
     width = $('#salaryContainer').width() - margin.left - margin.right,
     height = 600 - margin.top - margin.bottom;
 
@@ -341,13 +341,13 @@ Highcharts.chart('container', {
   data.sort( (a,b) =&gt; extractNonFASalary(b) - extractNonFASalary(a))
 
   initSalaryAxes();
-  d3.select(&quot;.yAxis&quot;).call(d3.axisLeft(salaryToY));
+  d3.select(&quot;.yAxis&quot;).call(d3.axisLeft(salaryToY).tickFormat(d3.format(&quot;.2s&quot;)))
   d3.select(&quot;.xAxis&quot;).call(d3.axisBottom(xAxis));
   initSalary();
   drawLegend();
   drawFreeAgentToggle();
   function initSalaryAxes() {
-    salaryToY.domain([0, d3.max(data, d =&gt; sum(d.salary) + extractFASalary(d) + axisPadding)]); 
+    salaryToY.domain([0, d3.max(data, d =&gt; sum(d.salary) + extractFASalary(d) + axisPadding)]);
     xAxis.domain(data.map(d =&gt; d.name)).range([0, width]);
   }
 
@@ -380,7 +380,7 @@ Highcharts.chart('container', {
   }
 
   function updateSalary(salaryStack) {
-    var salaryGroups = graphContainer.selectAll(&quot;.salaryRect&quot;) 
+    var salaryGroups = graphContainer.selectAll(&quot;.salaryRect&quot;)
                                   .data(salaryStack)
                                   .enter()
                                   .append(&quot;g&quot;)
@@ -393,7 +393,7 @@ Highcharts.chart('container', {
                                  .append(&quot;g&quot;)
                                  .style(&quot;cursor&quot;, &quot;pointer&quot;)
                                  .on(&quot;click&quot;, (d, i) =&gt; drawChildren(data[i]))
- 
+
     salaryBars.append(&quot;rect&quot;)
               .attr(&quot;y&quot;, function(d) { return salaryToY(d[1]); })
               .attr(&quot;height&quot;, function(d) { return salaryToY(d[0]) - salaryToY(d[1]); })
@@ -446,7 +446,7 @@ Highcharts.chart('container', {
     d3.select(&quot;#taxLine line&quot;).transition().duration(duration).attr(&quot;x2&quot;, width);
     d3.select(&quot;#taxLine text&quot;).transition().duration(duration).attr(&quot;transform&quot;, translate(width - 220, salaryToY(projectedTax + buffer)));
 
-  }    
+  }
 
   function drawFreeAgentToggle() {
     changeController.text(&quot;Add Free Agents&quot;)
@@ -467,7 +467,6 @@ Highcharts.chart('container', {
 
     var players = team.players;
     var freeAgents = team.freeAgents;
-    
     /* reset axes */
     var maxSalary = Math.max(d3.max(players, d =&gt; d.salary), d3.max(freeAgents, d =&gt; d.salary));
     salaryToY.domain([0, maxSalary + axisPadding]);
@@ -511,7 +510,7 @@ Highcharts.chart('container', {
                       drawFreeAgentToggle();
                     })
 
-    }    
+    }
 
     function resetSalary() {
       initSalaryAxes();

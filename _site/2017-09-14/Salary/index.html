@@ -250,7 +250,7 @@ ga('send', 'pageview');
   }
 
   // set-up margins for salary svg
-  var margin = {top: 25, right: 70, bottom: 125, left: 70},
+  var margin = {top: 25, right: 60, bottom: 125, left: 60},
     width = $('#salaryContainer').width() - margin.left - margin.right,
     height = 600 - margin.top - margin.bottom;
 
@@ -297,13 +297,13 @@ ga('send', 'pageview');
   data.sort( (a,b) => extractNonFASalary(b) - extractNonFASalary(a))
 
   initSalaryAxes();
-  d3.select(".yAxis").call(d3.axisLeft(salaryToY));
+  d3.select(".yAxis").call(d3.axisLeft(salaryToY).tickFormat(d3.format(".2s")))
   d3.select(".xAxis").call(d3.axisBottom(xAxis));
   initSalary();
   drawLegend();
   drawFreeAgentToggle();
   function initSalaryAxes() {
-    salaryToY.domain([0, d3.max(data, d => sum(d.salary) + extractFASalary(d) + axisPadding)]); 
+    salaryToY.domain([0, d3.max(data, d => sum(d.salary) + extractFASalary(d) + axisPadding)]);
     xAxis.domain(data.map(d => d.name)).range([0, width]);
   }
 
@@ -336,7 +336,7 @@ ga('send', 'pageview');
   }
 
   function updateSalary(salaryStack) {
-    var salaryGroups = graphContainer.selectAll(".salaryRect") 
+    var salaryGroups = graphContainer.selectAll(".salaryRect")
                                   .data(salaryStack)
                                   .enter()
                                   .append("g")
@@ -349,7 +349,7 @@ ga('send', 'pageview');
                                  .append("g")
                                  .style("cursor", "pointer")
                                  .on("click", (d, i) => drawChildren(data[i]))
- 
+
     salaryBars.append("rect")
               .attr("y", function(d) { return salaryToY(d[1]); })
               .attr("height", function(d) { return salaryToY(d[0]) - salaryToY(d[1]); })
@@ -402,7 +402,7 @@ ga('send', 'pageview');
     d3.select("#taxLine line").transition().duration(duration).attr("x2", width);
     d3.select("#taxLine text").transition().duration(duration).attr("transform", translate(width - 220, salaryToY(projectedTax + buffer)));
 
-  }    
+  }
 
   function drawFreeAgentToggle() {
     changeController.text("Add Free Agents")
@@ -423,7 +423,6 @@ ga('send', 'pageview');
 
     var players = team.players;
     var freeAgents = team.freeAgents;
-    
     /* reset axes */
     var maxSalary = Math.max(d3.max(players, d => d.salary), d3.max(freeAgents, d => d.salary));
     salaryToY.domain([0, maxSalary + axisPadding]);
@@ -467,7 +466,7 @@ ga('send', 'pageview');
                       drawFreeAgentToggle();
                     })
 
-    }    
+    }
 
     function resetSalary() {
       initSalaryAxes();
