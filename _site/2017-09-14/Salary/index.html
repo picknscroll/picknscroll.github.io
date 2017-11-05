@@ -427,7 +427,7 @@ ga('send', 'pageview');
     var maxSalary = Math.max(d3.max(players, d => d.salary), d3.max(freeAgents, d => d.salary));
     salaryToY.domain([0, maxSalary + axisPadding]);
 
-    d3.select(".yAxis").transition().duration(duration).call(d3.axisLeft(salaryToY));
+    d3.select(".yAxis").transition().duration(duration).call(d3.axisLeft(salaryToY).tickFormat(d3.format(".2s")));
 
     var allPlayers = players.map(d => d).concat(freeAgents.map(d => d))
 
@@ -470,7 +470,7 @@ ga('send', 'pageview');
 
     function resetSalary() {
       initSalaryAxes();
-      d3.select(".yAxis").transition().duration(duration).call(d3.axisLeft(salaryToY));
+      d3.select(".yAxis").transition().duration(duration).call(d3.axisLeft(salaryToY).tickFormat(d3.format(".2s")));
       d3.select(".xAxis").transition().duration(duration).call(d3.axisBottom(xAxis));
     }
 

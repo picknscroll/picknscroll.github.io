@@ -471,7 +471,7 @@ Highcharts.chart('container', {
     var maxSalary = Math.max(d3.max(players, d =&gt; d.salary), d3.max(freeAgents, d =&gt; d.salary));
     salaryToY.domain([0, maxSalary + axisPadding]);
 
-    d3.select(&quot;.yAxis&quot;).transition().duration(duration).call(d3.axisLeft(salaryToY));
+    d3.select(&quot;.yAxis&quot;).transition().duration(duration).call(d3.axisLeft(salaryToY).tickFormat(d3.format(&quot;.2s&quot;)));
 
     var allPlayers = players.map(d =&gt; d).concat(freeAgents.map(d =&gt; d))
 
@@ -514,7 +514,7 @@ Highcharts.chart('container', {
 
     function resetSalary() {
       initSalaryAxes();
-      d3.select(&quot;.yAxis&quot;).transition().duration(duration).call(d3.axisLeft(salaryToY));
+      d3.select(&quot;.yAxis&quot;).transition().duration(duration).call(d3.axisLeft(salaryToY).tickFormat(d3.format(&quot;.2s&quot;)));
       d3.select(&quot;.xAxis&quot;).transition().duration(duration).call(d3.axisBottom(xAxis));
     }
 
