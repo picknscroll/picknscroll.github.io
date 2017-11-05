@@ -51,7 +51,7 @@ ga('send', 'pageview');
 
 <style>
 
-  #contentContainer {
+  #contentContainer {i
     width: 100%;
   }
 
@@ -86,7 +86,7 @@ ga('send', 'pageview');
   }
 
   #salaryContainer {
-    width: 1200px;
+    width: 100%
     margin: auto;
   }
 
@@ -108,7 +108,7 @@ ga('send', 'pageview');
 <body>
 <div id="contentContainer">
 <div class="text">
-  As the shirts say, Basketball Never Stops - and the NBA is no exception. The finals start in early June. Almost immediately after the trophy is hoisted, the draft is held in New York. Free agency begins shortly thereafter. Trades happen throughout this time span, and before you know it, teams are playing pre-season games. 
+  As the shirts say, Basketball Never Stops - and the NBA is no exception. The finals start in early June. Almost immediately after the trophy is hoisted, the draft is held in New York. Free agency begins shortly thereafter. Trades happen throughout this time span, and before you know it, teams are playing pre-season games.
 
   <br /><br />
   So with the start of 2017-18 season imminent, what better time than now to look ahead to next summer's free agent market? But before we do that, let's take a look at this year's free agent market and how it compares to the largess of 2016.
@@ -132,7 +132,7 @@ ga('send', 'pageview');
   <h4>Cap Space in 2018: An Interactive Visualization</h4>
 
   The chart below shows the money that each team has committed to its players for the 2018 season (data courtesy of <a href="https://www.basketball-reference.com/contracts/">basketball-reference.com</a>). Click on each team's bar to drill-down into how that money is distributed across the team's players. Click on the "Add Free Agents" text to see what each team's total salary would look like if they re-signed all their free agents at their previous year's salaries.
-  
+
 </div>
 
 <div id="salaryContainer">
@@ -158,7 +158,7 @@ ga('send', 'pageview');
   </ul>
 
   Looking ahead to the 2018 off-season has only increased my excitement for this upcoming season. Let the games begin!
-  
+
 </div>
 </div>
 </body>
@@ -245,7 +245,7 @@ ga('send', 'pageview');
 
   // set-up margins for salary svg
   var margin = {top: 25, right: 50, bottom: 125, left: 100},
-    width = 1250 - margin.left - margin.right,
+    width = $('#salaryContainer').width() - margin.left - margin.right,
     height = 600 - margin.top - margin.bottom;
 
   var salarySvg = d3.select("svg#salary")
@@ -281,7 +281,6 @@ ga('send', 'pageview');
   var optionKeys = ["guaranteed", "player-option", "team-option", "stretched"];
   var optionColors = ['#53802c', '#86af49', '#b5e7a0', '#e3eaa7'];
   var includeFA = false;
-  
   var optionKeysFA = ["guaranteed", "player-option", "team-option", "stretched", "free-agent"];
   var optionColorsFA = ['#53802c', '#86af49', '#b5e7a0', '#e3eaa7', 'grey'];
 

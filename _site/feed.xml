@@ -95,7 +95,7 @@ Highcharts.chart('container', {
 
 &lt;style&gt;
 
-  #contentContainer {
+  #contentContainer {i
     width: 100%;
   }
 
@@ -130,7 +130,7 @@ Highcharts.chart('container', {
   }
 
   #salaryContainer {
-    width: 1200px;
+    width: 100%
     margin: auto;
   }
 
@@ -152,7 +152,7 @@ Highcharts.chart('container', {
 &lt;body&gt;
 &lt;div id=&quot;contentContainer&quot;&gt;
 &lt;div class=&quot;text&quot;&gt;
-  As the shirts say, Basketball Never Stops - and the NBA is no exception. The finals start in early June. Almost immediately after the trophy is hoisted, the draft is held in New York. Free agency begins shortly thereafter. Trades happen throughout this time span, and before you know it, teams are playing pre-season games. 
+  As the shirts say, Basketball Never Stops - and the NBA is no exception. The finals start in early June. Almost immediately after the trophy is hoisted, the draft is held in New York. Free agency begins shortly thereafter. Trades happen throughout this time span, and before you know it, teams are playing pre-season games.
 
   &lt;br /&gt;&lt;br /&gt;
   So with the start of 2017-18 season imminent, what better time than now to look ahead to next summer's free agent market? But before we do that, let's take a look at this year's free agent market and how it compares to the largess of 2016.
@@ -176,7 +176,7 @@ Highcharts.chart('container', {
   &lt;h4&gt;Cap Space in 2018: An Interactive Visualization&lt;/h4&gt;
 
   The chart below shows the money that each team has committed to its players for the 2018 season (data courtesy of &lt;a href=&quot;https://www.basketball-reference.com/contracts/&quot;&gt;basketball-reference.com&lt;/a&gt;). Click on each team's bar to drill-down into how that money is distributed across the team's players. Click on the &quot;Add Free Agents&quot; text to see what each team's total salary would look like if they re-signed all their free agents at their previous year's salaries.
-  
+
 &lt;/div&gt;
 
 &lt;div id=&quot;salaryContainer&quot;&gt;
@@ -202,7 +202,7 @@ Highcharts.chart('container', {
   &lt;/ul&gt;
 
   Looking ahead to the 2018 off-season has only increased my excitement for this upcoming season. Let the games begin!
-  
+
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/body&gt;
@@ -289,7 +289,7 @@ Highcharts.chart('container', {
 
   // set-up margins for salary svg
   var margin = {top: 25, right: 50, bottom: 125, left: 100},
-    width = 1250 - margin.left - margin.right,
+    width = $('#salaryContainer').width() - margin.left - margin.right,
     height = 600 - margin.top - margin.bottom;
 
   var salarySvg = d3.select(&quot;svg#salary&quot;)
@@ -325,7 +325,6 @@ Highcharts.chart('container', {
   var optionKeys = [&quot;guaranteed&quot;, &quot;player-option&quot;, &quot;team-option&quot;, &quot;stretched&quot;];
   var optionColors = ['#53802c', '#86af49', '#b5e7a0', '#e3eaa7'];
   var includeFA = false;
-  
   var optionKeysFA = [&quot;guaranteed&quot;, &quot;player-option&quot;, &quot;team-option&quot;, &quot;stretched&quot;, &quot;free-agent&quot;];
   var optionColorsFA = ['#53802c', '#86af49', '#b5e7a0', '#e3eaa7', 'grey'];
 
