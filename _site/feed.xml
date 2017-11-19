@@ -6,6 +6,79 @@
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Just Enough HTML &amp; CSS to Create a Simple Layout</title>
+        <description>&lt;h3 id=&quot;todo&quot;&gt;TODO&lt;/h3&gt;
+&lt;p&gt;Define what a “layout” is? In general, just include a definitions header. What other words are there for “these technologies (when referencing HTML and CSS?”)&lt;/p&gt;
+
+&lt;h5 id=&quot;audience-programmers-who-dont-know-much-about-html&quot;&gt;Audience: programmers who don’t know much about HTML&lt;/h5&gt;
+&lt;p&gt;In this post, I will explain the basics of HTML and CSS, and how they work together to create the simple layout
+that you see on this blog page. It is intended for programmers who have little or no experience with web development.&lt;/p&gt;
+
+&lt;h4 id=&quot;my-own-experience&quot;&gt;My Own Experience&lt;/h4&gt;
+&lt;p&gt;Before we start, I want to briefly touch on my own experience with HTML and CSS. This will not help you understand the technologies any better, so feel free to skip this section.&lt;/p&gt;
+
+&lt;p&gt;This site uses Jekyll and GitHub pages, which is a fantastic tool for publishing static content to the web. Because I knew next to nothing about HTML and CSS when creating the blog, I downloaded a layout from the internet, which allowed me to focus on the content. When I needed to make any changes to the layout, I would Google and blindly flip values here and there until I achieved the desired effect.&lt;/p&gt;
+
+&lt;p&gt;This worked fine - the blog looked the way I wanted to, and I didn’t have to spend more time than I wanted to learning HTML and CSS. It wasn’t until I started working at Periscope Data, where I have been doing front-end development, that I have come to understand the &lt;b&gt;principles&lt;/b&gt; behind these technologies, which allows me to make changes to the layout in a &lt;b&gt;predictable&lt;/b&gt; manner.&lt;/p&gt;
+
+&lt;h3 id=&quot;what-is-html&quot;&gt;What is HTML?&lt;/h3&gt;
+&lt;p&gt;[EDIT] -&amp;gt; should I introduce browsers and rendering in this paragraph? Talk about what a markup language is? Elements?&lt;/p&gt;
+
+&lt;p&gt;Let’s first think about a typical blog post. A typical blog post will have distinct components: a title, headers, paragraphs of text, lists, tables, images, etc. As these components serve different purposes, they are displayed differently. Titles and headings are big and bold, items in lists are bulleted to imply some form of grouping. In other words, these components have different visual &lt;i&gt;meanings&lt;/i&gt;.&lt;/p&gt;
+
+&lt;p&gt;At its core, HTML is a way to &lt;b&gt;augment plain text with these visual meanings&lt;/b&gt;. With HTML, I can tell my browser&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;to create a bulleted list, and have this be the first item&lt;/li&gt;
+&lt;li&gt;&lt;h5&gt;That This Title&lt;/h5&gt; should look different than the rest of the text in this item&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;https://www.google.com&quot;&gt;that this item should link to Google!&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Note: Hover over each element in the list to see the HTML that was used to provide the visual meaning.&lt;/p&gt;
+
+&lt;p&gt;The exact mechanism through which this is achieved is known as a HTML tags 
+Principles&lt;/p&gt;
+
+&lt;p&gt;1) HTML elements are hierarchical.
+2) CSS rules apply to specific elements, grouped together by div elements.
+3) There are “container” divs, and “content” divs.&lt;/p&gt;
+
+&lt;h3 id=&quot;html&quot;&gt;HTML&lt;/h3&gt;
+&lt;p&gt;A typical blog post has some core component, such as text, headings, lists, and images. We want to control how these components appear on the browser, as well as how the overall page looks as well.
+We will focus our dicussion on HTML to the context of a blog.
+From Wikipedia: HTML&lt;/p&gt;
+
+&lt;blockquote&gt;
+  &lt;p&gt;“provides a means to create structured documents by denoting structural semantics for text such as heading, paragraphs, lists, links, quotes and other items”&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;We will focus our discussion on HTML
+Honestly, in the context of content on a blog, I like to think about HTML as a way to provide “tags” to the different parts of your content. The content has different components, for example, the text, the title, the headings, that all should be styled in different ways on the page.&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;a&lt;/li&gt;
+  &lt;li&gt;c&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;&lt;button id=&quot;clickMe&quot;&gt;Toggle CSS&lt;/button&gt;&lt;/p&gt;
+
+&lt;script type=&quot;text/javascript&quot;&gt;
+  var cssEnabled = true;
+
+  $(&quot;button#clickMe&quot;).on(&quot;click&quot;, function() {
+    if (cssEnabled) { $('link[rel=stylesheet]')[0].remove()} 
+    else { $('head').append('&lt;link rel=&quot;stylesheet&quot; href=&quot;/assets/css/main.css&quot; type=&quot;text/css&quot; /&gt;'); }
+    cssEnabled = !cssEnabled;
+  });
+&lt;/script&gt;
+
+</description>
+        <pubDate>Sat, 18 Nov 2017 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2017-11-18/HTML-CSS/</link>
+        <guid isPermaLink="true">http://localhost:4000/2017-11-18/HTML-CSS/</guid>
+      </item>
+    
+      <item>
         <title>Scatter</title>
         <description>&lt;script src=&quot;https://code.highcharts.com/highcharts.js&quot;&gt;&lt;/script&gt;
 

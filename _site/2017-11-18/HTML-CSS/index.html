@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Just Enough HTML & CSS to Create a Simple Layout</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css" type="text/css"> 
+
+  <!-- Font -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css' rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu+Mono" rel="stylesheet">
+  <!-- <link rel="stylesheet" type="text/css" href="/assets/css/trend.css"/> -->
+
+  <link rel="alternate" type="application/rss+xml" title="RSS Feed for The Pick and Scroll" href="/feed.xml" />
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
+
+  <!-- Google Analytics -->
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', '', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+
+
+</head>
+
+<body>
+  <div class="content-container">
+    <header>
+  <div class="header-small">
+    <a href="http://localhost:4000">The Pick and Scroll</a>
+  </div>
+</header>
+<div class="post">
+  <div class="post-title">Just Enough HTML & CSS to Create a Simple Layout</div>
+  <span class="post-date">
+    <time>18 Nov 2017</time>
+  </span>
+  <div class="post-tag">
+    <ul>
+      
+    </ul>
+  </div>
+
+  <h3 id="todo">TODO</h3>
+<p>Define what a “layout” is? In general, just include a definitions header. What other words are there for “these technologies (when referencing HTML and CSS?”)</p>
+
+<h5 id="audience-programmers-who-dont-know-much-about-html">Audience: programmers who don’t know much about HTML</h5>
+<p>In this post, I will explain the basics of HTML and CSS, and how they work together to create the simple layout
+that you see on this blog page. It is intended for programmers who have little or no experience with web development.</p>
+
+<h4 id="my-own-experience">My Own Experience</h4>
+<p>Before we start, I want to briefly touch on my own experience with HTML and CSS. This will not help you understand the technologies any better, so feel free to skip this section.</p>
+
+<p>This site uses Jekyll and GitHub pages, which is a fantastic tool for publishing static content to the web. Because I knew next to nothing about HTML and CSS when creating the blog, I downloaded a layout from the internet, which allowed me to focus on the content. When I needed to make any changes to the layout, I would Google and blindly flip values here and there until I achieved the desired effect.</p>
+
+<p>This worked fine - the blog looked the way I wanted to, and I didn’t have to spend more time than I wanted to learning HTML and CSS. It wasn’t until I started working at Periscope Data, where I have been doing front-end development, that I have come to understand the <b>principles</b> behind these technologies, which allows me to make changes to the layout in a <b>predictable</b> manner.</p>
+
+<h3 id="what-is-html">What is HTML?</h3>
+<p>[EDIT] -&gt; should I introduce browsers and rendering in this paragraph? Talk about what a markup language is? Elements?</p>
+
+<p>Let’s first think about a typical blog post. A typical blog post will have distinct components: a title, headers, paragraphs of text, lists, tables, images, etc. As these components serve different purposes, they are displayed differently. Titles and headings are big and bold, items in lists are bulleted to imply some form of grouping. In other words, these components have different visual <i>meanings</i>.</p>
+
+<p>At its core, HTML is a way to <b>augment plain text with these visual meanings</b>. With HTML, I can tell my browser</p>
+
+<ul>
+<li>to create a bulleted list, and have this be the first item</li>
+<li><h5>That This Title</h5> should look different than the rest of the text in this item</li>
+<li><a href="https://www.google.com">that this item should link to Google!</a></li>
+</ul>
+
+<p>Note: Hover over each element in the list to see the HTML that was used to provide the visual meaning.</p>
+
+<p>The exact mechanism through which this is achieved is known as a HTML tags 
+Principles</p>
+
+<p>1) HTML elements are hierarchical.
+2) CSS rules apply to specific elements, grouped together by div elements.
+3) There are “container” divs, and “content” divs.</p>
+
+<h3 id="html">HTML</h3>
+<p>A typical blog post has some core component, such as text, headings, lists, and images. We want to control how these components appear on the browser, as well as how the overall page looks as well.
+We will focus our dicussion on HTML to the context of a blog.
+From Wikipedia: HTML</p>
+
+<blockquote>
+  <p>“provides a means to create structured documents by denoting structural semantics for text such as heading, paragraphs, lists, links, quotes and other items”</p>
+</blockquote>
+
+<p>We will focus our discussion on HTML
+Honestly, in the context of content on a blog, I like to think about HTML as a way to provide “tags” to the different parts of your content. The content has different components, for example, the text, the title, the headings, that all should be styled in different ways on the page.</p>
+
+<ul>
+  <li>a</li>
+  <li>c</li>
+</ul>
+
+<p><button id="clickMe">Toggle CSS</button></p>
+
+<script type="text/javascript">
+  var cssEnabled = true;
+
+  $("button#clickMe").on("click", function() {
+    if (cssEnabled) { $('link[rel=stylesheet]')[0].remove()} 
+    else { $('head').append('<link rel="stylesheet" href="/assets/css/main.css" type="text/css" />'); }
+    cssEnabled = !cssEnabled;
+  });
+</script>
+
+
+
+  <!-- Disqus -->
+  
+
+</div>
+
+
+    <!-- Documents about icons are here: http://fontawesome.io/icons/ -->
+<div class="footer">
+  <hr />
+  <div class="footer-link">
+    
+	
+	
+	
+	
+
+    
+
+    
+	
+	
+	
+	
+
+    
+    <a href="https://www.linkedin.com/in/jzhang621"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+    
+	
+	
+	
+	
+	
+	
+	
+	
+
+    
+
+    
+
+    
+
+  </div>
+  © 2017 Kiko. All rights reserved.
+</div>
+
+  </div>
+</body>
+</html>
