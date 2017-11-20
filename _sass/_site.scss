@@ -246,6 +246,30 @@ body {
   }
 }
 
+/*--------------
+  Notes
+  -------------- */
+
+.note {
+  font-size: .85rem;
+  color: gray;
+  width: 80%;
+  margin: 0px auto 10px;
+  text-align: center;
+}
+
+.subsection {
+  width: 75%;
+  margin: 15px auto 5px;
+  text-align: center
+}
+
+u {
+    border-bottom: .8px dashed #999;
+    text-decoration: none;
+}
+
+
 
 /*--------------
   Tags

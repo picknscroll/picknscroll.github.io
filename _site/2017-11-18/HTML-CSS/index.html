@@ -53,10 +53,10 @@ ga('send', 'pageview');
     </ul>
   </div>
 
-  <h3 id="todo">TODO</h3>
+  <h2 id="todo">TODO</h2>
 <p>Define what a “layout” is? In general, just include a definitions header. What other words are there for “these technologies (when referencing HTML and CSS?”)</p>
 
-<h5 id="audience-programmers-who-dont-know-much-about-html">Audience: programmers who don’t know much about HTML</h5>
+<h5 id="audience-programmers-who-want-to-learn-more-about-html-and-css">Audience: programmers who want to learn more about HTML and CSS</h5>
 <p>In this post, I will explain the basics of HTML and CSS, and how they work together to create the simple layout
 that you see on this blog page. It is intended for programmers who have little or no experience with web development.</p>
 
@@ -65,56 +65,58 @@ that you see on this blog page. It is intended for programmers who have little o
 
 <p>This site uses Jekyll and GitHub pages, which is a fantastic tool for publishing static content to the web. Because I knew next to nothing about HTML and CSS when creating the blog, I downloaded a layout from the internet, which allowed me to focus on the content. When I needed to make any changes to the layout, I would Google and blindly flip values here and there until I achieved the desired effect.</p>
 
-<p>This worked fine - the blog looked the way I wanted to, and I didn’t have to spend more time than I wanted to learning HTML and CSS. It wasn’t until I started working at Periscope Data, where I have been doing front-end development, that I have come to understand the <b>principles</b> behind these technologies, which allows me to make changes to the layout in a <b>predictable</b> manner.</p>
+<p>This worked fine - the blog looked the way I wanted to, and I didn’t have to spend more time than I wanted to learning HTML and CSS. It wasn’t until I started working at Periscope Data, where I have been doing front-end development, that I have come to understand the <strong>principles</strong> behind these technologies, which allows me to make changes to the layout in a <strong>predictable</strong> manner.</p>
 
 <h3 id="what-is-html">What is HTML?</h3>
 <p>[EDIT] -&gt; should I introduce browsers and rendering in this paragraph? Talk about what a markup language is? Elements?</p>
 
-<p>Let’s first think about a typical blog post. A typical blog post will have distinct components: a title, headers, paragraphs of text, lists, tables, images, etc. As these components serve different purposes, they are displayed differently. Titles and headings are big and bold, items in lists are bulleted to imply some form of grouping. In other words, these components have different visual <i>meanings</i>.</p>
+<p>Let’s first think about a typical blog post. A typical blog post will have distinct components: a title, headers, paragraphs of text, lists, tables, images, etc. As these components serve different purposes, they are displayed differently. Titles and headings are big and bold, items in lists are bulleted to imply some form of grouping. In other words, these components have visual <em>meanings</em>.</p>
 
-<p>At its core, HTML is a way to <b>augment plain text with these visual meanings</b>. With HTML, I can tell my browser</p>
+<p>At its core, <strong>HTML is a way to assign visual meaning to plain text</strong>. <u>HTML Tags</u> are the mechanism through which this meaning is supplied, and they bracket the plain text, like this:</p>
 
-<ul>
-<li>to create a bulleted list, and have this be the first item</li>
-<li><h5>That This Title</h5> should look different than the rest of the text in this item</li>
-<li><a href="https://www.google.com">that this item should link to Google!</a></li>
-</ul>
+<div class="subsection">&lt;h1&gt;h1 is a Heading Tag&lt;/h1&gt;</div>
+<div class="note">
+Note: &lt;h1&gt; is the opening tag, and &lt;/h1&gt; is the closing tag.
+</div>
 
-<p>Note: Hover over each element in the list to see the HTML that was used to provide the visual meaning.</p>
+<p>The combination of HTML Tags and the plain text they enclose are known as <u>HTML elements</u>.</p>
 
-<p>The exact mechanism through which this is achieved is known as a HTML tags 
-Principles</p>
-
-<p>1) HTML elements are hierarchical.
-2) CSS rules apply to specific elements, grouped together by div elements.
-3) There are “container” divs, and “content” divs.</p>
-
-<h3 id="html">HTML</h3>
-<p>A typical blog post has some core component, such as text, headings, lists, and images. We want to control how these components appear on the browser, as well as how the overall page looks as well.
-We will focus our dicussion on HTML to the context of a blog.
-From Wikipedia: HTML</p>
-
-<blockquote>
-  <p>“provides a means to create structured documents by denoting structural semantics for text such as heading, paragraphs, lists, links, quotes and other items”</p>
-</blockquote>
-
-<p>We will focus our discussion on HTML
-Honestly, in the context of content on a blog, I like to think about HTML as a way to provide “tags” to the different parts of your content. The content has different components, for example, the text, the title, the headings, that all should be styled in different ways on the page.</p>
+<p>When browsers encounter HTML elements, they have a pre-defined notion of how those elements should be rendered. So by decorating plain text with HTML tags, I can tell the browser to:</p>
 
 <ul>
-  <li>a</li>
-  <li>c</li>
+  <li>to create a bulleted list, and have this be the first item</li>
+  <li>
+    <h5 id="that-this-title">That This Title</h5>
+    <p>should look different than the rest of the text in this item</p>
+  </li>
+  <li>that this item <a href="http://www.google.com">should link to Google!</a></li>
 </ul>
 
-<p><button id="clickMe">Toggle CSS</button></p>
+<div class="note">
+Note: Hover over each element in the list to see the HTML tags used to provide the visual meaning.
+</div>
+
+<h3 id="what-is-css">What is CSS?</h3>
+
+<p>Perhaps the best way to understand what CSS does is to see what this page looks like without any CSS.</p>
+
+<p><button id="clickMe">Disable CSS</button></p>
 
 <script type="text/javascript">
   var cssEnabled = true;
 
   $("button#clickMe").on("click", function() {
-    if (cssEnabled) { $('link[rel=stylesheet]')[0].remove()} 
-    else { $('head').append('<link rel="stylesheet" href="/assets/css/main.css" type="text/css" />'); }
+  	var textToDisplay;
+    if (cssEnabled) {
+    	// TODO: check if this works in production
+    	$('link[href="/assets/css/main.css"]').remove();
+    }
+    else {
+    	$('head').append('<link rel="stylesheet" href="/assets/css/main.css" type="text/css" />');
+    }
     cssEnabled = !cssEnabled;
+    textToDisplay = cssEnabled ? 'Disable CSS' : 'Enable CSS'
+    $(this).text(textToDisplay) // fuck you javascript.
   });
 </script>
 
