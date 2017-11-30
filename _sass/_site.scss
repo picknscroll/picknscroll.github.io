@@ -250,17 +250,21 @@ body {
   Notes
   -------------- */
 
+button {
+  cursor: pointer;
+}
+
 .note {
   font-size: .85rem;
   color: gray;
   width: 80%;
-  margin: 0px auto 10px;
+  margin: -5px auto 10px;
   text-align: center;
 }
 
 .subsection {
   width: 75%;
-  margin: 15px auto 5px;
+  margin: 15px auto;
   text-align: center
 }
 
@@ -320,6 +324,7 @@ u {
     font-weight: 600;
     text-transform: lowercase;
     padding: 1rem 0;
+    font-family: 'Spoqa Han Sans';
   }
 
   &-post {

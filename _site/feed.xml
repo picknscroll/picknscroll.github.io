@@ -6,74 +6,182 @@
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
-        <title>Just Enough HTML &amp; CSS to Create a Simple Layout</title>
-        <description>&lt;h2 id=&quot;todo&quot;&gt;TODO&lt;/h2&gt;
-&lt;p&gt;Define what a “layout” is? In general, just include a definitions header. What other words are there for “these technologies (when referencing HTML and CSS?”)&lt;/p&gt;
+        <title>Just Enough HTML &amp; CSS to Create a Simple Blog Template</title>
+        <description>&lt;h4 id=&quot;todo&quot;&gt;TODO&lt;/h4&gt;
+&lt;p&gt;What other words are there for “these technologies (when referencing HTML and CSS?”).&lt;/p&gt;
 
-&lt;h5 id=&quot;audience-programmers-who-want-to-learn-more-about-html-and-css&quot;&gt;Audience: programmers who want to learn more about HTML and CSS&lt;/h5&gt;
-&lt;p&gt;In this post, I will explain the basics of HTML and CSS, and how they work together to create the simple layout
-that you see on this blog page. It is intended for programmers who have little or no experience with web development.&lt;/p&gt;
+&lt;p&gt;Idea -&amp;gt; start with no styling (just plain HTML, so that is easier to see how different elements have styling associated with them). Introduce CSS styling as we get to the content that explains what it is. Then it becomes easier to see how the two key points of CSS differ from each other, and makes a smoother transition from point (2) to the rest of the document. It will also help make the introduction of CSS selectors by class a little easier.&lt;/p&gt;
 
-&lt;h4 id=&quot;my-own-experience&quot;&gt;My Own Experience&lt;/h4&gt;
-&lt;p&gt;Before we start, I want to briefly touch on my own experience with HTML and CSS. This will not help you understand the technologies any better, so feel free to skip this section.&lt;/p&gt;
+&lt;hr /&gt;
 
-&lt;p&gt;This site uses Jekyll and GitHub pages, which is a fantastic tool for publishing static content to the web. Because I knew next to nothing about HTML and CSS when creating the blog, I downloaded a layout from the internet, which allowed me to focus on the content. When I needed to make any changes to the layout, I would Google and blindly flip values here and there until I achieved the desired effect.&lt;/p&gt;
+&lt;h4 id=&quot;audience-anyone-who-wants-to-learn-more-about-html-and-css&quot;&gt;Audience: anyone who wants to learn more about HTML and CSS&lt;/h4&gt;
 
-&lt;p&gt;This worked fine - the blog looked the way I wanted to, and I didn’t have to spend more time than I wanted to learning HTML and CSS. It wasn’t until I started working at Periscope Data, where I have been doing front-end development, that I have come to understand the &lt;strong&gt;principles&lt;/strong&gt; behind these technologies, which allows me to make changes to the layout in a &lt;strong&gt;predictable&lt;/strong&gt; manner.&lt;/p&gt;
+&lt;p&gt;Whoa, what is going on here? Your eyes aren’t playing a trick on you - the page looks like this for a reason. If you are still reading this, you presumably want to learn more about HTML and CSS, and I want to teach HTML and CSS with a page that has none. We will use HTML and CSS to gradually build the site back up into something modern. At the end, we will have created a simple blog layout that hopefully will illustrate the fundamentals of HTML and CSS.&lt;/p&gt;
 
 &lt;h3 id=&quot;what-is-html&quot;&gt;What is HTML?&lt;/h3&gt;
-&lt;p&gt;[EDIT] -&amp;gt; should I introduce browsers and rendering in this paragraph? Talk about what a markup language is? Elements?&lt;/p&gt;
 
-&lt;p&gt;Let’s first think about a typical blog post. A typical blog post will have distinct components: a title, headers, paragraphs of text, lists, tables, images, etc. As these components serve different purposes, they are displayed differently. Titles and headings are big and bold, items in lists are bulleted to imply some form of grouping. In other words, these components have visual &lt;em&gt;meanings&lt;/em&gt;.&lt;/p&gt;
+&lt;p&gt;Let’s first think about a typical blog post. A typical blog post will have distinct components: a title, headers, paragraphs of text, lists, tables, images, etc. As these components serve different purposes, they are displayed differently. Titles and headings are big and bold to make them stand out, items in lists are bulleted to imply some form of grouping. In other words, these components have &lt;em&gt;visual meanings&lt;/em&gt;.&lt;/p&gt;
 
-&lt;p&gt;At its core, &lt;strong&gt;HTML is a way to assign visual meaning to plain text&lt;/strong&gt;. &lt;u&gt;HTML Tags&lt;/u&gt; are the mechanism through which this meaning is supplied, and they bracket the plain text, like this:&lt;/p&gt;
+&lt;p&gt;This leads us to HTML, which stands for Hypertext Markup Language. A markup language (from &lt;a href=&quot;https://en.wikipedia.org/wiki/Markup_language&quot;&gt;Wikipedia&lt;/a&gt;) is a “system for annotating a document in a way that is syntactically distinguishable from the text”. The parts of the document that are “syntatically distinguishable from the text” are known as &lt;u&gt;HTML tags&lt;/u&gt;, and are important to browsers, as they &lt;strong&gt;give the plain text visual meaning&lt;/strong&gt;. HTML tags bracket the plain text they annotate, like this:&lt;/p&gt;
 
-&lt;div class=&quot;subsection&quot;&gt;&amp;lt;h1&amp;gt;h1 is a Heading Tag&amp;lt;/h1&amp;gt;&lt;/div&gt;
-&lt;div class=&quot;note&quot;&gt;
-Note: &amp;lt;h1&amp;gt; is the opening tag, and &amp;lt;/h1&amp;gt; is the closing tag.
-&lt;/div&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;h3&amp;gt; h3 stands for Heading 1, which is the largest heading &amp;lt;/h3&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
 
-&lt;p&gt;The combination of HTML Tags and the plain text they enclose are known as &lt;u&gt;HTML elements&lt;/u&gt;.&lt;/p&gt;
+&lt;p&gt;Note: &amp;lt;h3&amp;gt; is the opening tag, and &amp;lt;/h3&amp;gt; is the closing tag.&lt;/p&gt;
 
-&lt;p&gt;When browsers encounter HTML elements, they have a pre-defined notion of how those elements should be rendered. So by decorating plain text with HTML tags, I can tell the browser to:&lt;/p&gt;
+&lt;p&gt;HTML tags, combined with the plain text they enclose, are known as &lt;u&gt;HTML elements&lt;/u&gt;.&lt;/p&gt;
+
+&lt;p&gt;When browsers encounter HTML elements, they have a pre-defined notion of how they should be rendered. For example, when it sees “h3 is a Heading Tag” surrounded by the &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;h3&amp;gt;&lt;/code&gt; HTML tag from above, it will render it like this:&lt;/p&gt;
+
+&lt;h3&gt;h3 is a Heading Tag&lt;/h3&gt;
+
+&lt;p&gt;By using HTML tags to create HTML elements, I can tell the browser to:&lt;/p&gt;
 
 &lt;ul&gt;
-  &lt;li&gt;to create a bulleted list, and have this be the first item&lt;/li&gt;
-  &lt;li&gt;
-    &lt;h5 id=&quot;that-this-title&quot;&gt;That This Title&lt;/h5&gt;
-    &lt;p&gt;should look different than the rest of the text in this item&lt;/p&gt;
-  &lt;/li&gt;
-  &lt;li&gt;that this item &lt;a href=&quot;http://www.google.com&quot;&gt;should link to Google!&lt;/a&gt;&lt;/li&gt;
+	&lt;li id=&quot;ul&quot;&gt;create a bulleted list, and have this be the first item&lt;/li&gt;
+	&lt;li id=&quot;link&quot;&gt;&lt;a href=&quot;https://www.w3schools.com/tags/ref_byfunc.asp&quot;&gt;that this item should link to a list of HTML tags and their meanings&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;div class=&quot;note&quot;&gt;
-Note: Hover over each element in the list to see the HTML tags used to provide the visual meaning.
+Note: Hover over each element in the list to see the HTML tags used to create the element
 &lt;/div&gt;
+
+&lt;h4 id=&quot;recap-what-can-we-do&quot;&gt;Recap: What Can We Do?&lt;/h4&gt;
+
+&lt;p&gt;Using HTML tags, we can give various parts of our blog visual meaning.&lt;/p&gt;
 
 &lt;h3 id=&quot;what-is-css&quot;&gt;What is CSS?&lt;/h3&gt;
 
-&lt;p&gt;Perhaps the best way to understand what CSS does is to see what this page looks like without any CSS.&lt;/p&gt;
+&lt;p&gt;CSS (Cascading Style Sheets) lets users customize the “style” of webpages. Style can be an ambigious term, so to set the proper context for what CSS is used for, we will begin by noting that the above paragraphs have no styling (which is why they look like they come from the 1990s). This is another way of saying they were rendered by the browser’s default interpretation of what HTML tags should look like.&lt;/p&gt;
 
-&lt;p&gt;&lt;button id=&quot;clickMe&quot;&gt;Disable CSS&lt;/button&gt;&lt;/p&gt;
+&lt;p&gt;CSS is the language we use to change those defaults. Let’s say, I have some important text I want to use as a heading on my webpage page. I would first give it visual meaning by wrapping it in a “heading” HTML tag.&lt;/p&gt;
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;h3&amp;gt;Here is my heading!&amp;lt;/h3&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;p&gt;But what do I do what if I want to make that heading red as well? To do so, I need to override the browser’s default intepretation of what an &lt;code class=&quot;highlighter-rouge&quot;&gt;h3&lt;/code&gt; heading shoud look like, which means I need CSS.&lt;/p&gt;
+
+&lt;h3 style=&quot;color: red&quot;&gt;Here is my red heading!&lt;/h3&gt;
+
+&lt;p&gt;This short example leads us to the fundamental relationship between HTML and CSS.
+&lt;strong&gt;CSS rules apply to groups of HTML elements, and provide precise control over their visual representations.&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;The exact mechanism through which this control is achieved are known as &lt;u&gt;CSS rules&lt;/u&gt;. CSS rules consist of &lt;a href=&quot;https://www.w3schools.com/css/css_syntax.asp&quot;&gt;two parts&lt;/a&gt;, mapping nicely to our fundamental relationship.&lt;/p&gt;
+
+&lt;p&gt;The first part of a CSS rule is a &lt;u&gt;selector&lt;/u&gt;. Selectors are a way to query for the group of HTML elements that will be styled. The second part of a CSS rule is a styling declaration. This declaration precisely controls what the elements returned by their selectors should look like, and can take on many forms.&lt;/p&gt;
+
+&lt;p&gt;Now that we know that basics of CSS, we can finally begin adding some styling to our page using the most basic CSS selector. From here on out, I want all my headings to be centered, and I would use the following CSS rule to achieve this:&lt;/p&gt;
+
+&lt;pre id=&quot;centerh3&quot;&gt;
+h3 { text-align: center; }
+&lt;/pre&gt;
+
+&lt;p&gt;Our basic CSS selector simply mirrors an HTML tag. It’s telling the browser to find the group of HTML elements that include an &lt;code class=&quot;highlighter-rouge&quot;&gt;&amp;lt;h3&amp;gt;&lt;/code&gt; tag, and to center the text on the screen.&lt;/p&gt;
 
 &lt;script type=&quot;text/javascript&quot;&gt;
-  var cssEnabled = true;
+  $(&quot;pre#centerh3&quot;).on(&quot;click&quot;, function() {
+    $('head').append(&quot;&lt;style&gt;h3 { text-align: center; } &lt;/style&gt;&quot;);
+  });
+&lt;/script&gt;
+
+&lt;h4 id=&quot;recap-what-can-we-do-1&quot;&gt;Recap: What Can We Do?&lt;/h4&gt;
+
+&lt;p&gt;We&lt;/p&gt;
+
+&lt;script type=&quot;text/javascript&quot;&gt;
+  var cssEnabled = false;
 
   $(&quot;button#clickMe&quot;).on(&quot;click&quot;, function() {
-  	var textToDisplay;
-    if (cssEnabled) {
-    	// TODO: check if this works in production
-    	$('link[href=&quot;/assets/css/main.css&quot;]').remove();
-    }
-    else {
-    	$('head').append('&lt;link rel=&quot;stylesheet&quot; href=&quot;/assets/css/main.css&quot; type=&quot;text/css&quot; /&gt;');
-    }
+    if (cssEnabled) $('link[href=&quot;/assets/css/main.css&quot;]').remove();
+    else $('head').append('&lt;link rel=&quot;stylesheet&quot; href=&quot;/assets/css/main.css&quot; type=&quot;text/css&quot; /&gt;');
+
     cssEnabled = !cssEnabled;
-    textToDisplay = cssEnabled ? 'Disable CSS' : 'Enable CSS'
+    var textToDisplay = cssEnabled ? 'Remove CSS' : 'Add CSS'
     $(this).text(textToDisplay) // fuck you javascript.
   });
 &lt;/script&gt;
 
+&lt;h3 id=&quot;the-div-and-the-class-attribute&quot;&gt;The Div and the Class Attribute&lt;/h3&gt;
+
+&lt;p&gt;The simplest CSS selectors simply mirror HTML tags, so it seems like we are quite limited. What if we want to add custom styling to only a section of our blog, say the first heading and the first paragraph together, and not any others?&lt;/p&gt;
+
+&lt;p&gt;The &amp;lt;div&amp;gt; element exists for this very reason - more generic targeting of HTML. Unlike a heading or a link, the div has no visual meaning associated with it. What it does do, is allow for HTML elements to be grouped together, and for that resulting group to be the target of custom styling.&lt;/p&gt;
+
+&lt;p&gt;What do selectors look like, then? The div is the most commonly used HTML tag, by a long shot. If we wanted to simply query using the name of the tag, we would get far too many matches, and far too little ability to add custom styling to our post.
+To query for divs, we append &lt;u&gt;attributes&lt;/u&gt; to our divs. Attributes can be litterally anything, but the most important one is the class, as there is special CSS-rule selector syntax for selecting all HTML elements that belong to a particular element.&lt;/p&gt;
+
+&lt;p&gt;[EDIT] -&amp;gt; visual representation here. Idea: Have a barebones HTML structure, and update css with jQuery to see the divs animated. Have a link to the video, or have it on the side panel?&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;&amp;lt;div class=&quot;myClass&quot;&amp;gt;Text&amp;lt;/div&amp;gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;I can then provide custom styling to all HTML elements belonging to this class with the following CSS rule:&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;.myClass {
+  font-size: 100px;
+  color: purple;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+
+&lt;h3 id=&quot;document-structure&quot;&gt;Document Structure&lt;/h3&gt;
+
+&lt;p&gt;We talked about how the &amp;lt;div&amp;gt; allow for HTML elements to be grouped together for styling, now we look at the exact mechanism through which that is possible: the hierarchial nature of HTML.&lt;/p&gt;
+
+&lt;p&gt;HTML elements form a tree. At the root of this tree is the &amp;lt;body&amp;gt; element - all the HTML elements that make up the content on your page are descendants of this body element. The parent-children relationship between elements is very important. In a sense, “Writing HTML and CSS” boils to identifying sections of content that should custom content, grouping them together with &amp;lt;div&amp;gt; elements, placing them at the correct level in relation to other &amp;lt;div&amp;gt; elements, and writing the appropriate selectors to define their stlying.&lt;/p&gt;
+
+&lt;p&gt;We’ve established that CSS rules apply to groups of HTML elements, and know that we know about the document structure of HTML, we can make our definition of “groups” more precise. CSS rules apply to the HTML elements specified by their selectors, and all of their children.&lt;/p&gt;
+
+&lt;p&gt;All of their children is here is key, as it forms the backbone of the strategy we will use to create our simple layout, when we talk about the separation between &lt;em&gt;content&lt;/em&gt; and &lt;em&gt;container&lt;/em&gt; &amp;lt;div&amp;gt;.&lt;/p&gt;
+
+&lt;h3 id=&quot;putting-these-concepts-together-a-simple-layout&quot;&gt;Putting These Concepts Together: A Simple Layout&lt;/h3&gt;
+
+&lt;p&gt;To create a simple layout, we can take advantage of the fact that all children HTML elements automatically inherit the CSS rules defined by their parents.&lt;/p&gt;
+
+&lt;p&gt;We will begin by examining the CSS rules that control how the text is centered on the screen, and how much space is between the text and the edges of the browser (the margins).&lt;/p&gt;
+
+&lt;p&gt;You’ll notice that the width of the text is a constant, no text anywhere on the screen exceeds a certain width. This is a good indication that there is some styling being applied to a “container” div, which is a parent of all the elements that contain content on the page. In this case, the top level “div”, which is given a class named “content-container” controls the over-arching style that we see on the page.&lt;/p&gt;
+
+&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;.content-container {
+    max-width: 58rem;
+    padding: 5rem 1rem;
+    margin-left: auto;
+    margin-right: auto;
+}
+&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;p&gt;[EDIT] -&amp;gt; introduce the body element?&lt;/p&gt;
+
+&lt;p&gt;Max-width: The max-width of any content will not exceed 58rem (a standard unit based on font-size, used so that that measurements can be made relative to some pre-defined value for a better sense of scale).
+Setting margin-left and margin-right to be “auto” is a very common techinque, this will center the content in the middle of the page. Any space between the parent’s width (in this case, the &amp;lt;body&amp;gt; element, which assumes the width of the browser window) and this element’s width (in this case, which is max-width: 58rem) will be split equally between the right and left margins, creating the centered effect.&lt;/p&gt;
+
+&lt;p&gt;All other content inherits the style set by this content-container div, which means that no other content on the page will exceed a width of 58rem, and that content will also be centered on the page.&lt;/p&gt;
+
+&lt;p&gt;With this parent content-container anchored in place, we can control the width of any content we want by setting it to be an explicit percentage of the parent’s width. For example,&lt;/p&gt;
+
+&lt;div style=&quot;text-align: center; width: 75%; margin: 0px auto;&quot;&gt;&lt;p&gt;
+  I want to make sure that the text that this text is limited to 75% width of the parent. Any content that exceeds that width should spill over to the next line, and that text should be centered on the page.
+&lt;/p&gt;&lt;/div&gt;
+
+&lt;p&gt;The 75% works in this case because in essence we have defined a “global” width, that we can always reference to.&lt;/p&gt;
+
+&lt;div style=&quot;width: 120%; margin: 0px auto;&quot;&gt;
+&lt;p&gt;I can also make sure that text spans larger than the max-width of the screen, by explicitly setting a width that is greater than the parent's width. The text here will be the longest line on the screen.&lt;/p&gt;
+&lt;/div&gt;
+
+&lt;h3 id=&quot;recap&quot;&gt;Recap&lt;/h3&gt;
+&lt;p&gt;This is a basic example, but it is enough to illustrate the fundamentals of HTML and CSS. To recap:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;
+    &lt;p&gt;HTML is a way to provide visual meaning to plain text. This meaning is supplied through HTML tags, which are interpreted in a certain way by the browser. Plaintext, combined with tags, are called HTML elements.
+-&amp;gt; List of HTML tags&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;CSS rules apply to groups of HTML elements. Since there are only a limited number of HTML tags, the &amp;lt;div&amp;gt; element is used as a generic way to group elements. They are referenced by CSS rules through their attributes, the most common attribute being the class. CSS rules apply, by default all the children elements matched by the supplied selector (more precise selectors are used to override this behavior)
+-&amp;gt; CSS attributes, CSS selectors, CSS order precedence&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;One easy way to take advantage of this hierachy is by setting generic style attributes in “container” &amp;lt;div&amp;gt; and letting these style attributes percolate down to their children.
+-&amp;gt; CSS layouts?&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ol&gt;
 </description>
         <pubDate>Sat, 18 Nov 2017 00:00:00 +0900</pubDate>
         <link>http://localhost:4000/2017-11-18/HTML-CSS/</link>
