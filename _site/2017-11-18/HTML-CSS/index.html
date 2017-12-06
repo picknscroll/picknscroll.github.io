@@ -10,7 +10,6 @@
   <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css' rel='stylesheet' type='text/css'>
   <link href="https://fonts.googleapis.com/css?family=Ubuntu+Mono" rel="stylesheet">
   <link rel="stylesheet" type="text/css" href="/assets/css/trend.css"/>
-  <!-- <link rel="stylesheet" href="/assets/css/main.css" type="text/css"> -->
 
   <link rel="alternate" type="application/rss+xml" title="RSS Feed for The Pick and Scroll" href="/feed.xml" />
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
@@ -33,6 +32,7 @@ ga('send', 'pageview');
 </head>
 
 <body>
+  <div class="test"></div>
   <div class="content-container">
     <header>
       <div class="header-small">
@@ -51,16 +51,27 @@ ga('send', 'pageview');
         </ul>
       </div>
 
-      <h4 id="todo">TODO</h4>
-<p>What other words are there for “these technologies (when referencing HTML and CSS?”).</p>
+      <h4 id="audience-anyone-who-wants-to-learn-more-about-html-and-css">Audience: anyone who wants to learn more about HTML and CSS</h4>
 
-<p>Idea -&gt; start with no styling (just plain HTML, so that is easier to see how different elements have styling associated with them). Introduce CSS styling as we get to the content that explains what it is. Then it becomes easier to see how the two key points of CSS differ from each other, and makes a smoother transition from point (2) to the rest of the document. It will also help make the introduction of CSS selectors by class a little easier.</p>
+<p>This post is intended for anyone who wants to learn more about the basics of HTML and CSS. It will  consist of 5 sections, which are as follows:</p>
+
+<ol>
+  <li>What is HTML?</li>
+  <li>What is CSS?</li>
+  <li>The Div Element and the Class Attribute</li>
+  <li>HTML Structure and Hierarchy</li>
+  <li>Putting it All Together: Towards a Simple Template</li>
+</ol>
+
+<p>My goal is to a give a conceptual overview of HTML and CSS, including their purposes and how they are used together. To acheive this goal of conceptual understanding, I purposely omit specific “implementation details”. For example, in our discussion of CSS, I do not mention the differences between inline styles and internal/external stylesheets.</p>
+
+<p>At the end of the post, I will provide links that will help fill in the gaps of any omitted details.</p>
 
 <hr />
 
-<h4 id="audience-anyone-who-wants-to-learn-more-about-html-and-css">Audience: anyone who wants to learn more about HTML and CSS</h4>
+<p>Whoa, what is going on here?</p>
 
-<p>Whoa, what is going on here? Your eyes aren’t playing a trick on you - the page looks like this for a reason. If you are still reading this, you presumably want to learn more about HTML and CSS, and I want to teach HTML and CSS with a page that has none. We will use HTML and CSS to gradually build the site back up into something modern. At the end, we will have created a simple blog layout that hopefully will illustrate the fundamentals of HTML and CSS.</p>
+<p>Your eyes aren’t playing a trick on you - the page looks like this for a reason. If you are still reading this, you presumably want to learn more about HTML and CSS, and I want to walk you through the basics of HTML and CSS by starting with a page that has none. As we explore the basics, we will gradually build the site back up into something more modern - and easier on the eyes. At the end, we will have created a simple blog template that will hopefully illustrate the fundamentals of HTML and CSS, and how they relate to each other.</p>
 
 <h2 id="what-is-html">What is HTML?</h2>
 
@@ -73,7 +84,7 @@ ga('send', 'pageview');
 
 <p>Note: &lt;u&gt; is the opening tag, and &lt;/u&gt; is the closing tag.</p>
 
-<p>HTML tags, combined with the plain text they enclose, are known as <u>HTML elements</u>. Browsers have a pre-defined notion of how HTML tags should effect the plain text they enclose. For example, when it sees “Underlined Text” surrounded by the <code class="highlighter-rouge">&lt;u&gt;</code> HTML tag from above, it will render it like this:</p>
+<p>HTML tags, combined with the plain text they enclose, are known as <u>HTML elements</u>. Browsers have a pre-defined notion of how HTML tags should change the plain text they enclose. For example, when it sees “Underlined Text” surrounded by the <code class="highlighter-rouge">&lt;u&gt;</code> HTML tag from above, it will render it like this:</p>
 
 <p><u>Underlined Text</u></p>
 
@@ -88,22 +99,18 @@ ga('send', 'pageview');
 Note: Hover over each element in the list to see the HTML tags used to create the element
 </div>
 
-<h4 id="recap-what-can-we-do">Recap: What Can We Do?</h4>
-
-<p>Using HTML tags, we can give various parts of our blog visual meaning.</p>
-
 <h2 id="what-is-css">What is CSS?</h2>
 
-<p>CSS is a language that lets users customize the “style” of webpages. Style can be an ambigious term, so to set the proper context , we will begin by noting that the above paragraphs have no styling (which is why they look like they come from the 1990s). This is another way of saying they were rendered by the browser’s default interpretation of what HTML tags look like. We can change those defaults through a series of rules called <u>CSS rules</u>.</p>
+<p>CSS is a language that lets users customize the “style” of webpages. Style can be an ambigious term, so to set the proper context , we will begin by noting that the above paragraphs have no styling (which is why they look like they come from the 1990s). This is another way of saying they were rendered by the browser’s default interpretation of what HTML tags look like. We can change those defaults through a series of declarations called <u>CSS rules</u>.</p>
 
-<p>Let’s say I want to emphasize an important sentence by underlying it. Like we saw above, I would first give my sentence visual meaning by wrapping it in a <code class="highlighter-rouge">&lt;u&gt;</code> HTML tag. But that’s not enough - I want to make my sentence stand out more by making it red. To do so, I need to write a CSS rule to tell the browser what exactly underlined text should look like.</p>
+<p>Let’s say I want to emphasize an important sentence by underlying it. Like we saw above, I would first give my sentence visual meaning by wrapping it in a <code class="highlighter-rouge">&lt;u&gt;</code> HTML tag. But say that’s not enough - I now want to make my sentence stand out more by making it red. To do so, I need to write a CSS rule to tell the browser what exactly underlined text should look like.</p>
 
 <p><u style="color: red">This is an important sentence. Notice it.</u></p>
 
 <p>This short example illustrates the fundamental relationship between HTML and CSS.
 <strong>CSS rules apply to groups of HTML elements, and provide precise control over their visual representations.</strong></p>
 
-<p>A CSS rule consists of <a href="https://www.w3schools.com/css/css_syntax.asp">two parts</a>, a <u>selector</u> and one or more <u>declarations</u>. Not coincidentally, these two parts map nicely to our fundamental relationship. Selectors are how we specify the group of HTML elements that will be styled. The declaration(s) are what precisely control the style, and apply to all the elements matched by the selector.*</p>
+<p>A CSS rule consists of <a href="https://www.w3schools.com/css/css_syntax.asp">two parts</a>, a <u>selector</u> and one or more <u>declarations</u>. Not coincidentally, these two parts map nicely to our fundamental relationship. Selectors are how we specify the group of HTML elements that will be styled. The declaration(s) are what precisely control the style, and apply to all the elements matched by the selector (we will refine this definition shortly)</p>
 
 <p>We now know enough about CSS to add styling to our blog post. We’ll use the most basic of CSS selectors, which simply mirror HTML tags. After such a “tag-based” CSS rule is established, whenever browsers encounter HTML elements annotated with such a tag, they will render it according to the delcared style.</p>
 
@@ -119,42 +126,20 @@ h2 { text-align: center; }
   });
 </script>
 
-<h4 id="recap-what-can-we-do-1">Recap: What Can We Do?</h4>
+<h2 id="the-div-element-and-the-class-attribute">The Div Element and the Class Attribute</h2>
 
-<p>We can write a simple CSS rule, with “tag-based” CSS selectors, to style HTML elements.</p>
+<p>While we’re making progress, our current capabilites are a bit limited. We can target specific groups of HTML elements by their tags, but what if we want to style <em>arbitrary</em> sections of our blog - say, all the text from here until the end of the page?</p>
 
-<script type="text/javascript">
-  var cssEnabled = false;
+<p>The <code style="display: inline-block">&lt;div&gt;</code> tag exists for this very reason. Unlike the HTML tags we have encountered so far, like headings or links, a <code style="display: inline-block">&lt;div&gt;</code> has no visual meaning. Instead, <b>the <code style="display: inline-block">&lt;div&gt;</code> allows for generic grouping of HTML elements, all of which can then become the targets of CSS selectors and custom styling declarations</b>.</p>
 
-  $("button#clickMe").on("click", function() {
-    if (cssEnabled) $('link[href="/assets/css/main.css"]').remove();
-    else $('head').append('<link rel="stylesheet" href="/assets/css/main.css" type="text/css" />');
-
-    cssEnabled = !cssEnabled;
-    var textToDisplay = cssEnabled ? 'Remove CSS' : 'Add CSS'
-    $(this).text(textToDisplay) // fuck you javascript.
-  });
-</script>
-
-<h2 id="the-div-and-the-class-attribute">The Div and the Class Attribute</h2>
-
-<div class="addStyle">
-While we're making progress, our current capabilites are a bit limited. We can target specific groups of HTML elements by their tags, but what if we want to style <em>arbitrary</em> sections of our blog - say, all the text from here until the end of the page?
-
-<br /><br />
-
-The <code style="display: inline-block">&lt;div&gt;</code> tag exists for this very reason. Unlike the HTML tags we have encountered so far, like headings or links, a <code style="display: inline-block">&lt;div&gt;</code> has no visual meaning. Instead, <b>the <code style="display: inline-block">&lt;div&gt;</code> allows for generic grouping of HTML elements, all of which can then become the targets of CSS selectors and custom styling declarations</b>.
-
-<br /><br />
-
-Because of its grouping capabilities, the <code style="display: inline-block">&lt;div&gt;</code> is the most commonly used HTML tag. A simple "div-tag" CSS selector would therefore match almost every single element on the page. And while this gives us more ways to define groups of HTML elements, we also lose precise control. We combat this loss of precise control by adding <u>attributes</u> to our HTML tags. The most important attribute is the class attribute, and a HTML element with a class attribute specified looks like this:
+<p>Because of its grouping capabilities, the <code style="display: inline-block">&lt;div&gt;</code> is the most commonly used HTML tag. A simple “div-tag” CSS selector would therefore match almost every single element on the page. And while we gain a way to define groups of HTML elements, we also lose control. We combat this loss of precise control by adding <u>attributes</u> to our HTML tags. The most important attribute is the class attribute, and a HTML element with a class attribute specified looks like this:</p>
 
 <pre>
 &lt;div class="myClass"&gt;Text&lt;/div&gt;
 </pre>
 
-Class attributes let us refine our selector queries. A special CSS selector exists for selecting all HTML elements belonging to a particular class - it involves pre-pending a "." in front of the class name.
-To illustrate this, I've wrapped the rest of this post in a <code style="display: inline-block">&lt;div&gt;</code>, and I've given this <code style="display: inline-block">&lt;div&gt;</code> a class attribute called <code style="display: inline-block">addStyle</code>. Click on the CSS rule below to apply styling to the rest of this post from here on out - it will make the rest of the blog much more readable, I promise.
+<p>Class attributes let us refine our selector queries. A special CSS selector exists for selecting all HTML elements belonging to a particular class - it involves pre-pending a “.” in front of the class name.
+To illustrate this, I’ve wrapped the rest of this post in a <code style="display: inline-block">&lt;div&gt;</code>, and I’ve given this <code style="display: inline-block">&lt;div&gt;</code> a class attribute called <code style="display: inline-block">addStyle</code>. Click on the CSS rules below to apply styling to the rest of this post from here on out - it will make the rest of the blog much more readable, I promise.</p>
 
 <pre id="addStyle" style="cursor: pointer">
 .addStyle {
@@ -166,13 +151,15 @@ To illustrate this, I've wrapped the rest of this post in a <code style="display
 }
 </pre>
 
+<div class="addStyle">
+
 <h2>Structure of HTML</h2>
 
 Now that we know the &lt;div&gt; allows us to group HTML elements together for styling, we will precisely define how these groupings are achieved.
 
 <br /><br />
 
-The HTML elements that make up this page are arranged in a tree. At the root of this tree is the <code style="display: inline-block">&lt;body&gt;</code> element - all other elements are children of this element. Any HTML element can be either the child or parent of other HTML elements. To create a parent-child relationship between elements, we "nest" the child between the opening and closing tags of its parent, like this:
+The HTML elements that make up this page are arranged in a tree. At the root of this tree is the <code style="display: inline-block">&lt;body&gt;</code> element, and all other elements are children of this element. Any HTML element can be either the child or parent of other HTML elements. To create a parent-child relationship between elements, we "nest" the child between the opening and closing tags of its parent, like this:
 
 <pre>
 &lt;div&gt;
@@ -180,47 +167,73 @@ The HTML elements that make up this page are arranged in a tree. At the root of 
 &lt;/div&gt;
 </pre>
 
-The parent-children relationship between elements is very important. I purposely withheld the full name of CSS until this relationship was established. CSS stands for Cascading Style Sheets; cascading references the fact that the styling declared by CSS rules apply not only to the elements matched by its selector, but to all of its children elements as well.
 
+The parent-children relationship between elements is very important. We can now refine our defintion of CSS selectors from above: by default, <b>CSS rules apply to not only the exact elements matched by their selectors, but to all of their children elements as well</b>. In fact, CSS stands for Cascading Style Sheets - cascading is a reference to how styles cascade down from parent elements to children elements.
 <br /><br />
 
-In a sense, writing basic HTML and CSS boils down to:
 
-<ul>
-  <li>identifying sections of content that need custom styling</li>
-  <li>grouping them together with &lt;div&gt; elements</li>
-  <li>placing them at the correct level in relation to other elements</li>
-  <li>writing CSS rules with the appropriate selectors and declarations</li>
-</ul>
-
-<h3> Putting These Concepts Together: A Simple Layout </h3>
-With that, we have a general understanding of how HTML and CSS work together. To completely illustrate these concepts, we will know dig into how this blog's simple layout works, and some strategies for creating layouts.
+<h3> Putting These Concepts Together: A Simple Template </h3>
+Now that we have a general understanding of how HTML and CSS work together, let's walk through a simple example to see how the concepts are used to create the basic template for this page.
+To keep things simple, we will only focus on one aspect of our template — the centering of the text and the margins between the text and the window. 
 <br /><br />
-
-The layout of this blog takes full advantage of the fact that HTML elements automatically inherit styling of their parents. If we want to set "global" styling that the rest of the layout will inherit, we can do this by creating a top-level &lt;div&gt;, and applying our "global" style to that &lt;div&gt;. This "top-level" &lt;div&gt; often is given a class attribute with a name such as "container" or "wrapper". The page's content are typically children of this div.
-
+We can take advantage of the fact that HTML elements automatically inherit the styling of the parents to achieve this effect. We first create a top-level <code style="display: inline-block">&lt;div&gt;</code> which will be the root element of our page; all of our blog’s content will be children of this root element. 
 <br /><br />
+It is important to note that our root element does not have content associated with it. Its sole purpose is to group the elements that comprise of the blog together as one unit. For this reason, it is common to refer to these types of root elements as “container” or “wrapper” elements, and for these terms to show up as class attributes of the element as well.
+<br />
+<pre>
+&lt;div class="content-container"&gt;
+  BLOG CONTENT HERE
+&lt;div&gt;
+</pre>
+Creating this container element gives us an easy target for the styling that we want to apply to our blog. We first set the width of our parent div to be a fixed percentage of the screen’s current width — in our case, it is set to 80%. Next, we set the left and right margins of our element to auto, which tells the browser to automatically center our content within the width we specified. We also set the font size and type, and how much space is in between each line (line-height).
+<br />
 
-In our case, the "global" styling that is applied is the margins between the text and the edges of the window. We can create a top-level div, and define its width as a percentage of the current screen width. By setting margin: 0 auto, we achieve our desired affect. Setting this style at the "content" div level (the parent div level) allows us to focus on apply custom styling to our content the way we want to without having to worry about how wide it will go, or if it will stay centered on the screen - since content is a children of the parent top-level div, it is automatically inherited.
+<pre id="contentContainer" style="cursor: pointer">
+.content-container {
+    width: 80%;
+    margin: 0 auto;
+    line-height: 1.6em;
+    font-size: 20px;
+    font-family: Georgia;
+}
+</pre>
 
-Setting this type of global styling in a parent container div, and having the children elements inherit this styling automatically is a good strategy for creating layouts like this.
-
-<br /><br />
+Since our content-container &lt;div&gt; is the the root of our HTML document, the rest of our content now inherits this styling by default. We're free to focus on the content of our post.
 
 
 <h3> Recap </h3>
 This is a basic example, but it is enough to illustrate the fundamentals of HTML and CSS. To recap:
 
 <ul>
-<li>1. HTML is a way to provide visual meaning to plain text. This meaning is supplied through HTML tags, which are interpreted in a certain way by the browser. Plaintext, combined with tags, are called HTML elements.
--&gt; List of HTML tags</li>
+<li>HTML is a way to provide visual meaning to plain text. This meaning is supplied through HTML tags, which are interpreted in a certain way by the browser. Plaintext, combined with tags, are called HTML elements.</li>
+  <ul>
+    <li><a href="https://www.w3schools.com/tags/">List of HTML tags</a></li>
+  </ul>
+  <br />
 
-<li>2. CSS rules apply to groups of HTML elements. Since there are only a limited number of HTML tags, the &lt;div&gt; element is used as a generic way to group elements. They are referenced by CSS rules through their attributes, the most common attribute being the class. CSS rules apply, by default all the children elements matched by the supplied selector (more precise selectors are used to override this behavior)
--&gt; CSS attributes, CSS selectors, CSS order precedence</li>
+<li>CSS is a way to provide custom styling to a webpage. Custom styles apply to groups of HTML elements, and are specified through CSS rules, which consist of a selector and a declaration.</li>
+  <ul>
+    <li><a href="https://www.w3schools.com/cssref/css_selectors.asp">CSS Selectors</a></li>
+    <li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/Syntax#CSS_declarations_blocks">CSS Declarations</a></li>
+    <li><a href="http://www.inmotionhosting.com/support/edu/website-design/using-css/linking-your-css-to-your-website">External v Internal CSS</a></li>
+  </ul>
+  <br />
+
+<li>The div tag lets us group HTML elements together, in arbitrary manners. Attributes let us refine our selector queries. When combined together, they give us precise control of how to style a page.</li>
+ <ul>
+  <li><a href="https://www.w3schools.com/html/html_attributes.asp">HTML Attribtues</a></li>
+  <li><a href="https://stackoverflow.com/questions/25105736/what-is-the-order-of-precedence-for-css">CSS Order Preference</a></li>
+ </ul>
+ <br />
+
+<li>HTML elements are arranged in a tree. A CSS rule that applies to a specific HTML element also applies to all children of that element as well.</li>
+  <ul>
+    <li><a href="http://www.webreference.com/html/rendering/2.html">HTML Hierarchy</a></li>
+   </ul>
+   <br />
 
 <li>
-4. One easy way to take advantage of this hierachy is by setting generic style attributes in "container" &lt;div&gt; and letting these style attributes percolate down to their children.
--&gt; CSS layouts?
+One easy way to take advantage of this hierachy is by setting generic style attributes in "container" &lt;div&gt; and letting these attributes percolate down to their children. In our example, we created a parent &lt;div&gt; with the class attribute "content-container". We specified some global style attributes of our blog - width and centering -, and let the rest of our blog inherit these styles by default.
 </li>
 </ul>
 
@@ -233,8 +246,7 @@ This is a basic example, but it is enough to illustrate the fundamentals of HTML
   });
 
   $(document).ready(function() {
-    $('pre#addStyle').click();
-    // $('pre#centerh2').click();
+   $("pre#addStyle").click();
   });
 
 </script>
