@@ -112,12 +112,16 @@ const tickValues =  [
   END_DATE,
 ]
 
+const TIME_FORMAT = '%b %d';
+const dateToWidth = d3.scaleTime().range([0, timelineWidth]).domain([START_DATE, END_DATE]);{}
+const xAxis = d3.axisBottom(dateToWidth) 
+                .tickValues(tickValues)
+                .tickFormat(d3.timeFormat(TIME_FORMAT))
 
-var dateToWidth = d3.scaleTime().range([0, timelineWidth]).domain([START_DATE, END_DATE]);{}
 svgContainer.append("g")
             .attr("class", "xAxis")
             .attr("transform", translate(LEFT_MARGIN, TOP_MARGIN))
-            d3.select(".xAxis").call(d3.axisBottom(dateToWidth).tickValues(tickValues).tickFormat(d3.timeFormat("%m-%d")))
+            .call(xAxis)
 
 /* ==== Charting ==== */
 var timelineContainer = svgContainer.append("g")
