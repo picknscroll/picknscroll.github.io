@@ -10,6 +10,13 @@ function em(input) {
  return (emSize * input);
 }
 
+function formatDate(d) {
+  const month = d.getUTCMonth() + 1; //months from 1-12
+  const day = d.getUTCDate();
+  const year = d.getUTCFullYear();
+  return year + "/" + month + "/" + day; 
+}
+
 /* ==== Data ==== */
 var timelinePoints = [
   {
@@ -90,7 +97,7 @@ const END_DATE = new Date(2018, 0, 05);
 /* ==== General UI settings ==== */
 var TOP_MARGIN = 50;
 var LEFT_MARGIN = 15;
-var RIGHT_MARGIN = 50; // TODO: scale this according to the text
+var RIGHT_MARGIN = 30; // TODO: scale this according to the text
 var TOTAL_SIDE_MARGIN = LEFT_MARGIN + RIGHT_MARGIN;
 
 parentContainer = $('.chartContainer');
@@ -108,13 +115,18 @@ var svgContainer = d3.select("svg#svgContainer");
 
 const tickValues =  [
   START_DATE,
-  new Date(2017, 11, 01),
+  new Date(2017, 10, 13),
+  new Date(2017, 10, 24),
+  new Date(2017, 11, 12),
+  new Date(2017, 11, 30),
   END_DATE,
 ]
 
-const TIME_FORMAT = '%b %d';
+const TIME_FORMAT = '%m-%d';
 const dateToWidth = d3.scaleTime().range([0, timelineWidth]).domain([START_DATE, END_DATE]);{}
 const xAxis = d3.axisBottom(dateToWidth) 
+                .tickSizeOuter(0)
+                // .tickValues([])
                 .tickValues(tickValues)
                 .tickFormat(d3.timeFormat(TIME_FORMAT))
 
@@ -169,32 +181,32 @@ conceptSelection.append("text")
                 .attr("dy", LINE_HEIGHT);
 
 /* ==== Timeline Labels ==== */
-var labelSelection = timelineContainer.append("g")
-                             .attr("class", "labels")
-                             .selectAll(".points")
-                             .data(timelinePoints)
-                             .enter()
-                             .append("g")
-                             .attr("class", "labelContainer")
-                             .attr("index", (d, i) => i)
+// var labelSelection = timelineContainer.append("g")
+//                              .attr("class", "labels")
+//                              .selectAll(".points")
+//                              .data(timelinePoints)
+//                              .enter()
+//                              .append("g")
+//                              .attr("class", "labelContainer")
+//                              .attr("index", (d, i) => i)
 
-var LABEL_HEIGHT = -30;
-labelSelection.append("line")
-             .attr("class", "dateLine")
-             .attr("x1", d => getWidth(d) )
-             .attr("x2", d => getWidth(d) )
-             .attr("y1", d => LABEL_HEIGHT)
-             .attr("y2", 0);
+// var LABEL_HEIGHT = -30;
+// labelSelection.append("line")
+//              .attr("class", "dateLine")
+//              .attr("x1", d => getWidth(d) )
+//              .attr("x2", d => getWidth(d) )
+//              .attr("y1", d => LABEL_HEIGHT)
+//              .attr("y2", 0);
 
-const LABEL_TEXT_BUFFER  = -5;
-labelSelection.append("text")
-             .attr("class", "dateLabels")
-             .attr("x", d => getWidth(d) - d.textWidth / 2)
-             .attr("dy", LABEL_HEIGHT + LABEL_TEXT_BUFFER)
-             .text(d => toDateString(getDate(d)) )
+// const LABEL_TEXT_BUFFER  = -5;
+// labelSelection.append("text")
+//              .attr("class", "dateLabels")
+//              .attr("x", d => getWidth(d) - d.textWidth / 2)
+//              .attr("dy", LABEL_HEIGHT + LABEL_TEXT_BUFFER)
+//              .text(d => toDateString(getDate(d)) )
 
 /* ==== Timeline Dates ==== */
-var DOT_SIZE = 5.5;
+var DOT_SIZE = 6;
 var dateSelection = timelineContainer.append("g")
                              .attr("class", "dates")
                              .selectAll(".points")

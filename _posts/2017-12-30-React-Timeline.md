@@ -5,29 +5,26 @@ date: 2017-12-30
 share: true
 ---
 <style type="text/css">
-.chartContainer {
-  height: 300px;
-}
 
 #svgContainer {
   width: 100%;
   height: 100%;
+  /*border: 1px solid;*/
 }
 
 .conceptLabel > line {
   stroke-width: 1;
-  stroke-opacity: .8;
-  stroke: grey;
+  stroke: black;
 }
 
 .conceptLabel > text {
   font-size: 15px;
-  opacity: .6;
+  opacity: 1;
 }
 
 /* Dates and Date Labels */
 .pointDot {
-  fill: white;
+  fill: #f1f1f1;
   stroke: black;
 }
 
@@ -48,7 +45,7 @@ share: true
 }
 
 .active.pointDot {
-  fill: #89c6d3;
+  fill: #5b9ead;
 }
 
 .active > .dateLabels {
@@ -80,63 +77,59 @@ share: true
 }
 
 .text { 
-  margin-top: 30px;
-  margin-bottom: 30px;
-  height: 100px;
+  margin: 0px 45px;
+  text-align: justify;
 }
 
 .textHeader {
-  display: inline;
-  margin: 0px 10px;
-}
-
-/* Text Area Navigation Buttons */
-.navigation {
-  margin-top: 45px;
-  margin-left: auto;
-  margin-right: auto;
-  width: 50%;
   text-align: center;
 }
 
-.navigation > .pointer {
-    text-decoration: none;
-    display: inline;
-    padding: 8px 16px;
+/* Text Area Navigation Buttons */
+.navigationContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 150px;
+}
+
+i {
+    border: solid black;
+    border-width: 0 2.5px 2.5px 0;
+    display: inline-block;
+    padding: 3px;
+    width: 18px;
+    height: 18px;
     cursor: pointer;
 }
 
-.navigation > .pointer:hover {
-    background-color: #ddd;
-    color: black;
+.next {
+    transform: rotate(-45deg);
+    -webkit-transform: rotate(-45deg);
 }
 
 .previous {
-    background-color: #f1f1f1;
-    color: black;
+    transform: rotate(135deg);
+    -webkit-transform: rotate(135deg);
 }
 
-.next {
-    background-color: #89c6d3;
-    color: white;
-}
-
-.round {
-    border-radius: 50%;
-}
 
 </style>
 <svg id="fontTest">
   <text></text>
 </svg>
 
-<div class="navigation">
-  <div class="pointer previous round">&#8249;</div>
-  <div class="textHeader"></div>
-  <div class="pointer next round">&#8250;</div>
+<div class="textHeader"></div>
+
+
+<div class="navigationContainer">
+  <div class="arrowContainer">
+    <i class="arrow previous"></i>
+  </div>
+  <div class="text"></div>
+  <div class="arrowContainer"><i class="arrow next"></i></div>
 </div>
 
-<div class="text"></div>
 <div class="chartContainer">
   <svg id="svgContainer"></svg>
 </div>
@@ -157,17 +150,15 @@ share: true
     }
     
     function renderCurrIndex() {
-      getLabelForIndex(currIndex).addClass("active");
       getDateForIndex(currIndex).addClass("active");
 
-      var date = toDateString(getDate(timelinePoints[currIndex]));
+      var date = getDate(timelinePoints[currIndex]).toDateString() + ':';
       var entry = getEntry(timelinePoints[currIndex]);
       $('.textHeader').text(date);
       $('.text').text(entry);
     }
 
     function hidePrevIndex() {
-      getLabelForIndex(currIndex).removeClass("active");
       getDateForIndex(currIndex).removeClass("active");
     }
 
@@ -181,7 +172,7 @@ share: true
       renderCurrIndex();
     })
 
-    $('.pointer.previous').on('click', function() {
+    $('.arrow.previous').on('click', function() {
       if (currIndex == FIRST_INDEX) {
         return
       }
@@ -190,7 +181,7 @@ share: true
       renderCurrIndex();
     });
 
-    $('.pointer.next').on('click', function() {
+    $('.arrow.next').on('click', function() {
       if (currIndex == LAST_INDEX) {
         return
       }
