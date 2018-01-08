@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Learning React: A Visual Timeline</title>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/assets/css/main.css" type="text/css">
+
+  <!-- Font -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css' rel='stylesheet' type='text/css'>
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu+Mono" rel="stylesheet">
+  <link rel="stylesheet" type="text/css" href="/assets/css/trend.css"/>
+
+  <link rel="alternate" type="application/rss+xml" title="RSS Feed for The Pick and Scroll" href="/feed.xml" />
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+  <!-- <script src="/assets/js/spine.js"></script> -->
+  <script src="/assets/js/utils.js"></script>
+  <!-- Google Analytics -->
+
+<script>
+(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+ga('create', '', 'auto');
+ga('send', 'pageview');
+
+</script>
+
+
+
+</head>
+
+<body>
+  <div class="content-container">
+    <header>
+  <div class="header-small">
+    <a href="http://localhost:4000">The Pick and Scroll</a>
+  </div>
+</header>
+<div class="post">
+  <div class="post-title">Learning React: A Visual Timeline</div>
+  <div class="post-tag">
+    <ul>
+      
+    </ul>
+  </div>
+
+  <style type="text/css">
+.chartContainer {
+  height: 300px;
+}
+
+#svgContainer {
+  width: 100%;
+  height: 100%;
+}
+
+.conceptLabel > line {
+  stroke-width: 1;
+  stroke-opacity: .8;
+  stroke: grey;
+}
+
+.conceptLabel > text {
+  font-size: 15px;
+  opacity: .6;
+}
+
+/* Dates and Date Labels */
+.pointDot {
+  fill: white;
+  stroke: black;
+}
+
+.pointDot:hover {
+  cursor: pointer;
+}
+
+.dateLabels {
+  font-size: 18px;
+  font-family: Consolas;
+  fill: grey;
+  opacity: 0;
+}
+
+.dateLine {
+  stroke-width: 1
+  stroke: grey;
+}
+
+.active.pointDot {
+  fill: #89c6d3;
+}
+
+.active > .dateLabels {
+  opacity: 1;
+  fill: black;
+}
+
+.active > .dateLine {
+  stroke: black;
+  stroke-width: 1;
+  opacity: 1 
+}
+
+/* Text Area */
+.textHeader {
+  margin-top: 30px;
+  text-align: center;
+  font-size: 30px;
+}
+
+#fontTest {
+  font-size: 18px;
+  font-family: Consolas;
+  position: absolute;
+  visibility: hidden;
+  height: auto;
+  width: auto;
+  white-space: nowrap;
+}
+
+.text { 
+  margin-top: 30px;
+  margin-bottom: 30px;
+  height: 100px;
+}
+
+.textHeader {
+  display: inline;
+  margin: 0px 10px;
+}
+
+/* Text Area Navigation Buttons */
+.navigation {
+  margin-top: 45px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  text-align: center;
+}
+
+.navigation > .pointer {
+    text-decoration: none;
+    display: inline;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.navigation > .pointer:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.previous {
+    background-color: #f1f1f1;
+    color: black;
+}
+
+.next {
+    background-color: #89c6d3;
+    color: white;
+}
+
+.round {
+    border-radius: 50%;
+}
+
+</style>
+
+<svg id="fontTest">
+  <text></text>
+</svg>
+
+<div class="navigation">
+  <div class="pointer previous round">&#8249;</div>
+  <div class="textHeader"></div>
+  <div class="pointer next round">&#8250;</div>
+</div>
+
+<div class="text"></div>
+<div class="chartContainer">
+  <svg id="svgContainer"></svg>
+</div>
+
+<script src="/assets/js/react-timeline.js"></script>
+
+<script type="text/javascript">
+  $(document).ready(function() {
+
+    const FIRST_INDEX = 0;
+    const LAST_INDEX = timelinePoints.length - 1;
+
+    function getDateForIndex(index) {
+      return $('.pointDot[index=' + index + ']');
+    }
+
+    function getLabelForIndex(index) {
+      return $('.labelContainer[index=' + index + ']');
+    }
+    
+    function renderCurrIndex() {
+      getLabelForIndex(currIndex).addClass("active");
+      getDateForIndex(currIndex).addClass("active");
+
+      var date = toDateString(getDate(timelinePoints[currIndex]));
+      var entry = getEntry(timelinePoints[currIndex]);
+      $('.textHeader').text(date);
+      $('.text').text(entry);
+    }
+
+    function hidePrevIndex() {
+      getLabelForIndex(currIndex).removeClass("active");
+      getDateForIndex(currIndex).removeClass("active");
+    }
+
+    let currIndex = 0;
+    renderCurrIndex();
+
+    $('.pointDot').on('click', function() {
+      hidePrevIndex();
+      const nextIndex = $(this).index();
+      currIndex = nextIndex;
+      renderCurrIndex();
+    })
+
+    $('.pointer.previous').on('click', function() {
+      if (currIndex == FIRST_INDEX) {
+        return
+      }
+      hidePrevIndex();
+      currIndex = currIndex - 1;
+      renderCurrIndex();
+    });
+
+    $('.pointer.next').on('click', function() {
+      if (currIndex == LAST_INDEX) {
+        return
+      }
+      hidePrevIndex();
+      currIndex = currIndex + 1;
+      renderCurrIndex();
+    });
+})
+</script>
+
+
+
+  <!-- Disqus -->
+  
+
+</div>
+
+
+    <!-- Documents about icons are here: http://fontawesome.io/icons/ -->
+<div class="footer">
+  <hr />
+  <div class="footer-link">
+    
+	
+	
+	
+	
+
+    
+
+    
+	
+	
+	
+	
+
+    
+    <a href="https://www.linkedin.com/in/jzhang621"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+    
+	
+	
+	
+	
+	
+	
+	
+	
+
+    
+
+    
+
+    
+
+  </div>
+  © 2017 Kiko. All rights reserved.
+</div>
+
+  </div>
+</body>
+</html>
