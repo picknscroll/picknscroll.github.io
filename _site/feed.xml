@@ -6,6 +6,59 @@
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Pandas: An Interactive Tutorial</title>
+        <description>&lt;style type=&quot;text/css&quot;&gt;
+.note {
+    -webkit-border-radius: 6px;
+    background-color: #e9ecef2e;
+    border: solid 1px #343a40;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 15px 60px;
+    text-align: center;
+    width: 88%;
+    margin: 35px auto;
+    line-height: 1.8rem;
+}
+
+#pandas {
+  margin: 25px 110px 35px 110px;
+}
+&lt;/style&gt;
+
+&lt;p&gt;[TODO: expand on common components (reading, manipulating, visualizing) and tedious details (data encoding/decoding, mathematical operations on columns of data)]&lt;/p&gt;
+
+&lt;hr /&gt;
+
+&lt;p&gt;In recent years, the Pandas library has become the de-facto standard for analyzing data in Python. Its popularity stems from how it has simplified data analysis - Pandas integrates the common components of an analysis into a single package, and abstracts away many of their tedious details. The end result is a win for data analysts, who are free to achieve their objectives quicker and with more ease.&lt;/p&gt;
+
+&lt;p&gt;A typical data analysis using Pandas might involve the following three steps:&lt;/p&gt;
+
+&lt;ol&gt;
+  &lt;li&gt;Data is first read from a csv file into a &lt;strong&gt;DataFrame&lt;/strong&gt;, the library’s core data structure. (It is also easy to read data from other formats such as json, databases, even URLs with html tables).&lt;/li&gt;
+  &lt;li&gt;Once loaded, the data is wrangled in a variety of ways using the DataFrame’s querying interface.&lt;/li&gt;
+  &lt;li&gt;Finally, insights are visualized using the DataFrame’s convenient plotting method.&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;div id=&quot;pandas&quot;&gt;
+  &lt;a href=&quot;/assets/pandas.svg&quot;&gt;
+    &lt;img src=&quot;/assets/pandas.svg&quot; /&gt;
+  &lt;/a&gt;
+&lt;/div&gt;
+
+&lt;p&gt;Pandas is a vast library, with many topics to cover, and unfortunately, a single post like this one cannot span the entire territory. It will instead begin by introducing the properties of the DataFrame, while defining the library’s core terms and concepts along the way. It will then build upon to that knoweldge to explain how Pandas supports step 2 - namely, the various ways through which data residing in a DataFrame can be selected.&lt;/p&gt;
+
+&lt;div class=&quot;note&quot;&gt;
+&lt;strong&gt;Note&lt;/strong&gt;: Pandas is rich with functionality, which makes it a joy to use. However, I found (and still find) a few parts of the library to be somewhat uninintuitive. My purpose for writing this post is thus two-fold. I hope to first explain the topic at hand as simply as I possibly can. But more importantly, I hope to equip the reader with enough knowledge and context to activate his or her own course of understanding, whether that be through Googling, reading the documentation, or best of all, playing around with the library.
+&lt;/div&gt;
+
+</description>
+        <pubDate>Sat, 07 Apr 2018 00:00:00 +0900</pubDate>
+        <link>http://localhost:4000/2018-04-07/Pandas-Interactive-Tutorial/</link>
+        <guid isPermaLink="true">http://localhost:4000/2018-04-07/Pandas-Interactive-Tutorial/</guid>
+      </item>
+    
+      <item>
         <title>Learning React: A Visual Timeline</title>
         <description>&lt;style type=&quot;text/css&quot;&gt;
 
@@ -29,37 +82,16 @@
 .pointDot {
   fill: #f1f1f1;
   stroke: black;
+  r: 6;
 }
 
 .pointDot:hover {
   cursor: pointer;
 }
 
-.dateLabels {
-  font-size: 18px;
-  font-family: Consolas;
-  fill: grey;
-  opacity: 0;
-}
-
-.dateLine {
-  stroke-width: 1
-  stroke: grey;
-}
-
 .active.pointDot {
   fill: #5b9ead;
-}
-
-.active &gt; .dateLabels {
-  opacity: 1;
-  fill: black;
-}
-
-.active &gt; .dateLine {
-  stroke: black;
-  stroke-width: 1;
-  opacity: 1 
+  r: 10;
 }
 
 /* Text Area */
@@ -106,16 +138,26 @@ i {
     cursor: pointer;
 }
 
+i:hover {
+  border: solid #5b9ead;
+  border-width: 0 2.5px 2.5px 0;
+}
+
 .next {
     transform: rotate(-45deg);
     -webkit-transform: rotate(-45deg);
 }
 
 .previous {
-    transform: rotate(135deg);
-    -webkit-transform: rotate(135deg);
+  transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
 }
 
+.arrow.inactive {
+  cursor: default;
+  border: solid #bbb;
+  border-width: 0 2.5px 2.5px 0;
+}
 
 &lt;/style&gt;
 
@@ -126,9 +168,7 @@ i {
 &lt;div class=&quot;textHeader&quot;&gt;&lt;/div&gt;
 
 &lt;div class=&quot;navigationContainer&quot;&gt;
-  &lt;div class=&quot;arrowContainer&quot;&gt;
-    &lt;i class=&quot;arrow previous&quot;&gt;&lt;/i&gt;
-  &lt;/div&gt;
+  &lt;div class=&quot;arrowContainer&quot;&gt;&lt;i class=&quot;arrow previous&quot;&gt;&lt;/i&gt;&lt;/div&gt;
   &lt;div class=&quot;text&quot;&gt;&lt;/div&gt;
   &lt;div class=&quot;arrowContainer&quot;&gt;&lt;i class=&quot;arrow next&quot;&gt;&lt;/i&gt;&lt;/div&gt;
 &lt;/div&gt;
@@ -141,9 +181,16 @@ i {
 
 &lt;script type=&quot;text/javascript&quot;&gt;
   $(document).ready(function() {
+    const INTRODUCTION_ENTRY = 'React has transformed how I think about front-end development, and I am grateful to have learned about it this past year. It took me some time to grasp how to do things the &quot;React&quot; way, so I wanted to build a timeline documenting when I was first understood various concepts within the React stack, and in what context.';
 
+    const INTRODUCTION_INDEX = -1;
     const FIRST_INDEX = 0;
     const LAST_INDEX = timelinePoints.length - 1;
+
+    function renderIntroduction() {
+      $('.textHeader').text('Introduction');
+      $('.arrow.previous').addClass(&quot;inactive&quot;);
+    }
 
     function getDateForIndex(index) {
       return $('.pointDot[index=' + index + ']');
@@ -152,33 +199,57 @@ i {
     function getLabelForIndex(index) {
       return $('.labelContainer[index=' + index + ']');
     }
+
+    function renderIntroduction() {
+      $('.arrow.previous').addClass(&quot;inactive&quot;);
+      date = 'Introduction';
+      entry = INTRODUCTION_ENTRY;
+      return { date: date, entry: entry }
+    }
+
+    function renderPoint() {
+      getDateForIndex(currIndex).addClass(&quot;active&quot;);
+      $('.arrow.previous').removeClass(&quot;inactive&quot;);
+      date = getDate(timelinePoints[currIndex]).toDateString() + ':';
+      entry = getEntry(timelinePoints[currIndex]);
+      return { date: date, entry: entry };
+    }
     
     function renderCurrIndex() {
-      getDateForIndex(currIndex).addClass(&quot;active&quot;);
 
-      var date = getDate(timelinePoints[currIndex]).toDateString() + ':';
-      var entry = getEntry(timelinePoints[currIndex]);
-      $('.textHeader').text(date);
-      $('.text').text(entry);
+      let toRender;
+      if (currIndex === INTRODUCTION_INDEX) {
+         toRender = renderIntroduction();   
+      } else {
+         toRender = renderPoint();   
+      }
+
+      $('.textHeader').text(toRender.date);
+      $('.text').text(toRender.entry);
+
+      if (currIndex === LAST_INDEX) {
+        $('.arrow.next').addClass(&quot;inactive&quot;);
+      } else {
+        $('.arrow.next').removeClass(&quot;inactive&quot;);
+      }
     }
 
     function hidePrevIndex() {
       getDateForIndex(currIndex).removeClass(&quot;active&quot;);
     }
 
-    let currIndex = 0;
+    let currIndex = -1;
     renderCurrIndex();
 
     $('.pointDot').on('click', function() {
       hidePrevIndex();
-      const nextIndex = $(this).index();
-      currIndex = nextIndex;
+      currIndex = $(this).index();
       renderCurrIndex();
     })
 
     $('.arrow.previous').on('click', function() {
-      if (currIndex == FIRST_INDEX) {
-        return
+      if (currIndex == INTRODUCTION_INDEX) {
+        return;
       }
       hidePrevIndex();
       currIndex = currIndex - 1;
@@ -189,6 +260,7 @@ i {
       if (currIndex == LAST_INDEX) {
         return
       }
+
       hidePrevIndex();
       currIndex = currIndex + 1;
       renderCurrIndex();
@@ -200,51 +272,6 @@ i {
         <pubDate>Sat, 30 Dec 2017 00:00:00 +0900</pubDate>
         <link>http://localhost:4000/2017-12-30/React-Timeline/</link>
         <guid isPermaLink="true">http://localhost:4000/2017-12-30/React-Timeline/</guid>
-      </item>
-    
-      <item>
-        <title>Code Lab: The Spine Javascript Framework</title>
-        <description>&lt;style&gt;
-.example {
-  background: #f1f0f0;
-  line-height: 1.8rem;
-  width: 90%;
-  margin: 10px auto 18px;
-}
-&lt;/style&gt;
-
-&lt;h2 id=&quot;introduction&quot;&gt;Introduction&lt;/h2&gt;
-&lt;p&gt;Much of the Periscope Data front-end is built using Spine.js, which is a lightweight Javascript library that enables developers to build front-end applications using the Model-View-Controller (MVC) pattern. MVC is pretty much &lt;em&gt;the&lt;/em&gt; design pattern of the web, so I won’t go into too much detail about it here. In the context of Periscope, you can think of a greatly simplified view of the MVC pattern to look something like this:&lt;/p&gt;
-
-&lt;div class=&quot;example&quot;&gt;
-&lt;b&gt;Model&lt;/b&gt;: Customer sql queries and their data, specific chart settings
-&lt;br /&gt;
-&lt;b&gt;View&lt;/b&gt;: HTML templates containing the layout of front-end, &quot;filled in&quot; by data from the Model.
-&lt;br /&gt;
-&lt;b&gt;Controller&lt;/b&gt;: Control how the front-end changes in response to user interaction and updated data.
-&lt;/div&gt;
-
-&lt;p&gt;Much of our front-end code handles user interaction, so will in this code lab, we will be focusing on Spine controllers, and how they are used at Periscope.&lt;/p&gt;
-
-&lt;h2 id=&quot;logisistics-within-the-periscope-repository&quot;&gt;“Logisistics” Within the Periscope Repository&lt;/h2&gt;
-&lt;p&gt;Periscope application code using Spine.js is located at:&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;clocktower/app/assets/javascripts/app
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;p&gt;The source code for Spine.js is located at:&lt;/p&gt;
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;clocktower/app/assets/javascripts/lib
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-&lt;h2 id=&quot;mental-model&quot;&gt;Mental Model&lt;/h2&gt;
-&lt;p&gt;Spine controllers are Javascript classes*, which can be thought of as “wrappers” around a logical group of HTML elements. To get a sense of which Spine controller classes control groups of HTML elements, append the following line to &lt;code class=&quot;highlighter-rouge&quot;&gt;clocktower/app/assets/javascripts/lib/spine.js.coffee&lt;/code&gt; after line 436:, and open your browser’s developer tools. When you see the HTML elements associated with the web page, you will also see an attribute data-spine-controller, which will reveal which Spine controller is repsonsible for cotnroller that group of HTML elements.&lt;/p&gt;
-
-&lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;div class=&quot;highlight&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;437: @el.attr('data-spine-controller', @constructor.name)
-&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/div&gt;
-
-</description>
-        <pubDate>Tue, 12 Dec 2017 00:00:00 +0900</pubDate>
-        <link>http://localhost:4000/2017-12-12/Spine/</link>
-        <guid isPermaLink="true">http://localhost:4000/2017-12-12/Spine/</guid>
       </item>
     
       <item>

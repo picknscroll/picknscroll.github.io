@@ -113,6 +113,7 @@ var svgContainer = d3.select("svg#svgContainer");
 
 /* ==== X-AXIS ==== */
 
+// TODO: append intro and conclusion tick marks to start and end date?
 const tickValues =  [
   START_DATE,
   new Date(2017, 10, 13),
