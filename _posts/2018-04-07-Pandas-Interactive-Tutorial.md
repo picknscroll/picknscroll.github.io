@@ -19,7 +19,8 @@ share: true
 }
 
 #pandas {
-  margin: 25px 110px 35px 110px;
+  width: 80%;
+  margin: 2rem auto;
 }
 </style>
 
