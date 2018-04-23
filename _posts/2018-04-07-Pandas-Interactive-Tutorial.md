@@ -6,6 +6,8 @@ share: true
 ---
 
 <link rel="stylesheet" type="text/css" href="{{ root_url }}/assets/css/prism.css"/>
+<script src="{{ site.baseurl }}/assets/js/d3.js"></script>
+<script src="{{ site.baseurl }}/assets/js/jquery.js"></script>
 <style type="text/css">
 .section {
   margin: 20px auto;
@@ -22,7 +24,7 @@ share: true
     line-height: 1.8rem;
 }
 
-#pandas {
+.centerImgContainer {
   width: 80%;
   margin: 2rem auto;
 }
@@ -32,7 +34,7 @@ pre[class*="embedded"] {
   margin-bottom: 20px;
 }
 
-img .center{
+img.center{
   margin: 0 auto;
 }
 
@@ -66,7 +68,7 @@ A typical data analysis using Pandas might involve the following three steps:
 2. Once loaded, the data is wrangled in a variety of ways using the DataFrame's querying interface.
 3. Finally, insights are visualized using the DataFrame's convenient plotting method.
 
-<div id="pandas">
+<div class="centerImgContainer">
   <img class="center" src="{{ site.baseurl }}/assets/pandas.svg">
 </div>
 
@@ -78,17 +80,16 @@ Pandas is a vast library, with many topics to cover, and unfortunately, a single
 </div>
 
 
-### The Building Blocks
-------
-As mentioned before, the DataFrame is the primary data structure in Pandas. But before we get into what a DataFrame is, let's begin with a simpler structure: the **Series**.
+## The Building Blocks
+As mentioned before, the DataFrame is the primary data structure in Pandas. But before we get into what a DataFrame is, let's begin with a simpler structure.
+
+#### The Series
+-----
 
 <pre class="embedded highlight"><code class="language-python"> pd.Series(self, data=None, index=None, ...)</code></pre>
 
-A Series has two components: an array of data values accompanied by an **index**, which is an array of the same length. Each element in the index effectively "names" the corresponding data element - these "names" are referred to as **labels** by the library. 
-
-<div class="note">
-<strong>Note</strong>: If no index is provided when the Series is created, an index of integers raging from <code class="highlighter-rouge">0</code> to <code class="highlighter-rouge">len(data) - 1</code> is provided as a default.
-</div>
+A Series has two components: an array of data values and an **index**, which is an accompanying array of the same length. Each element in the index effectively "names" the corresponding data element - these "names" are referred to as **labels** by the library.
+[TODO]: touch on how elements of both data and the index can be of any type (index must be hashable)
 
 <div class="gridContainer">
   <img height="200px" src="{{ site.baseurl }}/assets/list_to_series.svg">
@@ -101,7 +102,22 @@ series = pd.Series(data, index=index)
 </code></pre>
 </div>
 
-It can helpful to think of a Series as an "augmented" list, where labels provide the dictionary-like functionality for selecting data by key:
+It is important to note that the index is also a Pandas data structure:
+
+<pre class="embedded highlight"><code class="language-python">In [1]: series.index
+Out[1]: Index([u'a', u'b', u'c', u'd'], dtype='object')
+
+In [2]: type(series.index)
+Out[2]: pandas.core.index.Index
+</code></pre>
+
+<div class="note">
+<strong>Note</strong>: If no index is provided when the Series is created, an index of integers raging from <code class="highlighter-rouge">0</code> to <code class="highlighter-rouge">len(data) - 1</code> is provided as a default.
+</div>
+
+It can be helpful to think of a Series as an "augmented" list, as index labels provide dictionary-like functionality for selecting data elements by key:
+[TODO]: make the code section underneath interactive, showing how different index labals can be selected.
+
 
 <div class="section">
 <pre class="highlight"><code class="language-python">series['a'] = 8
@@ -114,8 +130,44 @@ series['d'] = 5
 </code></pre>
 </div>
 
-Within a single Series, the index provides a convenient way to access data. But they play another important role, which becomes important when working with multiple "labeled" data structures.
+In the context of a single Series, the index provides a convenient way to access data. But indexes play another important role, which becomes apparent when working with multiple Series.
 
-#### Data Alignment
+Operations across Series objects are said to **align** on their indexes. This means that when two Series are, for example, multiplied together, pandas first consults their respective indexes to determine which elements should be multiplied together.
 
-<img src="{{ site.baseurl }}/assets/alignment.svg">
+[TODO: animate the svg, show the "step-wise" multiplying by index alignment]
+
+<div class="gridContainer">
+  <img height="120px" src="{{ site.baseurl }}/assets/alignmentv1.svg">
+  <pre class="highlight"><code class="language-python">s1 = pd.Series([2, 1], index=['A', 'B']
+
+s2 = pd.Series([1, 2], index=['B', 'A'])
+
+s3 = s1 * s2
+</code></pre>
+</div>
+
+<div class="note">
+<strong>Note</strong>: If the indexes of the two series do not match, pandas will... [TODO: complete me]
+</div>
+
+The concept of alignment by index extends beyond mathematical operations. Let's say we want to "merge" two Series, that is, combine them into a single, beefier structure. What do you think will happen?
+
+<div class="centerImgContainer">
+  <img class="center" height="150px" src="{{ site.baseurl }}/assets/merge.svg">
+</div>
+
+And with that picture in mind, we are ready to move on the DataFrame. But first, let's recap what we've learned, with an emphasis on terms.
+
+##### Recap
+* A **Series** is an array of data values, where each element of data has an accompanying **label**.
+* Collectively, these labels are known as the **Index** of a Series.
+* Within working with a single Series object, the Index faciliates selection of data, making the Series "dictionary-like"
+* When working with multiple Series objects, the Index dictates how data elements relate to each other across each objects, a property known as **alignment**.
+
+#### The DataFrame
+-----
+
+##### Definition
+<pre class="embedded highlight"><code class="language-python"> DataFrame(self, data=None, index=None, columns=None...)</code></pre>
+
+Series is limited. We are familiar with data presented to us in the world in tabular form: HTML tables, spreadsheets, database tables.

@@ -53,6 +53,10 @@ ga('send', 'pageview');
 
   <link rel="stylesheet" type="text/css" href="/assets/css/prism.css" />
 
+<script src="/assets/js/d3.js"></script>
+
+<script src="/assets/js/jquery.js"></script>
+
 <style type="text/css">
 .section {
   margin: 20px auto;
@@ -69,7 +73,7 @@ ga('send', 'pageview');
     line-height: 1.8rem;
 }
 
-#pandas {
+.centerImgContainer {
   width: 80%;
   margin: 2rem auto;
 }
@@ -79,7 +83,7 @@ pre[class*="embedded"] {
   margin-bottom: 20px;
 }
 
-img .center{
+img.center{
   margin: 0 auto;
 }
 
@@ -115,7 +119,7 @@ img .center{
   <li>Finally, insights are visualized using the DataFrame’s convenient plotting method.</li>
 </ol>
 
-<div id="pandas">
+<div class="centerImgContainer">
   <img class="center" src="/assets/pandas.svg" />
 </div>
 
@@ -125,17 +129,16 @@ img .center{
 <strong>Note</strong>: Pandas is rich with functionality, which makes it a joy to use. However, I found (and still find) a few parts of the library to be somewhat uninintuitive. My purpose for writing this post is thus two-fold. I hope to first explain the topic at hand as simply as I possibly can. But more importantly, I hope to equip the reader with enough knowledge and context to activate his or her own course of understanding, whether that be through Googling, reading the documentation, or best of all, playing around with the library.
 </div>
 
-<h3 id="the-building-blocks">The Building Blocks</h3>
+<h2 id="the-building-blocks">The Building Blocks</h2>
+<p>As mentioned before, the DataFrame is the primary data structure in Pandas. But before we get into what a DataFrame is, let’s begin with a simpler structure.</p>
+
+<h4 id="the-series">The Series</h4>
 <hr />
-<p>As mentioned before, the DataFrame is the primary data structure in Pandas. But before we get into what a DataFrame is, let’s begin with a simpler structure: the <strong>Series</strong>.</p>
 
 <pre class="embedded highlight"><code class="language-python"> pd.Series(self, data=None, index=None, ...)</code></pre>
 
-<p>A Series has two components: an array of data values accompanied by an <strong>index</strong>, which is an array of the same length. Each element in the index effectively “names” the corresponding data element - these “names” are referred to as <strong>labels</strong> by the library.</p>
-
-<div class="note">
-<strong>Note</strong>: If no index is provided when the Series is created, an index of integers raging from <code class="highlighter-rouge">0</code> to <code class="highlighter-rouge">len(data) - 1</code> is provided as a default.
-</div>
+<p>A Series has two components: an array of data values and an <strong>index</strong>, which is an accompanying array of the same length. Each element in the index effectively “names” the corresponding data element - these “names” are referred to as <strong>labels</strong> by the library.
+[TODO]: touch on how elements of both data and the index can be of any type (index must be hashable)</p>
 
 <div class="gridContainer">
   <img height="200px" src="/assets/list_to_series.svg" />
@@ -148,7 +151,21 @@ series = pd.Series(data, index=index)
 </code></pre>
 </div>
 
-<p>It can helpful to think of a Series as an “augmented” list, where labels provide the dictionary-like functionality for selecting data by key:</p>
+<p>It is important to note that the index is also a Pandas data structure:</p>
+
+<pre class="embedded highlight"><code class="language-python">In [1]: series.index
+Out[1]: Index([u'a', u'b', u'c', u'd'], dtype='object')
+
+In [2]: type(series.index)
+Out[2]: pandas.core.index.Index
+</code></pre>
+
+<div class="note">
+<strong>Note</strong>: If no index is provided when the Series is created, an index of integers raging from <code class="highlighter-rouge">0</code> to <code class="highlighter-rouge">len(data) - 1</code> is provided as a default.
+</div>
+
+<p>It can be helpful to think of a Series as an “augmented” list, as index labels provide dictionary-like functionality for selecting data elements by key:
+[TODO]: make the code section underneath interactive, showing how different index labals can be selected.</p>
 
 <div class="section">
 <pre class="highlight"><code class="language-python">series['a'] = 8
@@ -161,11 +178,49 @@ series['d'] = 5
 </code></pre>
 </div>
 
-<p>Within a single Series, the index provides a convenient way to access data. But they play another important role, which becomes important when working with multiple “labeled” data structures.</p>
+<p>In the context of a single Series, the index provides a convenient way to access data. But indexes play another important role, which becomes apparent when working with multiple Series.</p>
 
-<h4 id="data-alignment">Data Alignment</h4>
+<p>Operations across Series objects are said to <strong>align</strong> on their indexes. This means that when two Series are, for example, multiplied together, pandas first consults their respective indexes to determine which elements should be multiplied together.</p>
 
-<p><img src="/assets/alignment.svg" /></p>
+<p>[TODO: animate the svg, show the “step-wise” multiplying by index alignment]</p>
+
+<div class="gridContainer">
+  <img height="120px" src="/assets/alignmentv1.svg" />
+  <pre class="highlight"><code class="language-python">s1 = pd.Series([2, 1], index=['A', 'B']
+
+s2 = pd.Series([1, 2], index=['B', 'A'])
+
+s3 = s1 * s2
+</code></pre>
+</div>
+
+<div class="note">
+<strong>Note</strong>: If the indexes of the two series do not match, pandas will... [TODO: complete me]
+</div>
+
+<p>The concept of alignment by index extends beyond mathematical operations. Let’s say we want to “merge” two Series, that is, combine them into a single, beefier structure. What do you think will happen?</p>
+
+<div class="centerImgContainer">
+  <img class="center" height="150px" src="/assets/merge.svg" />
+</div>
+
+<p>And with that picture in mind, we are ready to move on the DataFrame. But first, let’s recap what we’ve learned, with an emphasis on terms.</p>
+
+<h5 id="recap">Recap</h5>
+<ul>
+  <li>A <strong>Series</strong> is an array of data values, where each element of data has an accompanying <strong>label</strong>.</li>
+  <li>Collectively, these labels are known as the <strong>Index</strong> of a Series.</li>
+  <li>Within working with a single Series object, the Index faciliates selection of data, making the Series “dictionary-like”</li>
+  <li>When working with multiple Series objects, the Index dictates how data elements relate to each other across each objects, a property known as <strong>alignment</strong>.</li>
+</ul>
+
+<h4 id="the-dataframe">The DataFrame</h4>
+<hr />
+
+<h5 id="definition">Definition</h5>
+<pre class="embedded highlight"><code class="language-python"> DataFrame(self, data=None, index=None, columns=None...)</code></pre>
+
+<p>Series is limited. We are familiar with data presented to us in the world in tabular form: HTML tables, spreadsheets, database tables.</p>
 
 
   <!-- Disqus -->
