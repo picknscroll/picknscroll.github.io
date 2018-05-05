@@ -102,10 +102,10 @@ series = pd.Series(data, index=index)
 </code></pre>
 </div>
 
-It is important to note that the index is also a Pandas data structure:
+The index is an explicit Pandas object:
 
 <pre class="embedded highlight"><code class="language-python">In [1]: series.index
-Out[1]: Index([u'a', u'b', u'c', u'd'], dtype='object')
+Out[1]: Index(['a', 'b', 'c', 'd'], dtype='object')
 
 In [2]: type(series.index)
 Out[2]: pandas.core.index.Index
@@ -156,13 +156,12 @@ The concept of alignment by index extends beyond mathematical operations. Let's 
   <img class="center" height="150px" src="{{ site.baseurl }}/assets/merge.svg">
 </div>
 
-And with that picture in mind, we are ready to move on the DataFrame. But first, let's recap what we've learned, with an emphasis on terms.
+And with that picture in mind, we are ready to move on the DataFrame. But first, let's recap what we've learned, with an emphasis on the terms.
 
 ##### Recap
 * A **Series** is an array of data values, where each element of data has an accompanying **label**.
-* Collectively, these labels are known as the **Index** of a Series.
-* Within working with a single Series object, the Index faciliates selection of data, making the Series "dictionary-like"
-* When working with multiple Series objects, the Index dictates how data elements relate to each other across each objects, a property known as **alignment**.
+* Collectively, these labels are known as the **Index** of a Series. Within a single Series object, the Index faciliates selection of data, making the Series "dictionary-like"
+* The Index dictates how data elements relate to each other across multiple Series objects, a property known as **alignment**.
 
 #### The DataFrame
 -----
@@ -170,4 +169,43 @@ And with that picture in mind, we are ready to move on the DataFrame. But first,
 ##### Definition
 <pre class="embedded highlight"><code class="language-python"> DataFrame(self, data=None, index=None, columns=None...)</code></pre>
 
-Series is limited. We are familiar with data presented to us in the world in tabular form: HTML tables, spreadsheets, database tables.
+A Series packages data with an Index. The index both labels individual data elements and controls how operations on the data are aligned.
+This idea of "labeled, aligned data" is a core concept within the Pandas library. Whereas a Series represents this idea in one dimension, a DataFrame represents it in two.
+
+So back to our question of what happens when two Series objects are "merged" together into a single structure. The answer should come as no suprise: you get a DataFrame.
+
+<div class="centerImgContainer">
+  <img class="center" height="175px" src="{{ site.baseurl }}/assets/dataframe.svg">
+</div>
+
+Since there are now two dimensions to our structure, we need to expand on how a DataFrame labels our data.
+
+Like a Series, the DataFrame has a single index - but instead of labelling individual data elements, it labels rows of data. This single index leads to a more formal definition of the DataFrame, which consists of multiple Series objects sharing a common Index.
+
+A DataFrame also labels the columns of our data, just like columns in a relational database are named. Column labels are stored in their own Index object.
+
+<pre class="embedded highlight"><code class="language-python">In [1]: df.index
+Out[1]: Index(['A', 'B'], dtype='object')
+
+In [2]: df.columns
+Out[2]: Index(['s1', 's2'], dtype='object')
+</code></pre>
+
+This gives the DataFrame a nice property. Given a DataFrame `df` with Index `i` and columns `c`, each column in `df` is a Series with index `i`, while each row in `df` is a Series with index `c`.
+
+A DataFrame provides "dictionary-like" functionality to a Series objects, where the keys are the column labels.
+
+<pre class="embedded highlight"><code class="language-python">In [1]: df['s1']
+Out[1]:
+A    2
+B    1
+Name: s1, dtype: int64
+
+In [2]: df['s2']
+Out[2]:
+A    2 
+B    1
+Name: s2, dtype: int64
+</code></pre>
+
+
