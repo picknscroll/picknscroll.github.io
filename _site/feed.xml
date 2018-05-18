@@ -6,7 +6,7 @@
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
-        <title>Pandas: An Interactive Tutorial</title>
+        <title>Pandas in the NBA</title>
         <description>&lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;/assets/css/prism.css&quot; /&gt;
 
 &lt;script src=&quot;/assets/js/d3.js&quot;&gt;&lt;/script&gt;
@@ -31,7 +31,7 @@
 
 .centerImgContainer {
   width: 80%;
-  margin: 2rem auto;
+  margin: 1rem auto;
 }
 
 pre[class*=&quot;embedded&quot;] {
@@ -60,113 +60,187 @@ img.center{
 
 &lt;script src=&quot;/assets/js/prism.js&quot;&gt;&lt;/script&gt;
 
+&lt;h4 id=&quot;part-i-introduction-to-data-structures&quot;&gt;Part I: Introduction to Data Structures&lt;/h4&gt;
+
 &lt;p&gt;[TODO: expand on common components (reading, manipulating, visualizing) and tedious details (data encoding/decoding, mathematical operations on columns of data)]&lt;/p&gt;
 
 &lt;h3 id=&quot;introduction&quot;&gt;Introduction&lt;/h3&gt;
 &lt;hr /&gt;
 
-&lt;p&gt;In recent years, the Pandas library has become the de-facto standard for analyzing data in Python. Its popularity stems from how it has simplified data analysis by integrating its common components into a single package and abstracting away many of their tedious details. The end result is a win for analysts, who are free to achieve their objectives quicker and with more ease.&lt;/p&gt;
+&lt;!-- TODO: Touch on how we will be exploring the Data Structures with NBA data --&gt;
+
+&lt;p&gt;In recent years, the Pandas library has become the de-facto standard for analyzing data in Python. It has simplified data analysis by integrating its common components into a single package while abstracting away many tedious details. The end result is a win for analysts, who are free to achieve their objectives quicker and with more ease.&lt;/p&gt;
 
 &lt;p&gt;A typical data analysis using Pandas might involve the following three steps:&lt;/p&gt;
 
 &lt;ol&gt;
   &lt;li&gt;Data is first read from a csv file into a &lt;strong&gt;DataFrame&lt;/strong&gt;, the library’s core data structure. (It is also easy to read data from other formats such as json, databases, even URLs with html tables).&lt;/li&gt;
-  &lt;li&gt;Once loaded, the data is wrangled in a variety of ways using the DataFrame’s querying interface.&lt;/li&gt;
-  &lt;li&gt;Finally, insights are visualized using the DataFrame’s convenient plotting method.&lt;/li&gt;
+  &lt;li&gt;Once loaded,  data is manipulated in a variety of ways using the DataFrame’s interface.&lt;/li&gt;
+  &lt;li&gt;Insights are visualized using the DataFrame’s convenient plot method.&lt;/li&gt;
 &lt;/ol&gt;
 
 &lt;div class=&quot;centerImgContainer&quot;&gt;
   &lt;img class=&quot;center&quot; src=&quot;/assets/pandas.svg&quot; /&gt;
 &lt;/div&gt;
 
-&lt;p&gt;Pandas is a vast library, with many topics to cover, and unfortunately, a single post is not enough to span the entire territory. Instead, this post will begin by introducing the DataFrame, while defining the library’s core terms and concepts along the way. It will then build upon that knoweldge to explain how Pandas supports step 2 - namely, the various ways through which data residing in a DataFrame can be selected.&lt;/p&gt;
+&lt;p&gt;This post will introduce the library’s two core data structures: the Series and the DataFrame. In doing so, I will first explain the library’s approach to working with data, and second, familiarize the reader with the library’s key terms.&lt;/p&gt;
 
 &lt;div class=&quot;note&quot;&gt;
-&lt;strong&gt;Note&lt;/strong&gt;: Pandas is rich with functionality, which makes it a joy to use. However, I found (and still find) a few parts of the library to be somewhat uninintuitive. My purpose for writing this post is thus two-fold. I hope to first explain the topic at hand as simply as I possibly can. But more importantly, I hope to equip the reader with enough knowledge and context to activate his or her own course of understanding, whether that be through Googling, reading the documentation, or best of all, playing around with the library.
+&lt;strong&gt;Note&lt;/strong&gt;: When writing to teach, my goal is to always explain the topic at hand as accessibly as possible. So as you will see, this post is by no means a comprehensive guide, but rather, a primer on the fundamentals. A more complete grasp of the library requires experimentation and reading the &lt;a href=&quot;https://pandas.pydata.org/pandas-docs/stable/&quot;&gt;documentation&lt;/a&gt;.
+&lt;br /&gt;&lt;br /&gt;
+Most of all, I hope this post reduces the friction of starting for beginners, so that they can get to the fun part faster.
 &lt;/div&gt;
 
-&lt;h2 id=&quot;the-building-blocks&quot;&gt;The Building Blocks&lt;/h2&gt;
-&lt;p&gt;As mentioned before, the DataFrame is the primary data structure in Pandas. But before we get into what a DataFrame is, let’s begin with a simpler structure.&lt;/p&gt;
+&lt;p&gt;Let’s get to it!&lt;/p&gt;
 
 &lt;h4 id=&quot;the-series&quot;&gt;The Series&lt;/h4&gt;
-&lt;hr /&gt;
+
+&lt;!-- TODO: set up shots_data.csv --&gt;
 
 &lt;pre class=&quot;embedded highlight&quot;&gt;&lt;code class=&quot;language-python&quot;&gt; pd.Series(self, data=None, index=None, ...)&lt;/code&gt;&lt;/pre&gt;
+&lt;hr /&gt;
 
-&lt;p&gt;A Series has two components: an array of data values and an &lt;strong&gt;index&lt;/strong&gt;, which is an accompanying array of the same length. Each element in the index effectively “names” the corresponding data element - these “names” are referred to as &lt;strong&gt;labels&lt;/strong&gt; by the library.
-[TODO]: touch on how elements of both data and the index can be of any type (index must be hashable)&lt;/p&gt;
+&lt;p&gt;To begin learning about the Series data structure, we will play around with some data about assists. The following code snippet reads a csv containing data about the league’s top 10 passers, and loads it into a Series object for us to examine.&lt;/p&gt;
 
-&lt;div class=&quot;gridContainer&quot;&gt;
-  &lt;img height=&quot;200px&quot; src=&quot;/assets/list_to_series.svg&quot; /&gt;
-  &lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;import pandas as pd
+&lt;div class=&quot;section&quot;&gt;
+&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;In [1]: import pandas as pd
 
-data = [8, 9, 7, 5]
-index = ['a', 'b', 'c', 'd']
+        # Don't worry too much about what the parameters to the call mean
+In [2]: assists = pd.read_csv('http://bit.ly/assist_series_csv', index_col=0, squeeze=True)
 
-series = pd.Series(data, index=index)
+In [3]: type(assists)
+Out[3]: pandas.core.series.Series
+
+In [4]: assists
+Out[4]:
+PLAYER
+Russell Westbrook    10.3
+LeBron James          9.1
+James Harden          8.8
+Rajon Rondo           8.2
+Ben Simmons           8.2
+...                   ...
+Name: AST, dtype: float64
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;The index is an explicit Pandas object:&lt;/p&gt;
+&lt;p&gt;As you can see, our series has two components: a list of player names and a list of values, which are the player’s assists per game for the 2017-18 regular season. In Pandas terminology, the player names are known as the &lt;strong&gt;index&lt;/strong&gt; of our Series. One of the purposes of this index is to “name” data elements - these “names” are referred to as &lt;strong&gt;labels&lt;/strong&gt;.&lt;/p&gt;
 
-&lt;pre class=&quot;embedded highlight&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;In [1]: series.index
-Out[1]: Index(['a', 'b', 'c', 'd'], dtype='object')
+&lt;p&gt;Visually, our Series looks something like this:&lt;/p&gt;
 
-In [2]: type(series.index)
+&lt;div class=&quot;centerImgContainer&quot;&gt;
+  &lt;img class=&quot;center&quot; height=&quot;220px&quot; src=&quot;/assets/series.svg&quot; /&gt;
+&lt;/div&gt;
+
+&lt;div class=&quot;note&quot;&gt;
+&lt;strong&gt;Note&lt;/strong&gt;: Both the data and the index can be of any type (i.e. integers, strings, custom objects), with the one cavaet that all elements of the index must be hashable.
+&lt;/div&gt;
+
+&lt;p&gt;The index is an explicit Pandas object, and is referenced through the &lt;code class=&quot;highlighter-rouge&quot;&gt;.index&lt;/code&gt; property:&lt;/p&gt;
+
+&lt;div class=&quot;section&quot;&gt;
+&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;In [1]: assists.index
+Out[1]:
+Index([u'Russell Westbrook', u'LeBron James', u'James Harden', u'Rajon Rondo',
+       u'Ben Simmons', u'Chris Paul', u'Draymond Green', u'Jeff Teague',
+       u'Kyle Lowry', u'Spencer Dinwiddie'],
+      dtype='object', name=u'PLAYER')
+
+In [2]: type(assists.index)
 Out[2]: pandas.core.index.Index
 &lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
 
 &lt;div class=&quot;note&quot;&gt;
 &lt;strong&gt;Note&lt;/strong&gt;: If no index is provided when the Series is created, an index of integers raging from &lt;code class=&quot;highlighter-rouge&quot;&gt;0&lt;/code&gt; to &lt;code class=&quot;highlighter-rouge&quot;&gt;len(data) - 1&lt;/code&gt; is provided as a default.
 &lt;/div&gt;
 
-&lt;p&gt;It can be helpful to think of a Series as an “augmented” list, as index labels provide dictionary-like functionality for selecting data elements by key:
-[TODO]: make the code section underneath interactive, showing how different index labals can be selected.&lt;/p&gt;
+&lt;p&gt;Index labels give the Series a “dictionary-like” interface for selecting associated data values: 
+&lt;!-- [TODO]: make the code section underneath interactive, showing how different index labals can be selected. --&gt;&lt;/p&gt;
 
 &lt;div class=&quot;section&quot;&gt;
-&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;series['a'] = 8
+&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;In [1]: assists['Russell Westbrook']
+Out[1]: 10.3
 
-series['b'] = 9
+In [2]: assists['LeBron James']
+Out[2]: 9.1
 
-series['c'] = 7
-
-series['d'] = 5
+In [3]: assists['Carmelo Anthony']
+Traceback (most recent call last):
+...
+KeyError: 😂😂
 &lt;/code&gt;&lt;/pre&gt;
 &lt;/div&gt;
 
-&lt;p&gt;In the context of a single Series, the index provides a convenient way to access data. But indexes play another important role, which becomes apparent when working with multiple Series.&lt;/p&gt;
+&lt;p&gt;Aside from providing a convenient way to access data within the confines of a single Series object, the Index has another purpose, which becomes apparent when working with multiple Series.&lt;/p&gt;
 
-&lt;p&gt;Operations across Series objects are said to &lt;strong&gt;align&lt;/strong&gt; on their indexes. This means that when two Series are, for example, multiplied together, pandas first consults their respective indexes to determine which elements should be multiplied together.&lt;/p&gt;
-
-&lt;p&gt;[TODO: animate the svg, show the “step-wise” multiplying by index alignment]&lt;/p&gt;
-
-&lt;div class=&quot;gridContainer&quot;&gt;
-  &lt;img height=&quot;120px&quot; src=&quot;/assets/alignmentv1.svg&quot; /&gt;
-  &lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;s1 = pd.Series([2, 1], index=['A', 'B']
-
-s2 = pd.Series([1, 2], index=['B', 'A'])
-
-s3 = s1 * s2
-&lt;/code&gt;&lt;/pre&gt;
-&lt;/div&gt;
+&lt;p&gt;Operations across Series objects are said to &lt;strong&gt;align&lt;/strong&gt; on their indexes. This means that when two Series are, for example, divided together, pandas will first consult their respective indexes to determine which elements to divide. We can apply this concept of alignment to easily calculate the assist-to-turnover ratio for our top 10 passers, by dividing our &lt;code class=&quot;highlighter-rouge&quot;&gt;assists&lt;/code&gt; series by another series containing turnover data.&lt;/p&gt;
 
 &lt;div class=&quot;note&quot;&gt;
-&lt;strong&gt;Note&lt;/strong&gt;: If the indexes of the two series do not match, pandas will... [TODO: complete me]
+&lt;strong&gt;From the docs&lt;/strong&gt;: The result of an operation between unaligned Series will have the union of the indexes involved. If a label is not found in one Series or the other, the result will be marked as missing &lt;code class=&quot;highlighter-rouge&quot;&gt;NaN&lt;/code&gt;.
 &lt;/div&gt;
 
-&lt;p&gt;The concept of alignment by index extends beyond mathematical operations. Let’s say we want to “merge” two Series, that is, combine them into a single, beefier structure. What do you think will happen?&lt;/p&gt;
+&lt;div class=&quot;section&quot;&gt;
+&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;In [1]: tov = pd.read_csv('http://bit.ly/tov_series_csv', index_col=0, squeeze=True)
+
+In [2]: tov
+Out[2]:
+PLAYER
+Russell Westbrook    4.8
+James Harden         4.4
+LeBron James         4.2
+Ben Simmons          3.4
+Draymond Green       2.9
+...                   ...
+Name: TOV, dtype: float64
+
+In [3]: ast_to_tov = assists / tov
+
+In [4]: ast_to_tov
+Out[4]:
+PLAYER
+Ben Simmons          2.411765
+Chris Paul           3.590909
+Draymond Green       2.517241
+James Harden         2.000000
+Jeff Teague          2.800000
+...                   ...
+dtype: float64
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;!-- &lt;TODO: animate the svg, show the &quot;step-wise&quot; dividing by index alignment&gt; --&gt;
+&lt;p&gt;Visually, alignment looks something like this:&lt;/p&gt;
 
 &lt;div class=&quot;centerImgContainer&quot;&gt;
-  &lt;img class=&quot;center&quot; height=&quot;150px&quot; src=&quot;/assets/merge.svg&quot; /&gt;
+  &lt;img class=&quot;center&quot; height=&quot;230px&quot; src=&quot;/assets/alignmentv1.svg&quot; /&gt;
 &lt;/div&gt;
 
-&lt;p&gt;And with that picture in mind, we are ready to move on the DataFrame. But first, let’s recap what we’ve learned, with an emphasis on the terms.&lt;/p&gt;
+&lt;p&gt;We can use the &lt;code class=&quot;highlighter-rouge&quot;&gt;sort_values&lt;/code&gt; method to see which one of our top 10 players had the best assist-to-turnover ratio:&lt;/p&gt;
 
-&lt;h5 id=&quot;recap&quot;&gt;Recap&lt;/h5&gt;
+&lt;div class=&quot;section&quot;&gt;
+&lt;pre class=&quot;highlight&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;In [1]: ast_to_tov.sort_values(ascending=False)
+Out[1]:
+PLAYER
+Spencer Dinwiddie    4.125000
+Chris Paul           3.590909
+Rajon Rondo          3.565217
+Kyle Lowry           3.000000
+Jeff Teague          2.800000
+...
+dtype: float64
+&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;As an aside, my friends and I watched Spencer Dinwiddie play for Taft High School during a tournament at our high school. The most remarkable aspect of Dinwiddie back then was how closely his name resembled “Dimwittie” - I never would have guessed he would one day be in the NBA, much less atop such an esteemed list.&lt;/p&gt;
+
+&lt;p&gt;By learning about the Series data structure, we learned about “labeled, aligned” data, which is a key concept in Pandas. Let’s quickly recap everything we’ve learned, with an emphasis on the terms:&lt;/p&gt;
+
 &lt;ul&gt;
-  &lt;li&gt;A &lt;strong&gt;Series&lt;/strong&gt; is an array of data values, where each element of data has an accompanying &lt;strong&gt;label&lt;/strong&gt;.&lt;/li&gt;
-  &lt;li&gt;Collectively, these labels are known as the &lt;strong&gt;Index&lt;/strong&gt; of a Series. Within a single Series object, the Index faciliates selection of data, making the Series “dictionary-like”&lt;/li&gt;
-  &lt;li&gt;The Index dictates how data elements relate to each other across multiple Series objects, a property known as &lt;strong&gt;alignment&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;We learned about the &lt;strong&gt;Series&lt;/strong&gt;, which is a one-dimensional array of data values, where each element has an accompanying &lt;strong&gt;label&lt;/strong&gt;.&lt;/li&gt;
+  &lt;li&gt;We learned that these labels are collectively known as the &lt;strong&gt;Index&lt;/strong&gt; of a Series.&lt;/li&gt;
+  &lt;li&gt;We learned that the Index faciliates selection of data within a single Series, making the Series “dictionary-like”, and I made a cheap joke at Carmelo Anthony’s expense in the process.&lt;/li&gt;
+  &lt;li&gt;We learned how the Index dictates how data elements relate to each other across multiple Series objects, a property known as &lt;strong&gt;alignment&lt;/strong&gt;.&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;h4 id=&quot;the-dataframe&quot;&gt;The DataFrame&lt;/h4&gt;
@@ -175,44 +249,69 @@ s3 = s1 * s2
 &lt;h5 id=&quot;definition&quot;&gt;Definition&lt;/h5&gt;
 &lt;pre class=&quot;embedded highlight&quot;&gt;&lt;code class=&quot;language-python&quot;&gt; DataFrame(self, data=None, index=None, columns=None...)&lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;A Series packages data with an Index. The index both labels individual data elements and controls how operations on the data are aligned.
-This idea of “labeled, aligned data” is a core concept within the Pandas library. Whereas a Series represents this idea in one dimension, a DataFrame represents it in two.&lt;/p&gt;
-
-&lt;p&gt;So back to our question of what happens when two Series objects are “merged” together into a single structure. The answer should come as no suprise: you get a DataFrame.&lt;/p&gt;
-
 &lt;div class=&quot;centerImgContainer&quot;&gt;
   &lt;img class=&quot;center&quot; height=&quot;175px&quot; src=&quot;/assets/dataframe.svg&quot; /&gt;
 &lt;/div&gt;
 
-&lt;p&gt;Since there are now two dimensions to our structure, we need to expand on how a DataFrame labels our data.&lt;/p&gt;
+&lt;p&gt;While a Series represents the idea of “labeled, aligned data” in one dimension, a DataFrame represents it in two dimensions. In the presence of this added dimension, our first order of business is to expand our notion of how a DataFrame labels our data.&lt;/p&gt;
 
-&lt;p&gt;Like a Series, the DataFrame has a single index - but instead of labelling individual data elements, it labels rows of data. This single index leads to a more formal definition of the DataFrame, which consists of multiple Series objects sharing a common Index.&lt;/p&gt;
+&lt;p&gt;Like a Series, the DataFrame has an index, but instead of labelling individual data elements, this index labels rows of data. A DataFrame also labels the columns of data, just like columns in a relational database are named. These column labels are stored in an index object.&lt;/p&gt;
 
-&lt;p&gt;A DataFrame also labels the columns of our data, just like columns in a relational database are named. Column labels are stored in their own Index object.&lt;/p&gt;
+&lt;pre class=&quot;embedded highlight&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;In [1]: dataframe.index
+Out[1]: Index(['a', 'b', 'c'], dtype='object')
 
-&lt;pre class=&quot;embedded highlight&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;In [1]: df.index
-Out[1]: Index(['A', 'B'], dtype='object')
-
-In [2]: df.columns
-Out[2]: Index(['s1', 's2'], dtype='object')
+In [2]: dataframe.columns
+Out[2]: Index(['c1', 'c2', 'c3', 'c4'], dtype='object')
 &lt;/code&gt;&lt;/pre&gt;
 
-&lt;p&gt;This gives the DataFrame a nice property. Given a DataFrame &lt;code class=&quot;highlighter-rouge&quot;&gt;df&lt;/code&gt; with Index &lt;code class=&quot;highlighter-rouge&quot;&gt;i&lt;/code&gt; and columns &lt;code class=&quot;highlighter-rouge&quot;&gt;c&lt;/code&gt;, each column in &lt;code class=&quot;highlighter-rouge&quot;&gt;df&lt;/code&gt; is a Series with index &lt;code class=&quot;highlighter-rouge&quot;&gt;i&lt;/code&gt;, while each row in &lt;code class=&quot;highlighter-rouge&quot;&gt;df&lt;/code&gt; is a Series with index &lt;code class=&quot;highlighter-rouge&quot;&gt;c&lt;/code&gt;.&lt;/p&gt;
+&lt;div class=&quot;note&quot;&gt;
+&lt;strong&gt;Note&lt;/strong&gt;: Even though both rows and colums are labeled with an Index, a &quot;DataFrame's index&quot; always refers to the one which labels its rows.
+&lt;/div&gt;
 
-&lt;p&gt;A DataFrame provides “dictionary-like” functionality to a Series objects, where the keys are the column labels.&lt;/p&gt;
+&lt;p&gt;The fact that both rows and columns are labeled with indexes lends the DataFrame a nice property. Each row in a DataFrame is a Series, where the DataFrame’s columns labels are the Series’ index. Each column in a DataFrame is also a Series, where the index labels are the same as the parent DataFrame’s index labels.&lt;/p&gt;
 
-&lt;pre class=&quot;embedded highlight&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;In [1]: df['s1']
+&lt;!-- &lt;TODO: diagram here about selecting rows and columns yielding Series&gt;&lt;/TODO&gt; --&gt;
+
+&lt;p&gt;A DataFrame also provides “dictionary-like” functionality for selecting data by key. Whereas in a Series, these keys are index labels, in a DataFrame, these keys are column labels.&lt;/p&gt;
+
+&lt;pre class=&quot;embedded highlight&quot;&gt;&lt;code class=&quot;language-python&quot;&gt;In [1]: df['c1']
 Out[1]:
-A    2
-B    1
-Name: s1, dtype: int64
+a    8
+b    3
+c    2
+Name: c1, dtype: int64
 
-In [2]: df['s2']
+In [2]: df['c2']
 Out[2]:
-A    2 
-B    1
-Name: s2, dtype: int64
+a    9 
+b    1
+c    2
+Name: c2, dtype: int64
 &lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;When it comes to data alignment, both index and column labels play a role. Mathematical operations (such as addition or multiplication) across DataFrames are aligned on both the column and index labels.&lt;/p&gt;
+
+&lt;!-- &lt;TODO: show mathematical operation&gt;&lt;/TODO&gt; --&gt;
+
+&lt;p&gt;However, aside from mathematical operations, index and column labels determine how a DataFrame can be extended to accomodate more data.&lt;/p&gt;
+
+&lt;p&gt;Appending a Series (or another DataFrame) is the most straight-forward way to extend a DataFrame. When adding more columns to a DataFrame, incoming data is aligned on index labels. This makes it very easy to add a new column that is, for example, the product of two existing columns. Since both existing columns have, by definition, the same index, their product can be easily aligned into DataFrame as well.&lt;/p&gt;
+
+&lt;!-- TODO: show code for adding a new product column --&gt;
+
+&lt;p&gt;Conceptually, adding more rows to a DataFrame is the same, as incoming data is aligned on column labels. However, the code is a slightly more invovled.&lt;/p&gt;
+
+&lt;!-- TODO: show code for appending a new row --&gt;
+&lt;p&gt;Let’s quickly recap what we’ve learned about a DataFrame:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;A &lt;strong&gt;DataFrame&lt;/strong&gt; is a two-dimensional array of data values, where &lt;strong&gt;each row and column&lt;/strong&gt; has an accompanying label.&lt;/li&gt;
+  &lt;li&gt;While the column labels are also stored in an Index object, only the labels of the rows are known as the DataFrame’s index.&lt;/li&gt;
+  &lt;li&gt;Data is aligned on both row and column labels. This is especially important because it dictates how the DataFrame can be extended to accomodate more data.&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&quot;conclusion&quot;&gt;Conclusion&lt;/h3&gt;
+&lt;p&gt;We’ve now built up enough of a mental model to leverage the power of the Pandas Library. The next section will cover:&lt;/p&gt;
 
 </description>
         <pubDate>Sat, 07 Apr 2018 00:00:00 +0900</pubDate>
