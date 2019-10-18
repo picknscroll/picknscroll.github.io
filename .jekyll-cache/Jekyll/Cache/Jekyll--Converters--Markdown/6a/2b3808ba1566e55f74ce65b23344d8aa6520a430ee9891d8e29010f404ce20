@@ -1,57 +1,4 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Just Enough HTML & CSS to Create a Simple Blog Template</title>
-
-  <!-- Font -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-  <link href='//spoqa.github.io/spoqa-han-sans/css/SpoqaHanSans-kr.css' rel='stylesheet' type='text/css'>
-  <link href="https://fonts.googleapis.com/css?family=Ubuntu+Mono" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="/assets/css/trend.css"/>
-
-  <link rel="alternate" type="application/rss+xml" title="RSS Feed for The Pick and Scroll" href="/feed.xml" />
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js">
-
-  <!-- Google Analytics -->
-
-<script>
-(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', '', 'auto');
-ga('send', 'pageview');
-
-</script>
-
-
-
-</head>
-
-<body>
-  <div class="test"></div>
-  <div class="content-container">
-    <header>
-      <div class="header-small">
-        <a href="http://localhost:4000">The Pick and Scroll</a>
-      </div>
-    </header>
-
-    <div class="post">
-      <div class="post-title">Just Enough HTML & CSS to Create a Simple Blog Template</div>
-      <span class="post-date">
-        <time>18 Nov 2017</time>
-      </span>
-      <div class="post-tag">
-        <ul>
-          
-        </ul>
-      </div>
-
-      <h4 id="audience-anyone-who-wants-to-learn-more-about-html-and-css">Audience: anyone who wants to learn more about HTML and CSS</h4>
+I"Â6<h4 id="audience-anyone-who-wants-to-learn-more-about-html-and-css">Audience: anyone who wants to learn more about HTML and CSS</h4>
 
 <p>This post is intended for anyone who wants to learn more about the basics of HTML and CSS. It will  consist of 5 sections, which are as follows:</p>
 
@@ -245,50 +192,10 @@ One easy way to take advantage of this hierachy is by setting generic style attr
     $('head').append("<style> .addStyle { width: 80%; margin: 0 auto; line-height: 1.6em; font-size: 20px; font-family: Georgia;  } </style>");
   });
 
+  // $(document).ready(function() {
+  //  $("pre#addStyle").click();
+  // });
+
 </script>
 
-
-    </div>
-
-    <!-- Documents about icons are here: http://fontawesome.io/icons/ -->
-<div class="footer">
-  <hr />
-  <div class="footer-link">
-    
-	
-	
-	
-	
-
-    
-
-    
-	
-	
-	
-	
-
-	
-	
-	
-	
-	
-	
-	
-
-    
-
-    
-
-    
-
-  </div>
-  Â© 2017 Kiko. All rights reserved.
-</div>
-
-  </div>
-</body>
-</html>
-
-
-
+:ET

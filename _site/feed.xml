@@ -756,10 +756,6 @@ One easy way to take advantage of this hierachy is by setting generic style attr
     $('head').append(&quot;&lt;style&gt; .addStyle { width: 80%; margin: 0 auto; line-height: 1.6em; font-size: 20px; font-family: Georgia;  } &lt;/style&gt;&quot;);
   });
 
-  $(document).ready(function() {
-   $(&quot;pre#addStyle&quot;).click();
-  });
-
 &lt;/script&gt;
 
 </description>
