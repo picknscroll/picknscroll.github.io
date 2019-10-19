@@ -78,7 +78,7 @@ Note: Click on a stat to make that line more/less visible.
         graphMargins = {top: 25, right: 30, bottom: 25, left: 30};
 
     var graphWidth = $(".post")[0].offsetWidth - graphMargins.left - graphMargins.right;
-    svgContainer.attr("width", graphWidth);
+    svgContainer.attr("width", $(".post")[0].offsetWidth);
     var graphHeight = +svgContainer.attr("height") - graphMargins.top - graphMargins.bottom;
 
     var graphContainer = svgContainer.append("g")

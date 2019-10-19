@@ -1904,7 +1904,7 @@ Highcharts.chart('container', {
         graphMargins = {top: 25, right: 30, bottom: 25, left: 30};
 
     var graphWidth = $(&quot;.post&quot;)[0].offsetWidth - graphMargins.left - graphMargins.right;
-    svgContainer.attr(&quot;width&quot;, graphWidth);
+    svgContainer.attr(&quot;width&quot;, $(&quot;.post&quot;)[0].offsetWidth);
     var graphHeight = +svgContainer.attr(&quot;height&quot;) - graphMargins.top - graphMargins.bottom;
 
     var graphContainer = svgContainer.append(&quot;g&quot;)
