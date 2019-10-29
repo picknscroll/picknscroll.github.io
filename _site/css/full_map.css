@@ -1,0 +1,32 @@
+#map {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  z-index: 1;
+}
+
+#text {
+  z-index: 2;
+  position: absolute;
+  margin-top: 50px;
+  line-height: 1.6;
+  padding: 1em 1em;
+  font-size: 17px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+#text h2 {
+  text-align: center;
+  padding-bottom: 10px
+}
+
+#text p {
+  margin: 0px 0px 15px;
+}
+
+#text img {
+  width: 390px;
+  height: 290px;
+  padding-top: 5px;

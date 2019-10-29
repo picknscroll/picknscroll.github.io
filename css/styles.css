@@ -1,0 +1,104 @@
+html,body{
+  	height:100%;
+}
+
+body{
+  	padding-top:50px; /*padding for navbar*/
+}
+
+.navbar-custom .icon-bar {
+	background-color:#fff;
+}
+
+.navbar-custom {
+	background-color: #9A1E1E;
+    color:#fff;
+}
+
+.navbar-custom li>a:hover,.navbar-custom li>a:focus {
+	background-color:#49bfff;
+}
+
+.navbar-custom a{
+    color:#fefefe;
+}
+
+#main-text{
+    width: 75%;
+    margin: auto;
+    font-family: "PT Serif", Georgia, Times, serif;
+}
+
+.post-title {
+    text-align: center;
+    font-size: 38px;
+}
+
+#cover-image {
+    padding: 10px 0px;
+}
+
+#main-text p{
+    text-shadow:0 0 1px transparent;
+    font-size:   19px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    line-height: 1.58;
+    letter-spacing: -0.003em;
+}
+
+#main-text h2 {
+    margin-top: 35px;
+}
+
+
+section {
+    top: 25px;
+}
+
+section:last-child {
+    padding-bottom: 160px;
+}
+
+.navbar-custom .form-control:focus {
+	border-color: #49bfff;
+	outline: 0;
+	-webkit-box-shadow: inset 0 0 0;
+	box-shadow: inset 0 0 0;
+}
+
+#main, #main>.row {
+	height:100%;
+}
+
+#main>.row {
+    overflow-y:scroll;
+}
+
+#left {
+	height:100%;
+}
+
+#map-canvas {
+    height:calc(100% - 0);
+    position:absolute;
+    right:10px;
+    top:20px;
+    bottom:0;
+    overflow:hidden;
+}
+
+#main-text img {
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+.images {
+    text-align: center
+}
+
+
+.image-full{
+    width: 100%;
+}
+
