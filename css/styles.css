@@ -6,6 +6,10 @@ body{
   	padding-top:50px; /*padding for navbar*/
 }
 
+.header-small {
+    font-family: "PT Serif", Georgia, Times, serif;
+}
+
 .navbar-custom .icon-bar {
 	background-color:#fff;
 }
